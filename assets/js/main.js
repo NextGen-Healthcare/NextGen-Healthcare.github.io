@@ -100,6 +100,22 @@ if (skip) {
   });
 }
 
+// HTML includes: load any [data-include] partials
+document.querySelectorAll('[data-include]').forEach(async (el) => {
+  try {
+    const url = el.getAttribute('data-include');
+    const res = await fetch(url);
+    const html = await res.text();
+    el.insertAdjacentHTML('afterend', html);
+    el.remove();
+    // ensure the year is set for dynamically injected footer
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  } catch (e) {
+    console.error('Include failed:', e);
+  }
+});
+
 
 // ------- Events page (full list + filters) -------
 const listTarget = document.getElementById('events-list');
