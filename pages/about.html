@@ -35,6 +35,10 @@
   .grid-2{ display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
   @media (min-width: 900px){ .grid-2{ grid-template-columns: 1fr 1fr; } }
 
+  /* 3-up grid for "Who Should Join?" */
+  .grid-3{ display:grid; gap:1.25rem; grid-template-columns:1fr; }
+  @media (min-width: 900px){ .grid-3{ grid-template-columns: repeat(3, 1fr); } }
+
   .card{
     background: #fff;
     border-radius: var(--radius);
@@ -52,6 +56,14 @@
   .badge.primary{ background: #316598; }
   .badge.secondary{ background: #A1B7CD; }
   .badge img{ width: 22px; height: 22px; }
+
+  /* Icon circle for "Who Should Join?" */
+  .icon-circle{
+    width: 5rem; height: 5rem; border-radius: 999px;
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 auto 1rem; font-size: 2rem; color: #fff;
+    background: linear-gradient(135deg, #316598, #A1B7CD);
+  }
 
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce){
@@ -145,6 +157,30 @@
             <li><strong>Inclusivity:</strong> Welcoming all perspectives.</li>
             <li><strong>Growth:</strong> Continuous learning and development.</li>
           </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Should Join? -->
+  <section class="section">
+    <div class="container">
+      <h2 class="center">Who Should Join?</h2>
+      <div class="grid-3" style="max-width: 1040px; margin: 0 auto;">
+        <article class="card center">
+          <div class="icon-circle" aria-hidden="true">💼</div>
+          <h3>5–15 Years Experience</h3>
+          <p class="muted">Early to mid-career professionals looking to expand their network and expertise.</p>
+        </article>
+        <article class="card center">
+          <div class="icon-circle" aria-hidden="true">👥</div>
+          <h3>Cross-Sector</h3>
+          <p class="muted">Professionals from public and private healthcare, construction, and consultancy sectors.</p>
+        </article>
+        <article class="card center">
+          <div class="icon-circle" aria-hidden="true">❤️</div>
+          <h3>Passionate About Healthcare</h3>
+          <p class="muted">Individuals committed to improving healthcare infrastructure and patient outcomes.</p>
         </article>
       </div>
     </div>
