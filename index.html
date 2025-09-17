@@ -8,51 +8,188 @@
 <link rel="icon" href="assets/img/favicon.svg">
 <link rel="manifest" href="site.webmanifest">
 <link rel="stylesheet" href="assets/css/style.css" />
+
+<!-- Optional light sprinkle to echo the newer look without changing your main CSS -->
+<style>
+  :root { --radius: 14px; }
+  .hero-image{ position:relative; min-height:70vh; background:url("assets/img/hero-healthcare.jpg") center/cover no-repeat; }
+  .hero-overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,14,52,.65), rgba(27,36,77,.75)); }
+  .hero-inner{ position:relative; z-index:1; text-align:center; padding:6rem 1rem; color:#fff; }
+  .hero-inner h1{ font-size:clamp(2rem,4vw,4rem); margin:0 0 .25rem; }
+  .hero-inner .sub{ font-size:clamp(1.25rem,2.4vw,2rem); opacity:.95; margin:0 0 1rem; }
+  .hero-inner .lead{ max-width:52rem; margin:0 auto 1.75rem; opacity:.9; }
+  .animate-in{ opacity:0; transform:translateY(14px); animation:fadeUp .7s forwards ease; }
+  .delay-150{ animation-delay:.15s; } .delay-300{ animation-delay:.3s; } .delay-500{ animation-delay:.5s; }
+  @keyframes fadeUp{ to{ opacity:1; transform:none; } }
+  .section{ padding:4rem 0; }
+  .container{ max-width:1120px; margin:0 auto; padding:0 1rem; }
+  .grid-2{ display:grid; gap:2rem; grid-template-columns:1fr; }
+  @media (min-width:900px){ .grid-2{ grid-template-columns:1.1fr .9fr; align-items:center; } }
+  .grid-3{ display:grid; gap:1.25rem; grid-template-columns:1fr; }
+  @media (min-width:900px){ .grid-3{ grid-template-columns:repeat(3,1fr); } }
+  .bg-neutral-light{ background:#F5F5F6; }
+  .bg-gradient-card{ background:linear-gradient(180deg,#F5F5F6,#C5D2DF22); }
+  .bg-gradient-primary{ background:linear-gradient(135deg,#316598,#1B244D 70%); color:#fff; }
+  .card{ background:#fff; border-radius:var(--radius); box-shadow:0 6px 20px rgba(0,0,0,.08); transition:transform .25s ease, box-shadow .25s; }
+  .card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.12); }
+  .card .card-pad{ padding:1.25rem; }
+  .img-rounded{ border-radius:calc(var(--radius) + 6px); box-shadow:0 18px 40px rgba(0,0,0,.18); }
+  .center{text-align:center;} .muted{opacity:.85;}
+  @media (prefers-reduced-motion:reduce){ .animate-in{animation:none; opacity:1; transform:none;} .card{transition:none;} }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
-
 <header class="site-header">
-<div class="container nav">
-<a class="brand" href="/">
-<img src="assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
-<span>NextGen Healthcare Network</span>
-</a>
-<button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-<nav id="site-nav" class="site-nav" aria-label="Main">
-<ul>
-<li><a class="active" href="/">Home</a></li>
-<li><a href="pages/about.html">About</a></li>
-<li><a href="pages/events.html">Events</a></li>
-<li><a href="pages/sigs.html">SIGs</a></li>
-<li><a href="pages/resources.html">Resources</a></li>
-<li><a href="pages/community.html">Community</a></li>
-<li><a href="pages/contact.html">Contact</a></li>
-</ul>
-</nav>
-</div>
+  <div class="container nav">
+    <a class="brand" href="/">
+      <img src="assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/events.html">Events</a></li>
+        <li><a href="pages/sigs.html">SIGs</a></li>
+        <li><a href="pages/resources.html">Resources</a></li>
+        <li><a href="pages/community.html">Community</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-
 <main id="main">
-<!-- Hero -->
-<section class="hero hero-image">
-<div class="hero-overlay"></div>
-<div class="container hero-inner">
-<h1 class="animate-in">Connecting the Next Generation</h1>
-<p class="sub animate-in delay-150">of Healthcare Infrastructure Professionals</p>
-<p class="lead animate-in delay-300">Join a vibrant community of young professionals shaping the future of healthcare construction, development, and management across the UK.</p>
-<div class="cta-group animate-in delay-500">
-<a class="btn btn-primary size-xl" href="pages/community.html">Join the Network</a>
-<a class="btn btn-outline size-xl" href="pages/events.html">See Upcoming Events</a>
-</div>
-</div>
-</section>
+  <!-- Hero -->
+  <section class="hero hero-image" aria-label="Hero">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <h1 class="animate-in">Connecting the Next Generation</h1>
+      <p class="sub animate-in delay-150">of Healthcare Infrastructure Professionals</p>
+      <p class="lead animate-in delay-300">
+        Join a vibrant community of young professionals shaping the future of healthcare construction,
+        development, and management across the UK.
+      </p>
+      <div class="cta-group animate-in delay-500" style="display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center;">
+        <a class="btn btn-primary size-xl" href="pages/community.html">Join the Network</a>
+        <a class="btn btn-outline size-xl" href="pages/events.html">See Upcoming Events</a>
+      </div>
+    </div>
+  </section>
 
+  <!-- About -->
+  <section class="section bg-neutral-light" aria-label="About NextGen">
+    <div class="container grid-2">
+      <div>
+        <h2 class="mt-0">Who We Are</h2>
+        <p class="muted">
+          NextGen Healthcare Network is a dynamic community of early to mid-career professionals working across the
+          healthcare infrastructure sector.
+        </p>
+        <p class="muted">
+          We bring together talent from construction, development, facilities management, and healthcare planning to share
+          knowledge, build connections, and drive innovation in healthcare infrastructure.
+        </p>
+        <div class="grid-2" style="margin-top:1rem;">
+          <div style="display:flex; gap:.75rem; align-items:center;">
+            <div style="width:3rem;height:3rem;background:#316598;border-radius:.9rem;display:flex;align-items:center;justify-content:center;">
+              <img src="assets/img/icon-users.svg" alt="" width="22" height="22" aria-hidden="true">
+            </div>
+            <div>
+              <p class="mb-0"><strong>500+</strong></p>
+              <p class="mb-0 muted">Active Members</p>
+            </div>
+          </div>
+          <div style="display:flex; gap:.75rem; align-items:center;">
+            <div style="width:3rem;height:3rem;background:#A1B7CD;border-radius:.9rem;display:flex;align-items:center;justify-content:center;">
+              <img src="assets/img/icon-building.svg" alt="" width="22" height="22" aria-hidden="true">
+            </div>
+            <div>
+              <p class="mb-0"><strong>50+</strong></p>
+              <p class="mb-0 muted">Partner Organisations</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn btn-primary" href="pages/about.html">Learn More About Us</a>
+        </div>
+      </div>
+      <div>
+        <img class="img-rounded" src="assets/img/networking-event.jpg" alt="Healthcare professionals networking at an event">
+      </div>
+    </div>
+  </section>
 
-<!-- About snippet -->
-<section class="section bg-neutral-light">
-<div class="container grid-2">
-<div>
+  <!-- Why Join -->
+  <section class="section bg-gradient-card" aria-label="Why Join NextGen">
+    <div class="container">
+      <h2 class="center">Why Join NextGen?</h2>
+      <p class="center muted" style="margin-bottom:2rem;">Grow your network, skills, and impact.</p>
+      <div class="grid-3">
+        <div class="center card"><div class="card-pad">
+          <div style="width:3.5rem;height:3.5rem;background:#316598;border-radius:999px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/img/icon-users.svg" alt="" width="28" height="28" aria-hidden="true">
+          </div>
+          <h3>Network &amp; Connect</h3>
+          <p class="muted">Build meaningful relationships across public and private healthcare sectors.</p>
+        </div></div>
+        <div class="center card"><div class="card-pad">
+          <div style="width:3.5rem;height:3.5rem;background:#C5D2DF;border-radius:999px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/img/icon-lightbulb.svg" alt="" width="28" height="28" aria-hidden="true">
+          </div>
+          <h3>Learn &amp; Grow</h3>
+          <p class="muted">Access resources, workshops, and insights from industry leaders.</p>
+        </div></div>
+        <div class="center card"><div class="card-pad">
+          <div style="width:3.5rem;height:3.5rem;background:#A1B7CD;border-radius:999px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;">
+            <img src="assets/img/icon-zap.svg" alt="" width="28" height="28" aria-hidden="true">
+          </div>
+          <h3>Shape the Future</h3>
+          <p class="muted">Contribute to SIGs driving innovation in healthcare infrastructure.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events (auto-rendered from window.NEXTGEN_EVENTS) -->
+  <section class="section bg-neutral-light" aria-label="Upcoming Events">
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem;">
+        <h2 class="mb-0">Upcoming Events</h2>
+        <a class="btn btn-outline" href="pages/events.html">View All Events</a>
+      </div>
+
+      <!-- JS will inject 3 upcoming cards here -->
+      <div id="home-events" class="grid-3" data-limit="3" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section bg-gradient-primary" aria-label="Join CTA">
+    <div class="container center">
+      <h2 class="mt-0">Ready to Join the Network?</h2>
+      <p class="muted" style="opacity:.95; color:#fff;">
+        Connect with like-minded professionals and accelerate your career in healthcare infrastructure.
+      </p>
+      <div class="cta-group" style="margin-top:1rem; display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center;">
+        <a class="btn btn-primary size-xl" href="pages/community.html">Join Now</a>
+        <a class="btn btn-outline size-xl" href="pages/contact.html">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="mb-0">&copy; <span id="year"></span> NextGen Healthcare Network</p>
+  </div>
+</footer>
+
+<!-- Scripts: data first, then behavior -->
+<script src="assets/js/events.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
 </html>
