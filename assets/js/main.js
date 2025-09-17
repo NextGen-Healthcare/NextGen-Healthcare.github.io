@@ -91,6 +91,16 @@ if (homeTarget) {
   homeTarget.innerHTML = upcoming.map(renderEventCard).join('');
 }
 
+const skip = document.querySelector('.skip-link');
+if (skip) {
+  skip.addEventListener('click', () => {
+    const id = (skip.getAttribute('href') || '').replace('#','');
+    const target = document.getElementById(id);
+    if (target) setTimeout(() => target.focus(), 0);
+  });
+}
+
+
 // ------- Events page (full list + filters) -------
 const listTarget = document.getElementById('events-list');
 const emptyTarget = document.getElementById('events-empty');
