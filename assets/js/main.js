@@ -14,41 +14,28 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 
-// Home: render featured events
-const featuredTarget = document.getElementById('event-cards');
-if (featuredTarget) {
-const limit = Number(featuredTarget.dataset.limit || 3);
+// Render home featured events
+const homeTarget = document.getElementById('home-events');
+if (homeTarget) {
+const limit = Number(homeTarget.dataset.limit || 3);
 const upcoming = (window.NEXTGEN_EVENTS || []).filter(e => new Date(e.date) >= new Date())
 .sort((a,b) => new Date(a.date) - new Date(b.date))
 .slice(0, limit);
-featuredTarget.innerHTML = upcoming.map(renderEventCard).join('');
+homeTarget.innerHTML = upcoming.map(renderEventCard).join('');
 }
 
 
-// Events page: filters and lists
+// Events page
 const listTarget = document.getElementById('events-list');
-const pastTarget = document.getElementById('events-past');
-const filterSelect = document.getElementById('filter-category');
+const emptyTarget = document.getElementById('events-empty');
+const catButtons = document.querySelectorAll('[data-cat]');
 
 
 function renderEventCard(e){
 const d = new Date(e.date);
 const dateFmt = d.toLocaleDateString(undefined, { weekday:'short', year:'numeric', month:'short', day:'numeric' });
 return `
-<article class="card">
+<article class="card event">
 <h3>${e.title}</h3>
-<p class="meta">${dateFmt} · ${e.location} · ${categoryLabel(e.category)}</p>
-<p>${e.summary}</p>
-${e.rsvp ? `<a class="btn btn-small" href="${e.rsvp}" target="_blank" rel="noopener">RSVP</a>` : ''}
-</article>
-`;
-}
-
-
-function categoryLabel(key){
-return ({
-'coffee':'Coffee & Catch‑Ups',
-'iheem':'IHEEM Gathering',
-'all-network':'All Network Session',
-'drinks':'After Work Drinks'
-}
+<p class="meta">${dateFmt}${e.time ? ` · ${e.time}`:''} · ${e.location} · ${categoryLabel(e.category)}</p>
+if (emptyTarget
