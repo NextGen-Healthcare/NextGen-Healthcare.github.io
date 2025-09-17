@@ -1,0 +1,55 @@
+/* ===============
+NextGen Theme
+=============== */
+:root{
+/* Palette (from prompt) */
+--bg-primary:#140E34; /* hero, footer */
+--bg-secondary:#1B244D; /* dividers, cards */
+--title-bg:#316598; /* headers, CTAs */
+--accent-1:#A1B7CD; /* subheads, hover, icons */
+--accent-2:#C5D2DF; /* card bg, tables */
+--light:#F5F5F6; /* content backgrounds */
+--text-dark:#140E34; /* on light surfaces */
+--text-muted:#485275;
+--white:#FFFFFF;
+--maxw:1100px;
+--radius:16px;
+--shadow:0 8px 24px rgba(0,0,0,.15);
+}
+
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;line-height:1.6;color:var(--text-dark);background:var(--light)}
+
+
+/* Accessibility */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:8px;top:8px;width:auto;height:auto;background:var(--title-bg);color:#fff;padding:.5rem .75rem;border-radius:8px;z-index:999}
+
+
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 1rem}
+.container.narrow{max-width:800px}
+.center{text-align:center}
+.mt-16{margin-top:1rem}
+.mt-24{margin-top:1.5rem}
+.mt-40{margin-top:2.5rem}
+
+
+/* Header/Nav */
+.site-header{background:var(--bg-primary);color:#fff;position:sticky;top:0;z-index:50}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
+.brand{display:flex;gap:.5rem;align-items:center;color:#fff;text-decoration:none;font-weight:700}
+.brand span{letter-spacing:.3px}
+.brand img{display:block}
+.site-nav ul{display:flex;gap:.75rem;list-style:none;margin:0;padding:0}
+.site-nav a{display:inline-block;color:#fff;text-decoration:none;padding:.5rem .75rem;border-radius:8px}
+.site-nav a:hover,.site-nav a:focus{background:color-mix(in oklab, var(--white) 10%, var(--bg-primary))}
+.site-nav a.active{background:var(--title-bg)}
+
+
+.nav-toggle{display:none;background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:10px;padding:.5rem .75rem}
+
+
+@media (max-width:860px){
+.small{font-size:.9rem;opacity:.85}
