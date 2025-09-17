@@ -6,38 +6,120 @@
 <title>Resources – NextGen Healthcare Network</title>
 <link rel="icon" href="../assets/img/favicon.svg">
 <link rel="stylesheet" href="../assets/css/style.css" />
+
+<!-- Page-local polish to mirror the React look without changing your global CSS -->
+<style>
+  :root { --radius: 14px; }
+
+  /* Layout */
+  .section{ padding:3.5rem 0; }
+  .container{ max-width:1120px; margin:0 auto; padding:0 1rem; }
+  .narrow{ max-width:860px; }
+  .lead{ font-size:1.125rem; opacity:.95; }
+  .center{ text-align:center; }
+
+  /* Hero */
+  .bg-gradient-primary{ background:linear-gradient(135deg,#316598,#1B244D 70%); color:#fff; }
+  .invert{ color:#fff; }
+
+  /* Cards & grid */
+  .card-grid{
+    display:grid; gap:1.25rem; grid-template-columns:1fr;
+    max-width: 1040px; margin: 0 auto;
+  }
+  @media (min-width:900px){ .card-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .card{
+    background:#fff; border-radius:var(--radius);
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    padding:1.75rem;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.12); }
+
+  /* Icon badges (emoji so no extra assets needed) */
+  .icon-badge{
+    width:3rem; height:3rem; border-radius:.9rem;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem; margin-bottom:.75rem;
+  }
+  .icon-primary{ background:#316598; color:#fff; }
+  .icon-secondary{ background:#A1B7CD; color:#0e1a2f; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion:reduce){ .card{ transition:none; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+
 <header class="site-header">
-<div class="container nav">
-<a class="brand" href="../index.html">
-<img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
-<span>NextGen Healthcare Network</span>
-</a>
-<button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-<nav id="site-nav" class="site-nav" aria-label="Main">
-<ul>
-<li><a href="../index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="events.html">Events</a></li>
-<li><a href="sigs.html">SIGs</a></li>
-<li><a class="active" href="resources.html">Resources</a></li>
-<li><a href="community.html">Community</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</nav>
-</div>
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="sigs.html">SIGs</a></li>
+        <li><a class="active" href="resources.html">Resources</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-
 <main id="main">
-<section class="section bg-gradient-primary">
-<div class="container">
-<h1 class="invert">Resources</h1>
-<p class="invert lead narrow">Best practice documents, guides, and tools for healthcare infrastructure work.</p>
-</div>
-</section>
+  <!-- Hero -->
+  <section class="section bg-gradient-primary">
+    <div class="container">
+      <h1 class="invert">Resources</h1>
+      <p class="invert lead narrow">
+        Best practice documents, guides, and tools for healthcare infrastructure work.
+      </p>
+    </div>
+  </section>
 
+  <!-- Resource Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="card-grid">
+        <!-- Best Practice Documents -->
+        <article class="card" id="documents">
+          <div class="icon-badge icon-primary" aria-hidden="true">📄</div>
+          <h2 class="mb-2">Best Practice Documents</h2>
+          <p class="muted" style="margin-bottom:1rem;">
+            Access HTM, HBN, and CIBSE guidance documents and other key references.
+          </p>
+          <a class="btn btn-outline" href="#documents">Browse Documents</a>
+        </article>
 
+        <!-- Conference Buddy Scheme -->
+        <article class="card">
+          <div class="icon-badge icon-secondary" aria-hidden="true">👥</div>
+          <h2 class="mb-2">Conference Buddy Scheme</h2>
+          <p class="muted" style="margin-bottom:1rem;">
+            Connect with peers attending the same conferences.
+          </p>
+          <a class="btn btn-outline" href="community.html">Learn More</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="mb-0">&copy; <span id="year"></span> NextGen Healthcare Network</p>
+  </div>
+</footer>
+
+<!-- Existing JS for nav toggle + footer year -->
+<script src="../assets/js/main.js"></script>
+</body>
 </html>
