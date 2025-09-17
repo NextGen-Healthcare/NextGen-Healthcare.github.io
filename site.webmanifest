@@ -1,0 +1,11 @@
+{
+"name": "NextGen Healthcare Network",
+"short_name": "NextGen",
+"start_url": "/",
+"display": "standalone",
+"background_color": "#140E34",
+"theme_color": "#316598",
+"icons": [
+{ "src": "/favicon.svg", "sizes": "64x64", "type": "image/svg+xml" }
+]
+}
