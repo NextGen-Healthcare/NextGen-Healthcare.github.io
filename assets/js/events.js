@@ -1,35 +1,39 @@
-// Event categories: coffee | iheem | all-network | drinks
+// categories: coffee | iheem | all-network | drinks
 window.NEXTGEN_EVENTS = [
-{
-title: "Coffee & Catch‑Up – London",
-date: "2025-10-07",
-location: "Waterloo",
-category: "coffee",
-summary: "Drop‑in morning chat with peers working across NHS estates and supply chain.",
-rsvp: "https://www.linkedin.com/"
-},
-{
-title: "IHEEM Gathering – Conference Social",
-date: "2025-10-15",
-location: "Manchester Central",
-category: "iheem",
-summary: "Meet NextGen members at IHEEM – informal drinks after the afternoon sessions.",
-rsvp: "https://www.linkedin.com/"
-},
-{
-title: "All Network Session – Smarter BMS",
-date: "2025-11-05",
-location: "Online",
-category: "all-network",
-summary: "Lightning talks and roundtable on data‑driven optimisation and controls.",
-rsvp: "https://www.linkedin.com/"
-},
-{
-title: "After Work Drinks – Cambridge",
-date: "2025-11-21",
-location: "City Centre",
-category: "drinks",
-summary: "End‑of‑month social – all welcome, bring a colleague.",
-rsvp: "https://www.linkedin.com/"
-}
+  {
+    title: "Q1 Network Meetup",
+    date: "2025-11-15",
+    time: "18:00–20:00",
+    location: "Royal Society of Medicine, London",
+    category: "all-network",
+    summary: "Quarterly networking session with guest speakers from leading healthcare trusts.",
+    rsvp: "https://www.linkedin.com/"
+  },
+  {
+    title: "Coffee & Construction",
+    date: "2025-11-22",
+    time: "08:00–09:30",
+    location: "Kings Cross Hub, London",
+    category: "coffee",
+    summary: "Informal morning meetup on trends in healthcare facility design and construction.",
+    rsvp: "https://www.linkedin.com/"
+  },
+  {
+    title: "IHEEM Young Members Event",
+    date: "2025-12-05",
+    time: "17:30–19:30",
+    location: "Manchester Central",
+    category: "iheem",
+    summary: "Career development and industry insights for young members.",
+    rsvp: "https://www.linkedin.com/"
+  },
+  {
+    title: "Friday Drinks & Discussion",
+    date: "2025-12-12",
+    time: "17:00–20:00",
+    location: "The George, Fitzrovia",
+    category: "drinks",
+    summary: "Casual Friday meetup to unwind and network.",
+    rsvp: "https://www.linkedin.com/"
+  }
 ];
