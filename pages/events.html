@@ -6,55 +6,164 @@
 <title>Events – NextGen Healthcare Network</title>
 <link rel="icon" href="../assets/img/favicon.svg">
 <link rel="stylesheet" href="../assets/css/style.css" />
+
+<!-- Page-local polish to mirror the React layout without changing your global CSS -->
+<style>
+  :root { --radius: 14px; }
+
+  /* Hero */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #316598, #1B244D 70%);
+    color: #fff;
+  }
+  .section-hero { padding: 4.5rem 0; }
+  .invert { color: #fff; }
+  .lead { font-size: 1.125rem; opacity: .95; }
+  .narrow { max-width: 860px; }
+
+  /* Sections & container */
+  .section { padding: 3.5rem 0; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 1rem; }
+
+  /* Sticky filter bar */
+  .bg-neutral-light { background: #F5F5F6; }
+  .sticky-filter { position: sticky; top: 64px; z-index: 30; }
+  @media (max-width: 900px){ .sticky-filter { top: 56px; } }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn.btn-chip {
+    border-radius: 999px;
+    padding: .5rem .9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .filters [data-cat].active {
+    /* Make JS-selected button look primary even if your global CSS differs */
+    background: #316598;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* Grid for event cards (JS injects into #events-list) */
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px){ .card-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1080px){ .card-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* Event card look (works with your JS renderer) */
+  .card.event {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card.event:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+  .card.event .p-6 { padding: 1.25rem; }
+
+  /* Accent strip like the React "bg-gradient-accent" bar */
+  .h-2 { height: 8px; }
+  .bg-gradient-accent {
+    background: linear-gradient(90deg, #316598, #A1B7CD, #C5D2DF);
+  }
+
+  /* Utilities */
+  .center { text-align: center; }
+  .hidden { display: none; }
+  .mb-0 { margin-bottom: 0; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .card.event { transition: none; }
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
+
 <header class="site-header">
-<div class="container nav">
-<a class="brand" href="../index.html">
-<img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
-<span>NextGen Healthcare Network</span>
-</a>
-<button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-<nav id="site-nav" class="site-nav" aria-label="Main">
-<ul>
-<li><a href="../index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a class="active" href="events.html">Events</a></li>
-<li><a href="sigs.html">SIGs</a></li>
-<li><a href="resources.html">Resources</a></li>
-<li><a href="community.html">Community</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</nav>
-</div>
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a class="active" href="events.html">Events</a></li>
+        <li><a href="sigs.html">SIGs</a></li>
+        <li><a href="resources.html">Resources</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
-
 <main id="main">
-<section class="section bg-gradient-primary">
-<div class="container">
-<h1 class="invert">Upcoming Events</h1>
-<p class="invert lead narrow">Connect, learn, and grow with fellow healthcare infrastructure professionals at our regular events across the UK.</p>
-</div>
-</section>
+  <!-- Hero -->
+  <section class="section section-hero bg-gradient-primary">
+    <div class="container">
+      <h1 class="invert">Upcoming Events</h1>
+      <p class="invert lead narrow">
+        Connect, learn, and grow with fellow healthcare infrastructure professionals at our regular events across the UK.
+      </p>
+    </div>
+  </section>
 
+  <!-- Category Filter (sticky) -->
+  <section class="section sticky-filter bg-neutral-light">
+    <div class="container">
+      <div class="filters">
+        <button class="btn btn-primary btn-chip active" data-cat="all" aria-pressed="true">
+          <span aria-hidden="true">📅</span> All Events
+        </button>
+        <button class="btn btn-outline btn-chip" data-cat="coffee" aria-pressed="false">
+          <span aria-hidden="true">☕</span> Coffee &amp; Catch-Ups
+        </button>
+        <button class="btn btn-outline btn-chip" data-cat="iheem" aria-pressed="false">
+          <span aria-hidden="true">👥</span> IHEEM Gatherings
+        </button>
+        <button class="btn btn-outline btn-chip" data-cat="all-network" aria-pressed="false">
+          <span aria-hidden="true">👥</span> Network Sessions
+        </button>
+        <button class="btn btn-outline btn-chip" data-cat="drinks" aria-pressed="false">
+          <span aria-hidden="true">🍷</span> After Work Drinks
+        </button>
+      </div>
+    </div>
+  </section>
 
-<section class="section sticky-filter bg-neutral-light">
-<div class="container">
-<div class="filters">
-<button class="btn btn-primary btn-chip" data-cat="all">All Events</button>
-<button class="btn btn-outline btn-chip" data-cat="coffee">Coffee & Catch‑Ups</button>
-<button class="btn btn-outline btn-chip" data-cat="iheem">IHEEM Gatherings</button>
-<button class="btn btn-outline btn-chip" data-cat="all-network">Network Sessions</button>
-<button class="btn btn-outline btn-chip" data-cat="drinks">After Work Drinks</button>
-</div>
-</div>
-</section>
+  <!-- Events Grid (populated by JS from window.NEXTGEN_EVENTS) -->
+  <section class="section">
+    <div class="container">
+      <div id="events-list" class="card-grid"></div>
+      <div id="events-empty" class="center hidden"><p class="mb-0">No events found in this category.</p></div>
+    </div>
+  </section>
+</main>
 
+<footer class="site-footer">
+  <div class="container">
+    <p class="mb-0">&copy; <span id="year"></span> NextGen Healthcare Network</p>
+  </div>
+</footer>
 
-<section class="section">
-<div class="container">
-<div id="events-list" class="card-grid"></div>
-<div id="events-empty" class="center hidden"><p>No events found in this category.</p></div>
+<!-- Scripts: data first, then behavior -->
+<script src="../assets/js/events.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
 </html>
