@@ -73,16 +73,33 @@
   }
   .lightbox.is-open { display:flex; }
   .lightbox-inner {
-    position:relative; max-width: min(96vw, 1100px); width:100%;
+    position: relative;
+    max-width: min(96vw, 1100px);
+    width: 100%;
+    padding: 12px;                /* gives breathing room on small screens */
+    box-sizing: border-box;
   }
-  /* optional: ensure no cropping in lightbox even if container is wider/taller */
   .lightbox-stage {
+    position: relative;
+    background: #000;
+    border-radius: calc(var(--radius) + 6px);
+    overflow: hidden;
+  
+    /* Constrain by viewport height minus caption & padding */
+    max-height: calc(100vh - 140px);
+  
+    /* Center the image and let it size naturally inside the box */
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .lightbox-stage img {
-    object-fit: contain;   /* safe even with height:auto; */
+    display: block;
+    max-width: 100%;
+    max-height: 100%;   /* critical: prevents oversizing */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* keep original aspect ratio, no cropping in lightbox */
   }
   .lightbox-caption {
     color:#fff; display:flex; justify-content:space-between; align-items:center;
