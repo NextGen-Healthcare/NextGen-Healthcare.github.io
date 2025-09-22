@@ -33,23 +33,6 @@
   }
   .card:hover{ transform:translateY(-1px); box-shadow:0 10px 28px rgba(0,0,0,.12); }
 
-  /* Form (styled to echo Input/Label/Textarea components) */
-  .form{ display:grid; gap:1rem; }
-  .form label{ display:block; font-weight:600; margin-bottom:.35rem; }
-  .form .field{ display:block; }
-  .form input[type="text"],
-  .form input[type="email"],
-  .form textarea{
-    width:100%;
-    border:1.5px solid #C5D2DF; background:#fff;
-    border-radius:.75rem; padding:.7rem .9rem; font:inherit;
-    transition:border-color .2s ease, box-shadow .2s ease;
-  }
-  .form textarea{ min-height:120px; resize:vertical; }
-  .form input:focus, .form textarea:focus{
-    outline:none; border-color:#316598; box-shadow:0 0 0 3px rgba(49,101,152,.18);
-  }
-
   /* Contact list */
   .list{ list-style:none; padding:0; margin:0; display:grid; gap:.75rem; }
   .list li{ display:flex; align-items:center; gap:.6rem; }
@@ -60,8 +43,8 @@
   }
   .list a:hover{ text-decoration:underline; }
 
-  /* Footer helper */
-  .mb-0{ margin-bottom:0; }
+  /* Buttons */
+  .btn.w-full{ width:100%; }
 
   /* Respect reduced motion */
   @media (prefers-reduced-motion:reduce){ .card{ transition:none; } }
@@ -103,39 +86,25 @@
   <!-- Content -->
   <section class="section">
     <div class="container grid-2">
-      <!-- Form -->
+      <!-- Left: Email CTA (replaces the old form) -->
       <div>
         <div class="card">
-          <h2>Send us a message</h2>
-          <!-- Keep your Formspree endpoint exactly as provided -->
-          <form class="form" action="https://formspree.io/f/your-form-id" method="POST">
-            <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" required placeholder="Your name" autocomplete="name" />
-            </div>
-
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" type="email" name="email" required placeholder="your.email@example.com" autocomplete="email" />
-            </div>
-
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="6" required placeholder="Your message"></textarea>
-            </div>
-
-            <button class="btn btn-primary" type="submit">Send Message</button>
-          </form>
+          <h2>Email us directly</h2>
+          <p>We’d love to hear from you. Tap the button below to email the team and we’ll get back to you.</p>
+          <a class="btn btn-primary w-full"
+             href="mailto:nghnteam@gmail.com?subject=NextGen%20Healthcare%20Network%20enquiry">
+             Email nghnteam@gmail.com
+          </a>
         </div>
       </div>
 
-      <!-- Contact details -->
+      <!-- Right: Contact details -->
       <div>
         <h2>Get in Touch</h2>
         <ul class="list">
           <li>
             <span class="icon" aria-hidden="true">✉️</span>
-            Email: <a href="mailto:hello@nextgenhealthcare.network">hello@nextgenhealthcare.network</a>
+            Email: <a href="mailto:nghnteam@gmail.com">nghnteam@gmail.com</a>
           </li>
           <li>
             <span class="icon" aria-hidden="true">📍</span>
@@ -149,7 +118,6 @@
       </div>
     </div>
   </section>
-</main>
 
   <!-- CTA -->
   <section class="section bg-gradient-primary" aria-label="Join CTA">
@@ -167,7 +135,6 @@
 </main>
 
 <div data-include="/partials/footer.html"></div>
-
 
 <!-- Existing JS for nav toggle + footer year -->
 <script src="../assets/js/main.js"></script>
