@@ -17,7 +17,7 @@
   let activeCat = "all";
 
   const escapeHTML = (s = "") =>
-    s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
+    String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
   const formatDate = (isoOrText) => {
     const d = new Date(isoOrText);
@@ -25,16 +25,22 @@
     return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
   };
 
-// Date helpers (avoid TZ gotchas by constructing local date-only)
-const dateOnly = (iso) => {
-  if (!iso || typeof iso !== "string") return null;
-  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!m) return null;
-  return new Date(+m[1], +m[2]-1, +m[3], 0, 0, 0, 0);
-};
-const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
+  // ---------- Date helpers (avoid TZ gotchas by constructing local date-only)
+  const dateOnly = (iso) => {
+    if (!iso || typeof iso !== "string") return null;
+    const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return null;
+    return new Date(+m[1], +m[2]-1, +m[3], 0, 0, 0, 0);
+  };
+  const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
 
-  
+  // ---------- Stable ID helper (prevents mismatches after re-render)
+  function getId(ev) {
+    if (!ev) return "";
+    if (!ev._id) ev._id = ev.id || ("ev_" + Math.random().toString(36).slice(2, 8));
+    return ev._id;
+  }
+
   // ---------- Load data (pure JSON)
   async function loadEvents() {
     try {
@@ -51,7 +57,7 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
 
   // ---------- Card template
   function cardHTML(ev) {
-    const id = ev.id || ("ev_" + Math.random().toString(36).slice(2, 8));
+    const id = getId(ev);
     const cat = ev.category || "other";
     const hasLink = !!ev.link;
     return `
@@ -75,10 +81,22 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
 </article>`;
   }
 
-  // ---------- Render list (filtered)
+  // ---------- Render list (filtered to today/future + category, sorted soonest→latest)
   function filteredEvents() {
-    if (activeCat === "all") return EVENTS;
-    return EVENTS.filter(ev => (ev.category || "other") === activeCat);
+    const today = startOfToday();
+
+    // Category filter
+    const pool = (activeCat === "all")
+      ? EVENTS
+      : EVENTS.filter(ev => (ev.category || "other") === activeCat);
+
+    // Upcoming only (>= today) and valid dates
+    return pool
+      .filter(ev => {
+        const d = dateOnly(ev.date);
+        return d && d >= today;
+      })
+      .sort((a, b) => dateOnly(a.date) - dateOnly(b.date));
   }
 
   function renderList() {
@@ -90,7 +108,7 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
 
   // ---------- Modal
   function buildModalHTML(ev) {
-    const id = ev.id || "unknown";
+    const id = getId(ev);
     const hasLink = !!ev.link;
     const details = ev.details || ev.short || "More details coming soon.";
     return `
@@ -140,12 +158,8 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
     const firstClose = closeBtns[0];
 
     // Close handlers
-    function handleEsc(e){
-      if (e.key === "Escape") closeModal();
-    }
-    function handleOverlayClick(e){
-      if (e.target === overlay) closeModal();
-    }
+    function handleEsc(e){ if (e.key === "Escape") closeModal(); }
+    function handleOverlayClick(e){ if (e.target === overlay) closeModal(); }
     closeBtns.forEach(btn => btn.addEventListener("click", closeModal));
     document.addEventListener("keydown", handleEsc);
     overlay.addEventListener("click", handleOverlayClick);
@@ -213,41 +227,44 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
     });
   }
 
+  // ---------- Past Event Highlights (unchanged order logic)
   function renderPastHighlights() {
-  const wrap = document.getElementById("past-highlights");
-  const empty = document.getElementById("past-empty");
-  if (!wrap) return;
+    const wrap = document.getElementById("past-highlights");
+    const empty = document.getElementById("past-empty");
+    if (!wrap) return;
 
-  const today = startOfToday();
+    const today = startOfToday();
 
-  const mostRecentPast = (predicate) => {
-    return EVENTS
-      .filter(ev => {
-        const d = dateOnly(ev.date);
-        return d && d < today && predicate(ev);
-      })
-      .sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
-  };
+    const mostRecentPast = (predicate) => {
+      return EVENTS
+        .filter(ev => {
+          const d = dateOnly(ev.date);
+          return d && d < today && predicate(ev);
+        })
+        .sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
+    };
 
-  // 1) Network Sessions
-  const h1 = mostRecentPast(ev => (ev.category || "") === "all-network");
+    // 1) Network Sessions
+    const h1 = mostRecentPast(ev => (ev.category || "") === "all-network");
 
-  // 2) More recent of Coffee or Drinks
-  const coffee = mostRecentPast(ev => (ev.category || "") === "coffee");
-  const drinks = mostRecentPast(ev => (ev.category || "") === "drinks");
-  const h2 = [coffee, drinks].filter(Boolean).sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
+    // 2) More recent of Coffee or Drinks
+    const coffee = mostRecentPast(ev => (ev.category || "") === "coffee");
+    const drinks = mostRecentPast(ev => (ev.category || "") === "drinks");
+    const h2 = [coffee, drinks].filter(Boolean).sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
 
-  // 3) IHEEM Gatherings
-  const h3 = mostRecentPast(ev => (ev.category || "") === "iheem");
+    // 3) IHEEM Gatherings
+    const h3 = mostRecentPast(ev => (ev.category || "") === "iheem");
 
-  const picks = [h1, h2, h3].filter(Boolean);
+    const picks = [h1, h2, h3].filter(Boolean);
 
-  const cardHTML = (ev) => `
-<article class="card highlight" role="listitem" data-id="${ev.id}">
+    const highlightCard = (ev) => {
+      const id = getId(ev);
+      return `
+<article class="card highlight" role="listitem" data-id="${escapeHTML(id)}">
   <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
   <div class="p-6">
     <h3 class="mb-0">
-      <button class="event-title" data-id="${ev.id}" aria-haspopup="dialog">
+      <button class="event-title" data-id="${escapeHTML(id)}" aria-haspopup="dialog">
         ${escapeHTML(ev.title || "Event")}
       </button>
     </h3>
@@ -259,34 +276,36 @@ const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d
     ${ev.link ? `<p style="margin-top:.75rem;"><a class="btn btn-outline size-sm" href="${ev.link}" target="_blank" rel="noopener">Event page</a></p>` : ""}
   </div>
 </article>`.trim();
+    };
 
-  if (picks.length) {
-    wrap.innerHTML = picks.map(cardHTML).join("");
-    empty?.classList.add("hidden");
-  } else {
-    wrap.innerHTML = "";
-    empty?.classList.remove("hidden");
+    if (picks.length) {
+      wrap.innerHTML = picks.map(highlightCard).join("");
+      empty?.classList.add("hidden");
+    } else {
+      wrap.innerHTML = "";
+      empty?.classList.remove("hidden");
+    }
+
+    // open modal from highlight cards too
+    wrap.addEventListener("click", (e) => {
+      const btn = e.target.closest(".event-title");
+      if (!btn) return;
+      e.preventDefault();
+      const id = btn.getAttribute("data-id");
+      if (!id) return;
+      openModal?.(EVENT_BY_ID[id]);
+    }, { once: true }); // bind once after first render
   }
-
-  // open modal from highlight cards too
-  wrap.addEventListener("click", (e) => {
-    const btn = e.target.closest(".event-title");
-    if (!btn) return;
-    e.preventDefault();
-    const id = btn.getAttribute("data-id");
-    if (!id) return;
-    openModal?.(EVENT_BY_ID[id]); // uses your existing modal function
-  }, { once: true }); // bind once after first render
-}
 
   // ---------- Init
   async function init() {
     listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading events…</p>`;
 
     EVENTS = await loadEvents();
-    EVENT_BY_ID = Object.fromEntries(
-      EVENTS.map(ev => [ev.id || ("ev_" + Math.random().toString(36).slice(2,8)), ev])
-    );
+
+    // Build stable IDs and quick lookup map
+    EVENT_BY_ID = {};
+    EVENTS.forEach(ev => { EVENT_BY_ID[getId(ev)] = ev; });
 
     renderList();
     wireFilters();
