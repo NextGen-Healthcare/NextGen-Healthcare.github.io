@@ -69,6 +69,128 @@
   @media (prefers-reduced-motion: reduce){
     .card{ transition: none; }
   }
+
+/* === Leadership panel === */
+.leadership {
+  padding-top: 0; /* sits snug under previous section */
+}
+.leadership .narrow { max-width: 1040px; }
+
+.leadership-grid{
+  display:grid;
+  gap:1.25rem;
+  grid-template-columns: repeat(2,1fr);
+}
+@media (min-width: 700px){ .leadership-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (min-width: 1040px){ .leadership-grid{ grid-template-columns: repeat(4,1fr); } }
+
+.leader-card{
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.leader-card:hover,
+.leader-card:focus-within{
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,.14);
+}
+
+.leader-link{
+  display:block;
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Image */
+.leader-photo{
+  width:100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display:block;
+}
+
+/* Overlay meta */
+.leader-meta{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  padding: .85rem 1rem;
+  background: linear-gradient( to top, rgba(20,14,52,.85), rgba(20,14,52,.0) 60%);
+  color:#fff;
+  transform: translateY(35%);
+  transition: transform .25s ease, opacity .25s ease;
+  opacity:.0;
+}
+.leader-card:hover .leader-meta,
+.leader-card:focus-within .leader-meta{
+  transform: translateY(0%);
+  opacity:1;
+}
+
+.leader-name{
+  margin:0 0 .2rem 0;
+  font-weight: 700;
+}
+.leader-role{
+  margin:0;
+  font-size:.95rem;
+  opacity:.95;
+}
+.leader-title{
+  margin:.25rem 0 0 0;
+  font-size:.9rem;
+  opacity:.9;
+}
+
+/* Subtle top tag */
+.leader-chip{
+  position:absolute;
+  top:.6rem; left:.6rem;
+  background:#316598;
+  color:#fff;
+  font-size:.75rem;
+  padding:.25rem .5rem;
+  border-radius: .5rem;
+  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .leader-card{ transition: none; }
+  .leader-meta{ transition: none; }
+}
+/* Photo placeholder (when no headshot available) */
+.leader-placeholder{
+  width:100%;
+  aspect-ratio: 1 / 1;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(135deg, #316598, #A1B7CD);
+  color:#fff;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+  letter-spacing: .5px;
+  user-select: none;
+}
+.leader-placeholder .subtle{
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255,255,255,.06) 0,
+    rgba(255,255,255,.06) 10px,
+    rgba(255,255,255,.0) 10px,
+    rgba(255,255,255,.0) 20px
+  );
+  pointer-events: none;
+}
+/* Optional: quick theme variants */
+.leader-placeholder.blue { background: linear-gradient(135deg, #316598, #1B244D); }
+.leader-placeholder.teal { background: linear-gradient(135deg, #2b8a83, #7fc1be); }
+.leader-placeholder.purple { background: linear-gradient(135deg, #5b4b9a, #a6a0d6); }
+
 </style>
 </head>
 <body>
@@ -198,6 +320,45 @@
     </div>
   </section>
 </main>
+
+<!-- Leadership Panel -->
+<section class="section leadership">
+  <div class="container narrow">
+    <h2 class="center">Leadership Panel</h2>
+    <p class="center muted text-lg" style="margin-top:-.35rem">
+      The team coordinating programming, partnerships, and community growth.
+    </p>
+
+    <div class="leadership-grid" style="margin-top:1.25rem">
+      <!-- Leader 1 -->
+      <article class="leader-card">
+        <span class="leader-chip" aria-hidden="true">Leadership</span>
+        <a class="leader-link" href="javascript:void(0)" aria-label="View details for Josephine Neill">
+          <img class="leader-photo" src="../assets/img/leadership/j-neill.jpeg" alt="Portrait of Josephine Neill">
+          <div class="leader-meta">
+            <h3 class="leader-name">Josephine Neill</h3>
+            <p class="leader-role">Lead, NGHN</p>
+            <p class="leader-title">Design Lead, McLaughlin & Harvey</p>
+          </div>
+        </a>
+      </article>
+
+      <!-- Leader 2 -->
+      <article class="leader-card">
+        <span class="leader-chip" aria-hidden="true">Leadership</span>
+        <a class="leader-link" href="javascript:void(0)" aria-label="View details for Sam Venn">
+          <img class="leader-photo" src="../assets/img/leadership/s-venn.jpeg" alt="Portrait of Sam Venn">
+          <div class="leader-meta">
+            <h3 class="leader-name">Sam Venn</h3>
+            <p class="leader-role">Lead, NGHN</p>
+            <p class="leader-title">Senior Project Manager, Turner & Townsend</p>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
 
   <!-- CTA -->
   <section class="section bg-gradient-primary" aria-label="Join CTA">
