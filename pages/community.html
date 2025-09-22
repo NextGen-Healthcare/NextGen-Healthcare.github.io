@@ -49,12 +49,8 @@
     outline:none; border-color:#316598;
     box-shadow:0 0 0 3px rgba(49,101,152,.18);
   }
-  fieldset{ border:1px solid #E3E8EF; border-radius:.9rem; padding:1rem; }
-  legend{ padding:0 .4rem; font-weight:700; }
-  .sig-grid{ display:grid; gap:.5rem; grid-template-columns:1fr; }
-  @media (min-width:580px){ .sig-grid{ grid-template-columns: repeat(2, 1fr); } }
-  .sig-grid label{ font-weight:500; display:flex; gap:.5rem; align-items:center; }
-
+  .helper{ font-size:.92rem; color:#516072; }
+  .success{ background:#F5F5F6; border:1px solid #E3E8EF; border-radius:.9rem; padding:1rem; display:none; }
   .btn.w-full{ width:100%; }
 
   /* Respect reduced motion */
@@ -94,49 +90,40 @@
     </div>
   </section>
 
-  <!-- Application -->
+  <!-- Subscribe -->
   <section class="section">
     <div class="container narrow">
       <div class="card">
-        <h2>Membership Application</h2>
+        <h2>Join the Mailing List</h2>
+        <p class="helper">Pop in your email to receive invites, resources, and updates. You’ll get a confirmation email to opt in.</p>
 
-        <!-- Keep your Formspree action exactly as provided -->
-        <form class="form" action="https://formspree.io/f/your-form-id" method="POST">
+        <!-- Buttondown embed: replace YOUR_BUTTONDOWN_USERNAME -->
+        <form class="form" id="subscribe-form"
+              action="https://buttondown.email/api/emails/embed-subscribe/YOUR_BUTTONDOWN_USERNAME"
+              method="post" target="hidden_iframe">
+          <input type="hidden" name="embed" value="1">
           <div>
-            <label for="name">Full Name</label>
-            <input id="name" name="name" required placeholder="Enter your name" />
-          </div>
-
-          <div>
-            <label for="email">Email</label>
+            <label for="email">Email address</label>
             <input id="email" type="email" name="email" required placeholder="your.email@example.com" />
           </div>
-
-          <div>
-            <label for="organisation">Organisation</label>
-            <input id="organisation" name="organisation" placeholder="Your organisation" />
-          </div>
-
-          <div>
-            <label for="role">Current Role</label>
-            <input id="role" name="role" placeholder="Your current position" />
-          </div>
-
-          <fieldset>
-            <legend>Interests / SIGs (optional)</legend>
-            <div class="sig-grid">
-              <label><input type="checkbox" name="sig_energy"> Energy &amp; Sustainability</label>
-              <label><input type="checkbox" name="sig_compliance"> Compliance &amp; Regulations</label>
-              <label><input type="checkbox" name="sig_innovation"> Innovation Hub</label>
-            </div>
-          </fieldset>
-
-          <button class="btn btn-primary w-full" type="submit">Submit Application</button>
+          <button class="btn btn-primary w-full" type="submit">Subscribe</button>
+          <p class="helper">We’ll use this only for NextGen updates. Unsubscribe anytime.</p>
         </form>
+
+        <!-- Hidden iframe prevents page navigation on submit -->
+        <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+        <!-- Success state: shown after submit -->
+        <div id="subscribe-success" class="success" role="status" aria-live="polite">
+          <p>Thanks! Please check your inbox to confirm your subscription.</p>
+          <div style="margin-top:.75rem;">
+            <!-- Replace the LinkedIn URL below -->
+            <a id="join-btn" class="btn btn-outline" href="https://www.linkedin.com/groups/000000000/" target="_blank" rel="noopener">Join now on LinkedIn</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-</main>
 
   <!-- CTA -->
   <section class="section bg-gradient-primary" aria-label="Join CTA">
@@ -146,8 +133,8 @@
         Connect with like-minded professionals and accelerate your career in healthcare infrastructure.
       </p>
       <div class="cta-group" style="margin-top:1rem; display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center;">
-        <a class="btn btn-primary size-xl" href="pages/community.html">Join Now</a>
-        <a class="btn btn-outline size-xl" href="pages/contact.html">Get in Touch</a>
+        <a class="btn btn-primary size-xl" href="community.html">Join Now</a>
+        <a class="btn btn-outline size-xl" href="contact.html">Get in Touch</a>
       </div>
     </div>
   </section>
@@ -155,8 +142,17 @@
 
 <div data-include="/partials/footer.html"></div>
 
-
 <!-- Existing JS for nav toggle + footer year -->
 <script src="../assets/js/main.js"></script>
+<script>
+  // Show success box + LinkedIn button as soon as the form is submitted.
+  // (The actual subscription is handled by Buttondown in the hidden iframe.)
+  const form = document.getElementById('subscribe-form');
+  const successBox = document.getElementById('subscribe-success');
+  form.addEventListener('submit', function(){
+    // Give a tiny delay so it feels responsive but doesn't depend on network
+    setTimeout(() => { successBox.style.display = 'block'; }, 200);
+  });
+</script>
 </body>
 </html>
