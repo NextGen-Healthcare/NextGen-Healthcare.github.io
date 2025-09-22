@@ -61,14 +61,14 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"H
   box-shadow: 0 14px 34px rgba(49,101,152,.45), 0 0 0 4px rgba(49,101,152,.18);
 }
 
-/* Navy outline */
+/* Not actually navy outline */
 .btn-navy-outline {
-  border: 2px solid #1B244D;          /* accent */
+  border: 2px solid #316598;          /* accent */
   background: transparent;
-  color: #1B244D;
+  color: #316598;
 }
 .btn-navy-outline:hover {
-  background: #1B244D;
+  background: #316598;
   color: #fff;
 }
 
