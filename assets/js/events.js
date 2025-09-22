@@ -124,7 +124,7 @@
       <p class="modal-meta">
         <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""} &nbsp;
         <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")} &nbsp;
-        <span aria-hidden="true">🏷️</span> ${escapeHTML(ev.category || "other")}
+        <span aria-hidden="true">🏷️</span> ${escapeHTML(ev.categoryLabel || ev.category || "other")}
       </p>
       <div class="modal-body">
         <p style="margin:0 0 1rem; opacity:.95;">${escapeHTML(details)}</p>
@@ -253,8 +253,9 @@
     const drinks = mostRecentPast(ev => (ev.category || "") === "drinks");
     const h2 = [coffee, drinks].filter(Boolean).sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
 
-    // 3) IHEEM Gatherings
-    const h3 = mostRecentPast(ev => (ev.category || "") === "iheem");
+    // 3) IHEEM or SIG (most recent of either)
+    const h3 = mostRecentPast(ev => ["iheem","sig"].includes(ev.category || ""));
+
 
     const picks = [h1, h2, h3].filter(Boolean);
 
