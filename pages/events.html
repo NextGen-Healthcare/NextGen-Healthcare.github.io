@@ -46,7 +46,6 @@
     gap: .5rem;
   }
   .filters [data-cat].active {
-    /* Make JS-selected button look primary even if your global CSS differs */
     background: #316598;
     color: #fff;
     border-color: transparent;
@@ -157,7 +156,7 @@
     </div>
   </section>
 
-  <!-- Events Grid (populated by JS from window.NEXTGEN_EVENTS) -->
+  <!-- Events Grid -->
   <section class="section">
     <div class="container">
       <div id="events-list" class="card-grid" role="list"></div>
@@ -170,7 +169,6 @@
     <div class="container">
       <h2 id="past-events-title">Past Event Highlights</h2>
       <div class="card-grid" role="list">
-        <!-- Card 1 -->
         <article class="card highlight" role="listitem">
           <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
           <div class="p-6">
@@ -182,7 +180,6 @@
           </div>
         </article>
 
-        <!-- Card 2 -->
         <article class="card highlight" role="listitem">
           <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
           <div class="p-6">
@@ -194,7 +191,6 @@
           </div>
         </article>
 
-        <!-- Card 3 -->
         <article class="card highlight" role="listitem">
           <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
           <div class="p-6">
@@ -210,20 +206,22 @@
   </section>
 </main>
 
-  <!-- CTA -->
-  <section class="section bg-gradient-primary" aria-label="Join CTA">
-    <div class="container center">
-      <h2 class="mt-0">Ready to Join the Network?</h2>
-      <p class="muted" style="opacity:.95; color:#fff;">
-        Connect with like-minded professionals and accelerate your career in healthcare infrastructure.
-      </p>
-      <div class="cta-group" style="margin-top:1rem; display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center;">
-        <a class="btn btn-primary size-xl" href="community.html">Join Now</a>
-        <a class="btn btn-outline size-xl" href="contact.html">Get in Touch</a>
-      </div>
+<!-- CTA (outside main is fine) -->
+<section class="section bg-gradient-primary" aria-label="Join CTA">
+  <div class="container center">
+    <h2 class="mt-0">Ready to Join the Network?</h2>
+    <p class="muted" style="opacity:.95; color:#fff;">
+      Connect with like-minded professionals and accelerate your career in healthcare infrastructure.
+    </p>
+    <div class="cta-group" style="margin-top:1rem; display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center;">
+      <a class="btn btn-primary size-xl" href="community.html">Join Now</a>
+      <a class="btn btn-outline size-xl" href="contact.html">Get in Touch</a>
     </div>
-  </section>
-</main>
+  </div>
+</section>
+
+<!-- Modal root for event details -->
+<div id="event-modal-root" aria-hidden="true"></div>
 
 <div data-include="/partials/footer.html"></div>
 
