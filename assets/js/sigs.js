@@ -2,7 +2,6 @@
 (() => {
   "use strict";
 
-  const DATA_URL = "../assets/data/sigs.json"; // path is from /pages/sigs.html
   const JOIN_EMAIL = "nghnteam@gmail.com";
 
   // ---------- DOM helpers
@@ -16,7 +15,6 @@
 
   const VERSION = "9";
   const DATA_URL   = `../assets/data/sigs.json?v=${VERSION}`;
-  const res = await fetch(DATA_URL, { cache: "no-cache" });
 
   let SIGS = [];
   let BY_ID = {};
