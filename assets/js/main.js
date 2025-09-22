@@ -30,8 +30,20 @@ function categoryBadgeClass(slug) {
 }
 
 const VERSION = "9";
-const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
 const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
+
+async function ensureEventsLoaded() {
+  if (Array.isArray(window.NEXTGEN_EVENTS) && window.NEXTGEN_EVENTS.length) return;
+  try {
+    const res = await fetch(EVENTS_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    const data = await res.json();
+    if (Array.isArray(data)) window.NEXTGEN_EVENTS = data;
+  } catch (e) {
+    console.error("Failed to load events for main.js:", e);
+    window.NEXTGEN_EVENTS = window.NEXTGEN_EVENTS || [];
+  }
+}
 
 // ------- Date helpers -------
 const todayISO = () => new Date().toISOString().slice(0,10);
@@ -90,9 +102,12 @@ function getUpcoming(events, { limit = null, category = null } = {}) {
 // ------- Home: featured events -------
 const homeTarget = document.getElementById('home-events');
 if (homeTarget) {
-  const limit = Number(homeTarget.dataset.limit || 3);
-  const upcoming = getUpcoming(window.NEXTGEN_EVENTS, { limit });
-  homeTarget.innerHTML = upcoming.map(renderEventCard).join('');
+  (async () => {
+    const limit = Number(homeTarget.dataset.limit || 3);
+    await ensureEventsLoaded();
+    const upcoming = getUpcoming(window.NEXTGEN_EVENTS, { limit });
+    homeTarget.innerHTML = upcoming.map(renderEventCard).join('');
+  })();
 }
 
 const skip = document.querySelector('.skip-link');
@@ -108,7 +123,7 @@ if (skip) {
 document.querySelectorAll('[data-include]').forEach(async (el) => {
   try {
     const url = el.getAttribute('data-include');
-    const res = await fetch(url);
+    const res = await fetch(`${url}${url.includes('?') ? '&' : '?'}v=${VERSION}`, { cache: 'no-store' });
     const html = await res.text();
     el.insertAdjacentHTML('afterend', html);
     el.remove();
@@ -126,8 +141,9 @@ const listTarget = document.getElementById('events-list');
 const emptyTarget = document.getElementById('events-empty');
 const catButtons = document.querySelectorAll('[data-cat]');
 
-function renderEventsPage(category = 'all') {
+async function renderEventsPage(category = 'all') {
   if (!listTarget) return;
+  await ensureEventsLoaded();
   const items = getUpcoming(window.NEXTGEN_EVENTS, { category });
   if (items.length === 0) {
     if (emptyTarget) emptyTarget.style.display = 'block';
@@ -146,11 +162,10 @@ if (listTarget) {
   catButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.getAttribute('data-cat') || 'all';
-      // active state
       catButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // render filtered
       renderEventsPage(cat);
     });
   });
 }
+
