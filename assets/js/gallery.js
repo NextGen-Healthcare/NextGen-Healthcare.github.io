@@ -50,6 +50,48 @@
     return "id-" + Date.now().toString(36) + Math.random().toString(36).slice(2);
   }
 
+// ---- Add near the top of gallery.js ----
+const EVENTS_URL = "../assets/data/events.json";
+const GALLERY_URL = "../assets/data/gallery.json";
+
+// Simple date formatter
+function fmtMonthYear(isoDate) {
+  if (!isoDate) return "";
+  // Force UTC midnight for consistent month/year
+  const d = new Date(isoDate + "T00:00:00Z");
+  return d.toLocaleString(undefined, { month: "short", year: "numeric" });
+}
+
+// Fetch both datasets, then render
+Promise.all([
+  fetch(EVENTS_URL).then(r => r.json()),
+  fetch(GALLERY_URL).then(r => r.json())
+]).then(([events, gallery]) => {
+  const eventById = Object.fromEntries(events.map(e => [e.id, e]));
+
+  function getMonthYearForAlbum(albumId) {
+    // 1) Prefer the event date from events.json (exact id match)
+    const ev = eventById[albumId];
+    if (ev?.date) return fmtMonthYear(ev.date);
+
+    // 2) Fallback: try to read YYYY-MM-DD at the start of the album id
+    const m = albumId.match(/^\d{4}-\d{2}-\d{2}/);
+    if (m) return fmtMonthYear(m[0]);
+
+    // 3) Nothing found – return empty string (or a placeholder)
+    return "";
+  }
+
+  // ---- your existing render code, but when you build the badge/label: ----
+  // const monthYear = getMonthYearForAlbum(albumId);
+  // ... insert `monthYear` into your card UI ...
+  
+  renderGallery(gallery, getMonthYearForAlbum); // <- if you have a render function, pass the helper in, or call it where needed
+}).catch(err => {
+  console.error("Failed to load gallery/events data", err);
+});
+
+  
   // Adapt V2 JSON shape { meta, photosByEvent } -> array of items
   function parseKeyToEvent(id, photos = []) {
     const parts = String(id).toLowerCase().split("-");
