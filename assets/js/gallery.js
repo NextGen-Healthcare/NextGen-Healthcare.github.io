@@ -25,6 +25,10 @@
   const btnNext = modal.querySelector(".next");
   const btnClose = modal.querySelector(".close-btn");
 
+  const VERSION = "9";
+  const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
+  const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
+
   // ---- State ----
   let ITEMS = [];
   let ACTIVE_CAT = "All Events";
