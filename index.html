@@ -51,36 +51,35 @@
   .mb-0{ margin-bottom:0; }
   @media (prefers-reduced-motion:reduce){ .animate-in{animation:none; opacity:1; transform:none;} .card{transition:none;} }
 
-  /* ======= HOME: Upgrade Upcoming Events to match Events page ======= */
+  /* ======= HOME: Upcoming Events (match Events page look) ======= */
 
-  /* Grid like Events page */
-  .card-grid{
-    display:grid; gap:1.25rem; grid-template-columns:1fr;
-  }
+  .card-grid{ display:grid; gap:1.25rem; grid-template-columns:1fr; }
   @media (min-width:760px){ .card-grid{ grid-template-columns:repeat(2,1fr); } }
   @media (min-width:1080px){ .card-grid{ grid-template-columns:repeat(3,1fr); } }
 
-  /* Treat injected items as cards (works whether your JS outputs .card or not) */
   #home-events.card-grid > *{
     background:#fff; border-radius:var(--radius); box-shadow:0 6px 20px rgba(0,0,0,.08);
     overflow:hidden; transition:transform .25s ease, box-shadow .25s ease;
   }
   #home-events.card-grid > *:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.12); }
 
-  /* Accent strip like Events page; add one if markup doesn't include it */
+  /* Accent strip */
   .h-2{ height:8px; }
   .bg-gradient-accent{ background:linear-gradient(90deg,#316598,#A1B7CD,#C5D2DF); }
   #home-events.card-grid > *:not(:has(.h-2))::before{
     content:""; display:block; height:8px; background:linear-gradient(90deg,#316598,#A1B7CD,#C5D2DF);
   }
 
-  /* Inner padding (support .p-6 or a generic wrapper) */
+  /* Inner padding */
   #home-events .p-6,
   #home-events .card-pad,
   #home-events.card-grid > * > .inner { padding:1.25rem; }
 
-  /* Event meta line (date/time/location etc.) */
+  /* Event meta line */
   .meta-line{ display:inline-flex; align-items:center; gap:.5rem; font-size:.9375rem; color:#316598; }
+
+  /* Actions row for RSVP/Details (shared with global .card-actions in style.css if present) */
+  .card-actions{ display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem; }
 </style>
 </head>
 <body>
@@ -233,7 +232,7 @@
     </div>
   </section>
 
-  <!-- Upcoming Events (auto-rendered from window.NEXTGEN_EVENTS) -->
+  <!-- Upcoming Events (auto-rendered) -->
   <section class="section bg-neutral-light" aria-label="Upcoming Events">
     <div class="container">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem;">
@@ -241,10 +240,9 @@
         <a class="btn btn-outline btn-lg" href="pages/events.html">View All Events</a>
       </div>
 
-      <!-- JS injects here; now uses the Events-page card layout -->
+      <!-- JS injects here (top 3 future events) -->
       <div id="home-events" class="card-grid" data-limit="3" aria-live="polite"></div>
 
-      <!-- Optional no-JS fallback -->
       <noscript>
         <div class="card-grid">
           <article>
@@ -293,8 +291,176 @@
 
 <div data-include="/partials/footer.html"></div>
 
+<!-- Hidden placeholders so shared events.js won’t error on Home -->
+<div id="events-list" class="hidden" aria-hidden="true"></div>
+<div id="events-empty" class="hidden" aria-hidden="true"></div>
+<div id="event-modal-root" aria-hidden="true"></div>
+
 <!-- Scripts -->
 <script src="assets/js/events.js"></script>
 <script src="assets/js/main.js"></script>
+
+<!-- Home-only: render top N upcoming events + modal -->
+<script>
+(() => {
+  const HOME_DATA_URL = "assets/data/events.json";
+  const homeList = document.getElementById("home-events");
+  if (!homeList) return;
+
+  const limit = parseInt(homeList.getAttribute("data-limit"), 10) || 3;
+
+  const escapeHTML = (s = "") =>
+    s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso || "";
+    return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
+  };
+
+  const byId = (id) => document.getElementById(id);
+
+  function buildCard(ev) {
+    const id = ev.id || ("ev_" + Math.random().toString(36).slice(2,8));
+    const hasLink = !!ev.link;
+    return `
+<article role="listitem" data-id="${escapeHTML(id)}">
+  <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+  <div class="p-6">
+    <h3 class="mb-0">
+      <button class="event-title" data-id="${escapeHTML(id)}" aria-haspopup="dialog">
+        ${escapeHTML(ev.title || "Untitled Event")}
+      </button>
+    </h3>
+    <p class="meta-line" style="margin:.5rem 0 0;">
+      <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? " · " + escapeHTML(ev.time) : ""}
+      &nbsp; <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")}
+    </p>
+    <div class="card-actions">
+      ${hasLink ? `<a class="btn btn-primary size-sm" href="${ev.link}" target="_blank" rel="noopener">RSVP</a>` : ""}
+      <button class="btn btn-outline size-sm btn-details" data-id="${escapeHTML(id)}">Details</button>
+    </div>
+  </div>
+</article>`;
+  }
+
+  function buildModalHTML(ev) {
+    const id = ev.id || "unknown";
+    const hasLink = !!ev.link;
+    const details = ev.details || ev.short || "More details coming soon.";
+    return `
+<div class="event-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-${escapeHTML(id)}" data-modal-id="${escapeHTML(id)}">
+  <div class="event-modal">
+    <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-${escapeHTML(id)}">${escapeHTML(ev.title || "Event details")}</h3>
+        <button class="modal-close" aria-label="Close">×</button>
+      </div>
+      <p class="modal-meta">
+        <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? " · " + escapeHTML(ev.time) : ""} &nbsp;
+        <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")} &nbsp;
+        <span aria-hidden="true">🏷️</span> ${escapeHTML(ev.category || "other")}
+      </p>
+      <div class="modal-body">
+        <p style="margin:0 0 1rem; opacity:.95;">${escapeHTML(details)}</p>
+        ${ev.agenda ? `<h4>Agenda</h4><p>${escapeHTML(ev.agenda)}</p>` : ""}
+        ${ev.speakers ? `<h4>Speakers</h4><p>${escapeHTML(ev.speakers)}</p>` : ""}
+      </div>
+      <div class="modal-actions">
+        ${hasLink ? `<a class="btn btn-primary size-lg" href="${ev.link}" target="_blank" rel="noopener">RSVP / Event page</a>` : ""}
+        <button class="btn btn-outline size-lg modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+  }
+
+  let HOME_EVENTS = [];
+  let BY_ID = {};
+  let lastFocus = null;
+
+  function openModal(ev) {
+    const modalRoot = byId("event-modal-root");
+    if (!modalRoot) return;
+    closeModal();
+    modalRoot.innerHTML = buildModalHTML(ev);
+    modalRoot.removeAttribute("aria-hidden");
+
+    const overlay = modalRoot.querySelector(".event-modal-overlay");
+    const closeBtns = modalRoot.querySelectorAll(".modal-close");
+    lastFocus = document.activeElement;
+
+    function onEsc(e){ if (e.key === "Escape") closeModal(); }
+    function onOverlayClick(e){ if (e.target === overlay) closeModal(); }
+
+    closeBtns.forEach(b => b.addEventListener("click", closeModal));
+    document.addEventListener("keydown", onEsc);
+    overlay.addEventListener("click", onOverlayClick);
+    overlay._cleanup = () => {
+      document.removeEventListener("keydown", onEsc);
+      overlay.removeEventListener("click", onOverlayClick);
+    };
+
+    // Focus first close button
+    closeBtns[0]?.focus({ preventScroll: true });
+  }
+
+  function closeModal() {
+    const modalRoot = byId("event-modal-root");
+    const overlay = modalRoot?.querySelector(".event-modal-overlay");
+    if (!overlay) return;
+    if (typeof overlay._cleanup === "function") overlay._cleanup();
+    modalRoot.innerHTML = "";
+    modalRoot.setAttribute("aria-hidden", "true");
+    if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus({ preventScroll: true });
+    lastFocus = null;
+  }
+
+  function wireHomeInteractions() {
+    homeList.addEventListener("click", (e) => {
+      const titleBtn = e.target.closest(".event-title");
+      const detailsBtn = e.target.closest(".btn-details");
+      const id = titleBtn?.getAttribute("data-id") || detailsBtn?.getAttribute("data-id");
+      if (!id) return;
+      e.preventDefault();
+      const ev = BY_ID[id];
+      if (ev) openModal(ev);
+    });
+  }
+
+  function renderHome() {
+    const today = new Date();
+    const upcoming = HOME_EVENTS
+      .filter(ev => !isNaN(new Date(ev.date)))
+      .filter(ev => new Date(ev.date) >= new Date(today.toDateString()))
+      .sort((a,b) => new Date(a.date) - new Date(b.date))
+      .slice(0, limit);
+
+    homeList.innerHTML = upcoming.map(buildCard).join("") || `<p class="muted">No upcoming events. <a href="pages/events.html">See all events</a></p>`;
+  }
+
+  function initWith(events) {
+    HOME_EVENTS = Array.isArray(events) ? events : [];
+    BY_ID = Object.fromEntries(HOME_EVENTS.map(ev => [ev.id || ("ev_" + Math.random().toString(36).slice(2,8)), ev]));
+    renderHome();
+    wireHomeInteractions();
+  }
+
+  // Prefer data from shared file if already loaded; otherwise fetch directly
+  function bootstrap() {
+    if (Array.isArray(window.NEXTGEN_EVENTS) && window.NEXTGEN_EVENTS.length) {
+      initWith(window.NEXTGEN_EVENTS);
+    } else {
+      fetch(HOME_DATA_URL, { cache: "no-store" })
+        .then(r => r.ok ? r.json() : [])
+        .then(data => initWith(data))
+        .catch(() => initWith([]));
+    }
+  }
+
+  bootstrap();
+})();
+</script>
 </body>
 </html>
