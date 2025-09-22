@@ -1,7 +1,6 @@
 <footer class="site-footer bg-gradient-primary" style="color:#fff;">
   <div class="container" style="max-width:1120px; margin:0 auto; padding:3rem 1rem;">
 
-    <!-- Removed inline grid-template-columns -->
     <div class="footer-grid">
       <!-- NextGen Healthcare -->
       <div>
@@ -64,18 +63,21 @@
     </div>
   </div>
 
-  <!-- Footer-only responsive CSS -->
+  <!-- Footer-only responsive CSS (hardened) -->
   <style>
     .site-footer .footer-grid {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: 1fr; /* mobile */
+      display: grid !important;
+      gap: 2rem !important;
+      grid-template-columns: 1fr !important; /* mobile */
+    }
+    .site-footer .footer-grid > * {
+      grid-column: auto / span 1 !important; /* stop any global span/full-width rules */
     }
     @media (min-width: 700px) {
-      .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
     }
-    @media (min-width: 1024px) {
-      .site-footer .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    @media (min-width: 900px) { /* lowered so laptops hit 4 cols */
+      .site-footer .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
     }
   </style>
 </footer>
