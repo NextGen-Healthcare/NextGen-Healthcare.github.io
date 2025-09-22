@@ -1,6 +1,5 @@
 // /assets/js/events.js
 (() => {
-  const DATA_URL = "../assets/data/events.json"; // path is from /pages/events.html
 
   // ---------- DOM helpers
   const byId = (id) => document.getElementById(id);
@@ -14,7 +13,6 @@
 
   const VERSION = "9";
   const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
-  const res = await fetch(EVENTS_URL, { cache: "no-cache" });
 
   let EVENTS = [];
   let EVENT_BY_ID = {};
@@ -48,7 +46,7 @@
   // ---------- Load data (pure JSON)
   async function loadEvents() {
     try {
-      const res = await fetch(DATA_URL, { cache: "no-store" });
+      const res = await fetch(EVENTS_URL, { cache: "no-store" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       if (!Array.isArray(data)) throw new Error("events.json must be an array");
