@@ -83,8 +83,21 @@
     </div>
   </section>
 
+<style>
+  /* Contact page: make card buttons a bit taller */
+  .contact-cta .btn-hero {
+    padding-block: 1rem;         /* adds space above/below text */
+    min-height: 44px;            /* good touch target size */
+  }
+  /* Fallback if padding-block isn't supported */
+  @supports not (padding-block: 1rem) {
+    .contact-cta .btn-hero { padding-top: 1rem; padding-bottom: 1rem; }
+  }
+</style>
+
+  
 <!-- Content -->
-<section class="section">
+<section class="section contact-cta">
   <div class="container grid-2">
     <!-- Left: Email CTA (unchanged) -->
     <div>
@@ -113,6 +126,7 @@
     </div>
   </div>
 </section>
+
 
 
 
