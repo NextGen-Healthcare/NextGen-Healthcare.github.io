@@ -143,24 +143,19 @@
     </div>
   </section>
 
-  <!-- Current SIGs -->
-  <section class="section bg-neutral-light">
-    <div class="container">
-      <h2 class="center">Current SIGs</h2>
-      <div class="card-grid">
-        <article class="card sig">
-          <span class="badge">Energy &amp; Sustainability</span>
-          <p>Energy solutions, BMS &amp; controls, retrofit and decarbonisation.</p>
-        </article>
+<!-- Current SIGs -->
+<section class="section bg-neutral-light" id="current-sigs">
+  <div class="container">
+    <h2 class="center">Current SIGs</h2>
 
-        <article class="card sig">
-          <span class="badge">Compliance &amp; Regulations</span>
-          <p>HTM/HBN, Building Regs, safety cases and governance.</p>
-        </article>
-
-      </div>
+    <!-- JS will inject SIG cards here -->
+    <div id="sigs-list" class="card-grid" role="list"></div>
+    <div id="sigs-empty" class="center hidden">
+      <p class="mb-0">SIGs coming soon.</p>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- How to Join a SIG -->
   <section class="section" aria-labelledby="how-join-title">
@@ -190,11 +185,6 @@
             </div>
           </div>
         </div>
-
-        <div class="cta-row">
-          <a class="btn btn-primary" href="community.html">Join the Network</a>
-          <a class="btn btn-outline" href="sigs.html#current-sigs">Browse SIGs</a>
-        </div>
       </div>
     </div>
   </section>
@@ -208,8 +198,10 @@
           We’re always looking to expand based on member interests. If you have an idea for a new Special Interest Group and can commit to leading it, we’d love to hear from you.
         </p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="contact.html#propose-sig">Propose a New SIG</a>
-          <a class="btn btn-outline" href="resources.html">See SIG Guidelines</a>
+          <a
+            class="btn btn-hero"
+            href="mailto:nghnteam@gmail.com?subject=New%20SIG%20proposal%3A%20%5BYour%20SIG%20name%5D&body=Hi%20NextGen%20team,%0D%0A%0D%0AI%27d%20like%20to%20propose%20a%20new%20SIG.%0D%0A%0D%0AProposed%20SIG%20name:%0D%0AFocus%20/%20scope:%0D%0AWhy%20now:%0D%0APotential%20leads:%0D%0AMeeting%20cadence:%0D%0A%0D%0AMy%20details%3A%0D%0AName:%0D%0AOrganisation:%0D%0ARole:%0D%0AContact:%0D%0A"
+          >Propose a New SIG</a>
         </div>
       </div>
     </div>
@@ -232,7 +224,12 @@
 
 <div data-include="/partials/footer.html"></div>
 
-<!-- Existing JS for nav toggle + year -->
+  <!-- Modal root (reuses event modal styles) -->
+<div id="event-modal-root" aria-hidden="true"></div>
+
+<!-- Scripts -->
+<script src="../assets/js/sigs.js"></script>
 <script src="../assets/js/main.js"></script>
+
 </body>
 </html>
