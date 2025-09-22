@@ -130,5 +130,36 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"H
   font-weight: 700;
 }
 
+/* Footer grid (responsive 1 / 2 / 4 columns) */
+.site-footer .footer-grid{
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;           /* mobile */
+  align-items: start;
+}
+.site-footer .footer-grid > *{
+  grid-column: auto;                     /* stop any full-width span rules */
+  min-width: 0;                          /* prevent overflow in grid items */
+}
+@media (min-width: 700px){
+  .site-footer .footer-grid{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px){
+  .site-footer .footer-grid{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Optional: unify footer link look */
+.site-footer a{ color: inherit; text-decoration: none; opacity: .95; }
+.site-footer a:hover{ opacity: 1; text-decoration: underline; }
+
+/* Optional: if you use .bg-gradient-primary elsewhere, make it global */
+.bg-gradient-primary{
+  background: linear-gradient(135deg, var(--title-bg), var(--bg-secondary) 70%);
+  color: var(--white);
+}
 
 @keyframes fadeUp{to{opacity:1;transform:none}}
