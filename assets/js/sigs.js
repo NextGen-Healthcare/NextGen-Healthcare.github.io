@@ -21,24 +21,27 @@
   const escapeHTML = (s = "") =>
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
-  function buildJoinHref(sig) {
-    const name = sig?.name || "SIG";
-    const subject = `Join SIG: ${name}`;
-    const body = [
-      "Hi NextGen team,",
-      "",
-      `I'd like to join the ${name} SIG.`,
-      "",
-      "Name:",
-      "Organisation:",
-      "Role:",
-      "Location:",
-      "LinkedIn / Contact:",
-      "",
-      "Thanks!"
-    ].join("%0D%0A");
-    return `mailto:${JOIN_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
-  }
+function buildJoinHref(sig) {
+  const name = sig?.name || "SIG";
+  const subject = `Join SIG: ${name}`;
+
+  const body = [
+    "Hi NextGen team,",
+    "",
+    `I'd like to join the ${name} SIG.`,
+    "",
+    "Name:",
+    "Organisation:",
+    "Role:",
+    "Location:",
+    "LinkedIn / Contact:",
+    "",
+    "Thanks!"
+  ].join("\r\n"); // CRLF is safest for email
+
+  return `mailto:${JOIN_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 
   // Accepts leads as array of strings or objects with {name}; outputs plain text (no mailto)
   function leadsInline(sig) {
