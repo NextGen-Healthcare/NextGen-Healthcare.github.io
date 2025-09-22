@@ -29,6 +29,10 @@ function categoryBadgeClass(slug) {
   return (CATEGORY_META[slug] && CATEGORY_META[slug].badgeClass) || 'bg-accent text-accent-foreground';
 }
 
+const VERSION = "9";
+const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
+const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
+
 // ------- Date helpers -------
 const todayISO = () => new Date().toISOString().slice(0,10);
 function formatDateISOToNice(iso) {
