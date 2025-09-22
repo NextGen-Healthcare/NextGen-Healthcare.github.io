@@ -337,6 +337,17 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"H
   background: color-mix(in oklab, var(--accent-2) 35%, transparent);
   outline: none;
 }
+/* Bigger "Propose a New SIG" button */
+.btn-propose{
+  padding: 1rem 1.6rem;        /* more clearance around text */
+  font-size: 1.125rem;         /* optional: slightly larger label */
+  line-height: 1.2;
+  border-radius: calc(var(--radius) + 6px);
+  min-height: 44px;            /* good tap target */
+}
+@media (min-width:760px){
+  .btn-propose{ padding: 1.1rem 2rem; }
+}
 
 
 @keyframes fadeUp{to{opacity:1;transform:none}}
