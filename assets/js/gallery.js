@@ -253,7 +253,8 @@
         return fromV2Object(data);
       }
       return Array.isArray(data) ? data : [];
-    } catch {
+    } catch (err) {
+      console.error("Failed to load gallery.json:", err);
       // Fallback: window.nextgen.gallery if present
       return (window.nextgen && Array.isArray(window.nextgen.gallery) && window.nextgen.gallery) || [];
     }
@@ -274,7 +275,7 @@
       .map(it => ({
         id: it.id || safeUUID(),
         title: String(it.title),
-        date: it.date || "",
+        date: it.date,               
         category: allowed.has(it.category) ? it.category : "Network Sessions",
         location: it.location || "",
         photos: it.photos.map(p => ({ src: p.src, alt: p.alt || it.title })),
