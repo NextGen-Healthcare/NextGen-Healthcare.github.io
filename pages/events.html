@@ -137,7 +137,7 @@
   <section class="section sticky-filter bg-neutral-light">
     <div class="container">
       <div class="filters">
-        <button class="btn btn-primary btn-chip active" data-cat="all" aria-pressed="true">
+        <button class="btn btn-outline btn-chip active" data-cat="all" aria-pressed="true">
           <span aria-hidden="true">📅</span> All Events
         </button>
         <button class="btn btn-outline btn-chip" data-cat="coffee" aria-pressed="false">
@@ -164,46 +164,19 @@
     </div>
   </section>
 
-  <!-- Past Event Highlights -->
-  <section class="section bg-neutral-light" aria-labelledby="past-events-title">
-    <div class="container">
-      <h2 id="past-events-title">Past Event Highlights</h2>
-      <div class="card-grid" role="list">
-        <article class="card highlight" role="listitem">
-          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-          <div class="p-6">
-            <h3 class="mb-0">Annual Conference 2023</h3>
-            <p style="opacity:.85; margin:.5rem 0 1rem;">
-              Over 200 attendees gathered for our flagship event featuring keynote speakers from NHS England and major construction firms.
-            </p>
-            <div class="meta-line"><span aria-hidden="true">👥</span><span>200+ attendees</span></div>
-          </div>
-        </article>
+ <!-- Past Event Highlights -->
+<section class="section bg-neutral-light" aria-labelledby="past-events-title">
+  <div class="container">
+    <h2 id="past-events-title">Past Event Highlights</h2>
 
-        <article class="card highlight" role="listitem">
-          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-          <div class="p-6">
-            <h3 class="mb-0">Summer Social</h3>
-            <p style="opacity:.85; margin:.5rem 0 1rem;">
-              Our summer networking event brought together professionals from across the sector for an evening of connections and conversations.
-            </p>
-            <div class="meta-line"><span aria-hidden="true">👥</span><span>150+ attendees</span></div>
-          </div>
-        </article>
-
-        <article class="card highlight" role="listitem">
-          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-          <div class="p-6">
-            <h3 class="mb-0">Innovation Workshop Series</h3>
-            <p style="opacity:.85; margin:.5rem 0 1rem;">
-              Six-part workshop series exploring emerging technologies in healthcare construction and facility management.
-            </p>
-            <div class="meta-line"><span aria-hidden="true">👥</span><span>300+ total participants</span></div>
-          </div>
-        </article>
-      </div>
+    <!-- JS will inject up to 3 cards here -->
+    <div id="past-highlights" class="card-grid" role="list"></div>
+    <div id="past-empty" class="center hidden">
+      <p class="mb-0">No past events yet.</p>
     </div>
-  </section>
+  </div>
+</section>
+
 </main>
 
 <!-- CTA (outside main is fine) -->
