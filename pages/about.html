@@ -113,16 +113,27 @@
   display:block;
 }
 
-/* Overlay meta */
+/* Overlay meta: glassy white so it works on bright/white photos */
 .leader-meta{
   position:absolute;
   left:0; right:0; bottom:0;
-  padding: .85rem 1rem;
-  background: linear-gradient( to top, rgba(20,14,52,.85), rgba(20,14,52,.0) 60%);
-  color:#fff;
+  padding:.85rem 1rem;
+  /* slightly opaque white + gentle top fade */
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,.96) 0%,
+    rgba(255,255,255,.85) 60%,
+    rgba(255,255,255,0) 100%
+  );
+  /* subtle inner shadow to separate from white backgrounds */
+  box-shadow: inset 0 8px 24px rgba(20,14,52,.10);
+  /* glass effect (safe fallback if unsupported) */
+  backdrop-filter: saturate(120%) blur(4px);
+  -webkit-backdrop-filter: saturate(120%) blur(4px);
+
   transform: translateY(35%);
   transition: transform .25s ease, opacity .25s ease;
-  opacity:.0;
+  opacity:0;
 }
 .leader-card:hover .leader-meta,
 .leader-card:focus-within .leader-meta{
@@ -130,9 +141,14 @@
   opacity:1;
 }
 
+/* Brand-blue text on the overlay */
+.leader-meta .leader-name,
+.leader-meta .leader-role,
+.leader-meta .leader-title { color:#316598; }
+
 .leader-name{
   margin:0 0 .2rem 0;
-  font-weight: 700;
+  font-weight:700;
 }
 .leader-role{
   margin:0;
@@ -145,23 +161,38 @@
   opacity:.9;
 }
 
-/* Subtle top tag */
+/* Optional: give images a faint edge so white photos don't bleed into the card */
+.leader-photo{
+  width:100%;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  display:block;
+  background:#F5F5F6;                 /* fallback canvas behind PNGs */
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.04); /* subtle inner ring */
+}
+
+/* Subtle top tag unchanged */
 .leader-chip{
   position:absolute;
   top:.6rem; left:.6rem;
-  background:#316598;
-  color:#fff;
-  font-size:.75rem;
-  padding:.25rem .5rem;
-  border-radius: .5rem;
-  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  background:#316598; color:#fff;
+  font-size:.75rem; padding:.25rem .5rem;
+  border-radius:.5rem;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
 }
 
-/* Respect reduced motion */
+/* Motion/HC preferences */
 @media (prefers-reduced-motion: reduce){
-  .leader-card{ transition: none; }
-  .leader-meta{ transition: none; }
+  .leader-card{ transition:none; }
+  .leader-meta{ transition:none; }
 }
+@media (forced-colors: active){
+  .leader-meta{ background:Canvas; box-shadow:none; }
+  .leader-meta .leader-name,
+  .leader-meta .leader-role,
+  .leader-meta .leader-title{ color:LinkText; }
+}
+
 /* Photo placeholder (when no headshot available) */
 .leader-placeholder{
   width:100%;
