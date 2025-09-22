@@ -15,8 +15,8 @@
   const modalRoot = byId("event-modal-root");
 
   const VERSION = "9";
-  const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
-  const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
+  const DATA_URL   = `../assets/data/sigs.json?v=${VERSION}`;
+  const res = await fetch(DATA_URL, { cache: "no-cache" });
 
   let SIGS = [];
   let BY_ID = {};
