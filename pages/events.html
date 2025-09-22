@@ -52,7 +52,7 @@
     border-color: transparent;
   }
 
-  /* Grid for event cards (JS injects into #events-list) */
+  /* Grid for cards */
   .card-grid {
     display: grid;
     gap: 1.25rem;
@@ -72,11 +72,21 @@
   .card.event:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
   .card.event .p-6 { padding: 1.25rem; }
 
+  /* Past highlight cards – same treatment as event cards */
+  .card.highlight {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card.highlight:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+  .card.highlight .p-6 { padding: 1.25rem; }
+  .meta-line { display: inline-flex; align-items: center; gap: .5rem; font-size: .9375rem; color: #316598; }
+
   /* Accent strip like the React "bg-gradient-accent" bar */
   .h-2 { height: 8px; }
-  .bg-gradient-accent {
-    background: linear-gradient(90deg, #316598, #A1B7CD, #C5D2DF);
-  }
+  .bg-gradient-accent { background: linear-gradient(90deg, #316598, #A1B7CD, #C5D2DF); }
 
   /* Utilities */
   .center { text-align: center; }
@@ -85,7 +95,7 @@
 
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce){
-    .card.event { transition: none; }
+    .card.event, .card.highlight { transition: none; }
   }
 </style>
 </head>
@@ -150,14 +160,57 @@
   <!-- Events Grid (populated by JS from window.NEXTGEN_EVENTS) -->
   <section class="section">
     <div class="container">
-      <div id="events-list" class="card-grid"></div>
+      <div id="events-list" class="card-grid" role="list"></div>
       <div id="events-empty" class="center hidden"><p class="mb-0">No events found in this category.</p></div>
+    </div>
+  </section>
+
+  <!-- Past Event Highlights -->
+  <section class="section bg-neutral-light" aria-labelledby="past-events-title">
+    <div class="container">
+      <h2 id="past-events-title">Past Event Highlights</h2>
+      <div class="card-grid" role="list">
+        <!-- Card 1 -->
+        <article class="card highlight" role="listitem">
+          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+          <div class="p-6">
+            <h3 class="mb-0">Annual Conference 2023</h3>
+            <p style="opacity:.85; margin:.5rem 0 1rem;">
+              Over 200 attendees gathered for our flagship event featuring keynote speakers from NHS England and major construction firms.
+            </p>
+            <div class="meta-line"><span aria-hidden="true">👥</span><span>200+ attendees</span></div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card highlight" role="listitem">
+          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+          <div class="p-6">
+            <h3 class="mb-0">Summer Social</h3>
+            <p style="opacity:.85; margin:.5rem 0 1rem;">
+              Our summer networking event brought together professionals from across the sector for an evening of connections and conversations.
+            </p>
+            <div class="meta-line"><span aria-hidden="true">👥</span><span>150+ attendees</span></div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card highlight" role="listitem">
+          <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+          <div class="p-6">
+            <h3 class="mb-0">Innovation Workshop Series</h3>
+            <p style="opacity:.85; margin:.5rem 0 1rem;">
+              Six-part workshop series exploring emerging technologies in healthcare construction and facility management.
+            </p>
+            <div class="meta-line"><span aria-hidden="true">👥</span><span>300+ total participants</span></div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 </main>
 
 <div data-include="/partials/footer.html"></div>
-
 
 <!-- Scripts: data first, then behavior -->
 <script src="../assets/js/events.js"></script>
