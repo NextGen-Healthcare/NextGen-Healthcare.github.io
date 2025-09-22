@@ -84,13 +84,13 @@
   // ---------- Render list (filtered to today/future + category, sorted soonest→latest)
   function filteredEvents() {
     const today = startOfToday();
-
-    // Category filter
+  
+    // category filter
     const pool = (activeCat === "all")
       ? EVENTS
       : EVENTS.filter(ev => (ev.category || "other") === activeCat);
-
-    // Upcoming only (>= today) and valid dates
+  
+    // only upcoming (>= today) and sort
     return pool
       .filter(ev => {
         const d = dateOnly(ev.date);
@@ -98,6 +98,7 @@
       })
       .sort((a, b) => dateOnly(a.date) - dateOnly(b.date));
   }
+
 
   function renderList() {
     const items = filteredEvents();
