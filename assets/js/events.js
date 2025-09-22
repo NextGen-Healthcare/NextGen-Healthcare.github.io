@@ -10,8 +10,10 @@
   const listEl  = byId("events-list");
   const emptyEl = byId("events-empty");
   const filterBtns = qsa(".filters [data-cat]");
+  const modalRoot = byId("event-modal-root");
 
   let EVENTS = [];
+  let EVENT_BY_ID = {};
   let activeCat = "all";
 
   const escapeHTML = (s = "") =>
@@ -37,16 +39,17 @@
     }
   }
 
-  // ---------- Render
+  // ---------- Card template
   function cardHTML(ev) {
     const id = ev.id || ("ev_" + Math.random().toString(36).slice(2, 8));
     const cat = ev.category || "other";
+    const hasLink = !!ev.link;
     return `
 <article class="card event" role="listitem" data-cat="${escapeHTML(cat)}" data-id="${escapeHTML(id)}">
   <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
   <div class="p-6">
     <h3 class="mb-0">
-      <button class="event-title" aria-expanded="false" aria-controls="popover-${escapeHTML(id)}" id="title-${escapeHTML(id)}">
+      <button class="event-title" data-id="${escapeHTML(id)}" aria-haspopup="dialog" aria-expanded="false">
         ${escapeHTML(ev.title || "Untitled Event")}
       </button>
     </h3>
@@ -54,144 +57,165 @@
       <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""} &nbsp;
       <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")}
     </p>
-  </div>
-
-  <div class="event-popover" id="popover-${escapeHTML(id)}" role="dialog" aria-labelledby="title-${escapeHTML(id)}" aria-hidden="true">
-    <div class="event-popover-inner">
-      <button class="popover-close" aria-label="Close">×</button>
-      <h4 class="popover-title">${escapeHTML(ev.title || "Event details")}</h4>
-      ${
-        ev.details
-          ? `<p class="popover-body">${escapeHTML(ev.details)}</p>`
-          : (ev.short ? `<p class="popover-body">${escapeHTML(ev.short)}</p>` : `<p class="popover-body">More details coming soon.</p>`)
-      }
-      ${
-        ev.link
-          ? `<p style="margin-top:.75rem;"><a class="btn btn-outline size-sm" href="${ev.link}" target="_blank" rel="noopener">Event page</a></p>`
-          : ""
-      }
+    <div class="card-actions">
+      ${hasLink ? `<a class="btn btn-primary size-sm" href="${ev.link}" target="_blank" rel="noopener">RSVP</a>` : ""}
+      <button class="btn btn-outline size-sm btn-details" data-id="${escapeHTML(id)}">Details</button>
     </div>
   </div>
 </article>`;
   }
 
-  function renderEvents() {
-    listEl.innerHTML = EVENTS.map(cardHTML).join("");
-    emptyEl.classList.toggle("hidden", EVENTS.length > 0);
+  // ---------- Render list (filtered)
+  function filteredEvents() {
+    if (activeCat === "all") return EVENTS;
+    return EVENTS.filter(ev => (ev.category || "other") === activeCat);
   }
 
-  // ---------- Popovers
-  function closeAllPopovers(exceptId = null) {
-    qsa(".event-popover").forEach(pop => {
-      if (pop.id !== exceptId) {
-        pop.classList.remove("open");
-        pop.setAttribute("aria-hidden", "true");
-      }
-    });
-    qsa(".event-title").forEach(btn => btn.setAttribute("aria-expanded", "false"));
+  function renderList() {
+    const items = filteredEvents();
+    listEl.innerHTML = items.map(cardHTML).join("");
+    emptyEl.classList.toggle("hidden", items.length > 0);
+    wireListInteractions(); // rebind after re-render
   }
 
-  function openPopover(pop, btn) {
-    closeAllPopovers(pop.id);
-    pop.classList.add("open");
-    pop.setAttribute("aria-hidden", "false");
-    btn.setAttribute("aria-expanded", "true");
-    const closeBtn = qs(".popover-close", pop);
-    if (closeBtn) closeBtn.focus({ preventScroll: true });
+  // ---------- Modal
+  function buildModalHTML(ev) {
+    const id = ev.id || "unknown";
+    const hasLink = !!ev.link;
+    const details = ev.details || ev.short || "More details coming soon.";
+    return `
+<div class="event-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-${escapeHTML(id)}" data-modal-id="${escapeHTML(id)}">
+  <div class="event-modal">
+    <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+    <div class="modal-inner">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-${escapeHTML(id)}">${escapeHTML(ev.title || "Event details")}</h3>
+        <button class="modal-close" aria-label="Close">×</button>
+      </div>
+      <p class="modal-meta">
+        <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""} &nbsp;
+        <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")} &nbsp;
+        <span aria-hidden="true">🏷️</span> ${escapeHTML(ev.category || "other")}
+      </p>
+      <div class="modal-body">
+        <p style="margin:0 0 1rem; opacity:.95;">${escapeHTML(details)}</p>
+        ${ev.agenda ? `<h4>Agenda</h4><p>${escapeHTML(ev.agenda)}</p>` : ""}
+        ${ev.speakers ? `<h4>Speakers</h4><p>${escapeHTML(ev.speakers)}</p>` : ""}
+      </div>
+      <div class="modal-actions">
+        ${hasLink ? `<a class="btn btn-primary size-lg" href="${ev.link}" target="_blank" rel="noopener">RSVP / Event page</a>` : ""}
+        <button class="btn btn-outline size-lg modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>`;
   }
 
-  function togglePopoverForButton(btn) {
-    const popId = btn.getAttribute("aria-controls");
-    const pop = byId(popId);
-    if (!pop) return;
-    const isOpen = pop.classList.contains("open");
-    if (isOpen) {
-      pop.classList.remove("open");
-      pop.setAttribute("aria-hidden", "true");
-      btn.setAttribute("aria-expanded", "false");
-      btn.focus({ preventScroll: true });
-    } else {
-      openPopover(pop, btn);
+  let lastFocusEl = null;
+
+  function openModal(ev) {
+    if (!ev) return;
+
+    // Close any existing modal
+    closeModal();
+
+    // Inject modal
+    modalRoot.innerHTML = buildModalHTML(ev);
+    modalRoot.removeAttribute("aria-hidden");
+
+    // Focus handling
+    lastFocusEl = document.activeElement;
+    const overlay = qs(".event-modal-overlay", modalRoot);
+    const closeBtns = qsa(".modal-close", overlay);
+    const firstClose = closeBtns[0];
+
+    // Close handlers
+    function handleEsc(e){
+      if (e.key === "Escape") closeModal();
     }
+    function handleOverlayClick(e){
+      if (e.target === overlay) closeModal();
+    }
+    closeBtns.forEach(btn => btn.addEventListener("click", closeModal));
+    document.addEventListener("keydown", handleEsc);
+    overlay.addEventListener("click", handleOverlayClick);
+
+    // Store cleanup to overlay dataset
+    overlay._cleanup = () => {
+      document.removeEventListener("keydown", handleEsc);
+      overlay.removeEventListener("click", handleOverlayClick);
+    };
+
+    // Focus inside modal
+    if (firstClose) firstClose.focus({ preventScroll: true });
   }
 
-  // Delegate clicks inside the list
+  function closeModal() {
+    const overlay = qs(".event-modal-overlay", modalRoot);
+    if (!overlay) return;
+    if (typeof overlay._cleanup === "function") overlay._cleanup();
+    modalRoot.innerHTML = "";
+    modalRoot.setAttribute("aria-hidden", "true");
+    if (lastFocusEl && typeof lastFocusEl.focus === "function") {
+      lastFocusEl.focus({ preventScroll: true });
+    }
+    lastFocusEl = null;
+  }
+
+  // ---------- Interactions
   function wireListInteractions() {
-    listEl.addEventListener("click", (e) => {
-      const titleBtn = e.target.closest(".event-title");
-      if (titleBtn) {
+    // Title -> open modal
+    qsa(".event-title", listEl).forEach(btn => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
-        togglePopoverForButton(titleBtn);
-        return;
-      }
-      const closeBtn = e.target.closest(".popover-close");
-      if (closeBtn) {
-        const pop = closeBtn.closest(".event-popover");
-        if (!pop) return;
-        const btn = qs(`.event-title[aria-controls="${pop.id}"]`, listEl);
-        pop.classList.remove("open");
-        pop.setAttribute("aria-hidden", "true");
-        if (btn) {
-          btn.setAttribute("aria-expanded", "false");
-          btn.focus({ preventScroll: true });
-        }
-      }
+        const id = btn.getAttribute("data-id");
+        openModal(EVENT_BY_ID[id]);
+      });
     });
 
-    // Click outside closes
-    document.addEventListener("click", (e) => {
-      const insideCard = e.target.closest(".card.event");
-      const insidePopover = e.target.closest(".event-popover.open");
-      if (!insideCard && !insidePopover) closeAllPopovers();
+    // Details button -> open modal
+    qsa(".btn-details", listEl).forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = btn.getAttribute("data-id");
+        openModal(EVENT_BY_ID[id]);
+      });
     });
-
-    // Esc closes
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeAllPopovers();
-    });
-  }
-
-  // ---------- Filters
-  function applyFilter() {
-    const cards = qsa(".card.event", listEl);
-    let shown = 0;
-    cards.forEach(card => {
-      const cat = card.getAttribute("data-cat");
-      const show = (activeCat === "all" || cat === activeCat);
-      card.style.display = show ? "" : "none";
-      if (show) shown++;
-    });
-    emptyEl.classList.toggle("hidden", shown > 0);
-    closeAllPopovers();
   }
 
   function wireFilters() {
     filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
+        // Toggle active styling/ARIA
         filterBtns.forEach(b => {
           b.classList.remove("active");
           b.setAttribute("aria-pressed", "false");
         });
         btn.classList.add("active");
         btn.setAttribute("aria-pressed", "true");
-        activeCat = btn.getAttribute("data-cat");
-        applyFilter();
+
+        // Update category + re-render
+        activeCat = btn.getAttribute("data-cat") || "all";
+        renderList();
+        // Close any open modal on filter change
+        closeModal();
       });
     });
   }
 
   // ---------- Init
   async function init() {
-    // Optional: show a tiny loading state
     listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading events…</p>`;
 
     EVENTS = await loadEvents();
-    renderEvents();
-    wireListInteractions();
-    wireFilters();
-    applyFilter();
+    EVENT_BY_ID = Object.fromEntries(
+      EVENTS.map(ev => [ev.id || ("ev_" + Math.random().toString(36).slice(2,8)), ev])
+    );
 
-    // Expose for debugging if needed
+    renderList();
+    wireFilters();
+
+    // expose for debugging
     window.NEXTGEN_EVENTS = EVENTS;
   }
 
