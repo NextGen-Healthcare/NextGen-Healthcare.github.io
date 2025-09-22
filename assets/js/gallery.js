@@ -10,7 +10,7 @@
     "SIG Events",
   ];
 
-  // DOM
+  // ---- DOM ----
   const filtersEl = document.getElementById("gallery-filters");
   const gridEl = document.getElementById("gallery-grid");
   const emptyEl = document.getElementById("gallery-empty");
@@ -25,13 +25,14 @@
   const btnNext = modal.querySelector(".next");
   const btnClose = modal.querySelector(".close-btn");
 
-  // State
+  // ---- State ----
   let ITEMS = [];
   let ACTIVE_CAT = "All Events";
   let ACTIVE_ITEM = null;
   let ACTIVE_INDEX = 0;
   let lastFocus = null;
 
+  // ---- Helpers ----
   const escapeHTML = (s = "") =>
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
@@ -42,18 +43,83 @@
     return d.toLocaleDateString(undefined, { year: "numeric", month: "short" });
   };
 
+  function safeUUID() {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+    return "id-" + Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  // Adapt V2 JSON shape { meta, photosByEvent } -> array of items
+  function parseKeyToEvent(id, photos = []) {
+    const parts = String(id).toLowerCase().split("-");
+    let date = "";
+    let category = "Network Sessions";
+    let location = "";
+    let title = "";
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(parts.slice(0, 3).join("-"))) {
+      date = parts.slice(0, 3).join("-");
+      parts.splice(0, 3);
+    } else if (/^\d{4}$/.test(parts[0])) {
+      parts.splice(0, 1);
+    } else if (/^\d{4}-q[1-4]$/.test(parts.slice(0, 2).join("-"))) {
+      parts.splice(0, 2);
+    }
+
+    const str = parts.join("-");
+    if (str.includes("coffee")) category = "Coffee & Catch-Ups";
+    else if (str.includes("iheem")) category = "IHEEM Gatherings";
+    else if (str.includes("drinks")) category = "After Work Drinks";
+    else if (str.includes("sig")) category = "SIG Events";
+    else if (str.includes("network")) category = "Network Sessions";
+
+    if (parts.length > 0) {
+      const last = parts[parts.length - 1];
+      if (!["coffee","catch","ups","iheem","drinks","network","session","sessions","sig","energy","sustainability","kickoff","q1","q2","q3","q4"].includes(last)) {
+        location = last.replace(/\b\w/g, c => c.toUpperCase());
+      }
+    }
+
+    const categoryTitleMap = {
+      "Coffee & Catch-Ups": "Coffee & Catch-Ups",
+      "IHEEM Gatherings": "IHEEM Gathering",
+      "After Work Drinks": "After Work Drinks",
+      "Network Sessions": "All Network Session",
+      "SIG Events": "SIG Event"
+    };
+    const base = categoryTitleMap[category] || "Event";
+    title = location ? `${base} — ${location}` : base;
+
+    return {
+      id,
+      title,
+      date,
+      category,
+      location,
+      photos: photos.map(p => ({ src: p.src, alt: p.alt || title })),
+    };
+  }
+
+  function fromV2Object(data) {
+    if (!data || typeof data !== "object" || !data.photosByEvent) return [];
+    const out = [];
+    for (const [key, photos] of Object.entries(data.photosByEvent)) {
+      if (Array.isArray(photos) && photos.length) out.push(parseKeyToEvent(key, photos));
+    }
+    return out;
+  }
+
   function readQuery() {
     const q = new URLSearchParams(location.search);
     const type = q.get("type");
     if (type && CATEGORIES.includes(type)) ACTIVE_CAT = type;
   }
+
   function writeQuery() {
     const q = new URLSearchParams(location.search);
-    if (ACTIVE_CAT && ACTIVE_CAT !== "All Events") {
-      q.set("type", ACTIVE_CAT);
-    } else {
-      q.delete("type");
-    }
+    if (ACTIVE_CAT && ACTIVE_CAT !== "All Events") q.set("type", ACTIVE_CAT);
+    else q.delete("type");
     const url = `${location.pathname}?${q.toString()}`;
     history.replaceState(null, "", url.endsWith("?") ? url.slice(0, -1) : url);
   }
@@ -72,7 +138,7 @@
 
     const frag = document.createDocumentFragment();
     list.forEach((it) => {
-      if (!it.photos || !it.photos.length) return; // skip empty galleries
+      if (!it.photos || !it.photos.length) return;
       const cover = it.photos[0];
       const a = document.createElement("a");
       a.href = "#";
@@ -142,6 +208,11 @@
     updateSlide();
   }
 
+  // Keep a named backdrop handler so we can remove it
+  function backdropClick(e) {
+    if (e.target === modal) closeModal();
+  }
+
   function onKey(e) {
     if (!modal.classList.contains("is-open")) return;
     if (e.key === "Escape") { e.preventDefault(); closeModal(); }
@@ -154,16 +225,14 @@
     btnNext.addEventListener("click", nextSlide);
     btnPrev.addEventListener("click", prevSlide);
     window.addEventListener("keydown", onKey);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal(); // click backdrop to close
-    });
+    modal.addEventListener("click", backdropClick);
   }
   function removeModalListeners() {
     btnClose.removeEventListener("click", closeModal);
     btnNext.removeEventListener("click", nextSlide);
     btnPrev.removeEventListener("click", prevSlide);
     window.removeEventListener("keydown", onKey);
-    modal.removeEventListener("click", closeModal);
+    modal.removeEventListener("click", backdropClick);
   }
 
   function attachFilterHandlers() {
@@ -182,6 +251,11 @@
       const res = await fetch(DATA_URL, { cache: "no-cache" });
       if (!res.ok) throw new Error(res.statusText);
       const data = await res.json();
+
+      // Support V2 object or original array
+      if (data && typeof data === "object" && !Array.isArray(data)) {
+        return fromV2Object(data);
+      }
       return Array.isArray(data) ? data : [];
     } catch {
       // Fallback: window.nextgen.gallery if present
@@ -189,122 +263,31 @@
     }
   }
 
-  function parseKeyToEvent(id, photos = []) {
-  // Example keys:
-  // 2025-06-12-drinks-london
-  // 2025-q4-coffee-london
-  // 2024-10-08-iheem
-  // 2025-network-session
-  const parts = String(id).toLowerCase().split("-");
-  let date = "";
-  let category = "Network Sessions";
-  let location = "";
-  let title = "";
-
-  // Try date YYYY-MM-DD at start
-  if (/^\d{4}-\d{2}-\d{2}$/.test(parts.slice(0,3).join("-"))) {
-    date = parts.slice(0,3).join("-");
-    parts.splice(0,3);
-  } else if (/^\d{4}$/.test(parts[0])) {
-    // year only (leave date empty or construct 1st Jan if you prefer sorting)
-    // date = `${parts[0]}-01-01`;
-    parts.splice(0,1);
-  } else if (/^\d{4}-q[1-4]$/.test(parts.slice(0,2).join("-"))) {
-    // quarter (no exact day)
-    // date = `${parts[0]}-01-01`; // optional
-    parts.splice(0,2);
+  function normalizeItems(raw) {
+    const allowed = new Set(CATEGORIES.filter(c => c !== "All Events"));
+    return (raw || [])
+      .filter(it => it && it.title && it.photos && it.photos.length)
+      .map(it => ({
+        id: it.id || safeUUID(),
+        title: String(it.title),
+        date: it.date || "",
+        category: allowed.has(it.category) ? it.category : "Network Sessions",
+        location: it.location || "",
+        photos: it.photos.map(p => ({ src: p.src, alt: p.alt || it.title })),
+      }))
+      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   }
 
-  // Map category keywords
-  const str = parts.join("-");
-  if (str.includes("coffee")) category = "Coffee & Catch-Ups";
-  else if (str.includes("iheem")) category = "IHEEM Gatherings";
-  else if (str.includes("drinks")) category = "After Work Drinks";
-  else if (str.includes("sig")) category = "SIG Events";
-  else if (str.includes("network")) category = "Network Sessions";
+  async function init() {
+    readQuery();
+    renderFilters();
+    attachFilterHandlers();
 
-  // Location = last token if it looks like a place (best-effort)
-  if (parts.length > 0) {
-    const last = parts[parts.length - 1];
-    if (!["coffee","catch","ups","iheem","drinks","network","session","sessions","sig","energy","sustainability","kickoff","q1","q2","q3","q4"].includes(last)) {
-      location = last.replace(/\b\w/g, c => c.toUpperCase()); // title-case-ish
-    }
+    const data = await loadData();
+    ITEMS = normalizeItems(data);
+    renderGrid();
+    writeQuery();
   }
-
-  // Build a human title
-  const categoryTitleMap = {
-    "Coffee & Catch-Ups": "Coffee & Catch-Ups",
-    "IHEEM Gatherings": "IHEEM Gathering",
-    "After Work Drinks": "After Work Drinks",
-    "Network Sessions": "All Network Session",
-    "SIG Events": "SIG Event"
-  };
-  const base = categoryTitleMap[category] || "Event";
-  title = location ? `${base} — ${location}` : base;
-
-  return {
-    id,
-    title,
-    date,
-    category,
-    location,
-    photos: photos.map(p => ({
-      src: p.src,
-      alt: p.alt || title
-    })),
-  };
-}
-
-function fromV2Object(data) {
-  // data = { meta: {...}, photosByEvent: { "<key>": [ {src,alt}, ... ], ... } }
-  if (!data || typeof data !== "object" || !data.photosByEvent) return [];
-  const out = [];
-  for (const [key, photos] of Object.entries(data.photosByEvent)) {
-    if (Array.isArray(photos) && photos.length) {
-      out.push(parseKeyToEvent(key, photos));
-    }
-  }
-  return out;
-}
-
-
-function normalizeItems(raw) {
-  const allowed = new Set(CATEGORIES.filter(c => c !== "All Events"));
-  return raw
-    .filter(it => it && it.title && it.photos && it.photos.length)
-    .map(it => ({
-      id: it.id || (crypto?.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
-      title: String(it.title),
-      date: it.date || "",
-      category: allowed.has(it.category) ? it.category : "Network Sessions",
-      location: it.location || "",
-      photos: it.photos.map(p => ({ src: p.src, alt: p.alt || it.title })),
-    }))
-    .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-}
-
-
- async function loadData() {
-  try {
-    const res = await fetch(DATA_URL, { cache: "no-cache" });
-    if (!res.ok) throw new Error(res.statusText);
-    const data = await res.json();
-
-    // V2 object support
-    if (data && typeof data === "object" && !Array.isArray(data)) {
-      const v2 = fromV2Object(data);
-      if (v2.length) return v2;
-      return [];
-    }
-
-    // Original array support
-    return Array.isArray(data) ? data : [];
-  } catch {
-    // Fallback: window.nextgen.gallery if present
-    return (window.nextgen && Array.isArray(window.nextgen.gallery) && window.nextgen.gallery) || [];
-  }
-}
-
 
   document.addEventListener("DOMContentLoaded", init);
 })();
