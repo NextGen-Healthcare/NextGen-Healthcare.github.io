@@ -32,9 +32,10 @@ function buildJoinHref(sig) {
     "",
     "Name:",
     "Organisation:",
-    "Role:",
+    "Job Title (Plus summary of role if unclear):",
     "Location:",
-    "LinkedIn / Contact:",
+    "Motivation behind joining Working Group:",
+    "Topic proposals for Working Group:",
     "",
     "Thanks!"
   ].join("\r\n"); // CRLF is safest for email
