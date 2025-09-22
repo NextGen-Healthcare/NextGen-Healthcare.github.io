@@ -33,6 +33,56 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"H
 .hidden{display:none}
 .text-lg{font-size:1.05rem}
 
+/* --- Enhanced buttons (shadcn-like variants) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: .75rem;              /* rounded-lg */
+  font-weight: 600;
+  line-height: 1;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+/* Sizes */
+.btn-lg, .size-lg       { padding: .75rem 1rem;   font-size: 1rem; }
+.btn-xl, .size-xl       { padding: .9rem 1.25rem; font-size: 1.125rem; }
+.btn-sm, .size-sm       { padding: .5rem .9rem;   font-size: .85rem; }
+
+/* Variants */
+.btn-hero {
+  background: #316598;                 /* primary */
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(49,101,152,.35);
+}
+.btn-hero:hover {
+  transform: scale(1.05);
+  box-shadow: 0 14px 34px rgba(49,101,152,.45), 0 0 0 4px rgba(49,101,152,.18);
+}
+
+/* Navy outline */
+.btn-navy-outline {
+  border: 2px solid #1B244D;          /* accent */
+  background: transparent;
+  color: #1B244D;
+}
+.btn-navy-outline:hover {
+  background: #1B244D;
+  color: #fff;
+}
+
+/* Your existing outline, kept but upgraded slightly */
+.btn-outline {
+  border: 2px solid #316598;          /* primary */
+  background: transparent;
+  color: #316598;
+}
+.btn-outline:hover {
+  background: #316598;
+  color: #fff;
+}
+
 
 /* Header/Nav */
 .site-header{background:var(--bg-primary);color:#fff;position:sticky;top:0;z-index:50}
