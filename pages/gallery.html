@@ -43,8 +43,21 @@
 
   /* Tiles */
   .tile { display:block; text-decoration:none; color:inherit; overflow:hidden; }
-  .tile figure { margin:0; position:relative; background:#F5F5F6; }
-  .tile img { width:100%; height:auto; display:block; }
+  /* Fixed-height tiles via aspect-ratio, no distortion */
+  .tile figure {
+    margin: 0;
+    position: relative;
+    aspect-ratio: 16/10;   /* keeps all tiles same height */
+    background: #F5F5F6;
+  }
+  
+  /* Fill the box and crop as needed (no stretching) */
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* crops edges to fit 16:10 */
+    display: block;
+  }
   .tile .tile-meta { padding:1rem 1rem 1.1rem; }
   .tile .badge {
     display:inline-block; font-size:.8rem; font-weight:700; padding:.35rem .6rem;
@@ -62,12 +75,14 @@
   .lightbox-inner {
     position:relative; max-width: min(96vw, 1100px); width:100%;
   }
+  /* optional: ensure no cropping in lightbox even if container is wider/taller */
   .lightbox-stage {
-    position:relative; background:#000; border-radius: calc(var(--radius) + 6px);
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .lightbox-stage img {
-    display:block; width:100%; height:auto; max-height: 78vh; margin: 0 auto;
+    object-fit: contain;   /* safe even with height:auto; */
   }
   .lightbox-caption {
     color:#fff; display:flex; justify-content:space-between; align-items:center;
