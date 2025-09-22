@@ -1,46 +1,47 @@
 [
+  
+  {
+    "id": "2025-iheem-meetup-manchester",
+    "title": "IHEEM Meetup",
+    "date": "2025-11-21",
+    "time": "17:30–19:00",
+    "location": "Manchester Central",
+    "category": "iheem",
+    "short": "Informal meetup for drinks after IHEEM.",
+    "details": "Gather near the main entrance; venue move after 18:00. Bring a colleague.",
+    "link": "https://www.linkedin.com/groups/13324053/"
+  },
+  {
+    "id": "2024-iheem-meetup-manchester",
+    "title": "IHEEM Meetup",
+    "date": "2024-11-08",
+    "time": "17:30–19:00",
+    "location": "Manchester Central",
+    "category": "iheem",
+    "short": "Informal meetup for drinks after IHEEM.",
+    "details": "Gather near the main entrance; venue move after 18:00.",
+    "link": "https://lnkd.in/p/en8zSd2b"
+  },
+  {
+    "id": "2025-network-session",
+    "title": "All Network Session: Connections Event",
+    "date": "2025-05-01",
+    "time": "18:00–19:30",
+    "location": "WSP Chancery Lane, London",
+    "category": "all-network",
+    "short": "Talks + panel + networking.",
+    "details": "Join us at the WSP offices on Chancery Lane, London, for our first major event of 2025: an evening of idea generation and casual networking.",
+    "link": "https://lnkd.in/p/ep3UKJwv"
+  },
   {
     "id": "2025-q4-coffee-london",
     "title": "Coffee & Catch-Up (London)",
-    "date": "2025-10-10",
+    "date": "2025-09-16",
     "time": "08:00–09:00",
     "location": "King’s Cross, London",
     "category": "coffee",
     "short": "Casual morning coffee to meet peers.",
-    "details": "Agenda: intros, lightning updates, peer asks. Hosts: NextGen team. Expect 15–25 attendees.",
-    "link": "https://www.linkedin.com/groups/XXXXXXXXX/"
-  },
-  {
-    "id": "2025-iheem-meetup-manchester",
-    "title": "IHEEM Congress Meetup",
-    "date": "2025-11-05",
-    "time": "17:30–19:00",
-    "location": "Manchester Central",
-    "category": "iheem",
-    "short": "Informal meetup during IHEEM Congress.",
-    "details": "Gather near the main entrance; venue move after 18:00. Bring a colleague.",
-    "link": "https://www.linkedin.com/groups/XXXXXXXXX/"
-  },
-  {
-    "id": "2025-network-session-q4",
-    "title": "Q4 Network Session: Energy & Sustainability",
-    "date": "2025-11-20",
-    "time": "18:00–19:30",
-    "location": "Royal Society of Medicine, London",
-    "category": "all-network",
-    "short": "Talks + panel + networking.",
-    "details": "Lightning talks from Trusts, panel on decarbonisation pathways, 30-min networking.",
-    "link": "https://example.com/events/q4-session"
-  },
-  {
-    "id": "2025-drinks-leeds",
-    "title": "After Work Drinks (Leeds)",
-    "date": "2025-12-04",
-    "time": "18:00–20:00",
-    "location": "Leeds city centre",
-    "category": "drinks",
-    "short": "Relaxed drinks to close the year.",
-    "details": "First round covered for first 20 RSVPs. Venue TBC.",
-    "link": "https://example.com/events/leeds-drinks"
+    "details": "Ambition into action! Join the NGHN to discuss the hot topics of the healthcare sector at our informal pre-work meet ups",
+    "link": "https://lnkd.in/p/eUud9MVJ"
   }
 ]
