@@ -1,9 +1,11 @@
 // /assets/js/sigs.js
 (() => {
-  const DATA_URL = "../assets/data/sigs.json"; // from /pages/sigs.html
+  "use strict";
+
+  const DATA_URL = "../assets/data/sigs.json"; // path is from /pages/sigs.html
   const JOIN_EMAIL = "nghnteam@gmail.com";
 
-  // DOM helpers
+  // ---------- DOM helpers
   const byId = (id) => document.getElementById(id);
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -48,7 +50,7 @@
     }).join(", ");
   }
 
-  // ------ Card template
+  // ---------- Card template
   function cardHTML(sig) {
     const id = sig.id || ("sig_" + Math.random().toString(36).slice(2, 8));
     const joinHref = buildJoinHref(sig);
@@ -86,7 +88,7 @@
     wireCardInteractions();
   }
 
-  // ------ Modal (reuses global .event-modal styles)
+  // ---------- Modal (reuses global .event-modal styles)
   function buildModalHTML(sig) {
     const id = sig.id || "sig";
     const joinHref = buildJoinHref(sig);
@@ -171,7 +173,7 @@
     });
   }
 
-  // ------ Load + init
+  // ---------- Load + init
   async function loadSIGs() {
     try {
       const res = await fetch(DATA_URL, { cache: "no-store" });
@@ -187,4 +189,35 @@
 
   async function init() {
     if (!listEl) return;
-    listEl.innerHTML = `<p class="center" style
+    // Loader text (your original file was cut off here, causing a syntax error)
+    listEl.innerHTML = '<p class="center" style="opacity:.8;">Loading SIGs…</p>';
+
+    SIGS = await loadSIGs();
+    // Build a safe ID map (and ensure each item has an id)
+    BY_ID = {};
+    SIGS.forEach((s) => {
+      const id = s.id || ("sig_" + Math.random().toString(36).slice(2, 8));
+      s.id = id;
+      BY_ID[id] = s;
+    });
+
+    if (SIGS.length === 0) {
+      listEl.innerHTML = "";
+      emptyEl?.classList.remove("hidden");
+      return;
+    }
+
+    renderList();
+
+    // Optional: open modal if URL hash matches a SIG id (e.g., sigs.html#sig-energy)
+    const hash = (location.hash || "").replace(/^#/, "");
+    if (hash && BY_ID[hash]) openModal(BY_ID[hash]);
+  }
+
+  // Run when DOM is ready (script is at the end of the body, but this is extra-safe)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
