@@ -1,7 +1,8 @@
 <footer class="site-footer bg-gradient-primary" style="color:#fff;">
   <div class="container" style="max-width:1120px; margin:0 auto; padding:3rem 1rem;">
-    <div style="display:grid; gap:2rem; grid-template-columns:1fr;">
-      <!-- About -->
+
+    <div class="footer-grid" style="display:grid; gap:2rem; grid-template-columns:1fr;">
+      <!-- NextGen Healthcare -->
       <div>
         <h3 style="font-weight:700; margin:0 0 .5rem;">NextGen Healthcare</h3>
         <p style="opacity:.9; margin:0 0 .75rem;">
@@ -32,7 +33,7 @@
         </ul>
       </div>
 
-      <!-- Event Categories -->
+      <!-- Upcoming Events -->
       <div>
         <h3 style="font-weight:700; margin:0 0 .75rem;">Upcoming Events</h3>
         <ul style="list-style:none; padding:0; margin:0; display:grid; gap:.5rem;">
@@ -43,7 +44,7 @@
         </ul>
       </div>
 
-      <!-- Contact -->
+      <!-- Contact Us -->
       <div>
         <h3 style="font-weight:700; margin:0 0 .75rem;">Contact Us</h3>
         <ul style="list-style:none; padding:0; margin:0; display:grid; gap:.6rem;">
@@ -63,4 +64,14 @@
       © <span id="year"></span> NextGen Healthcare Network. All rights reserved.
     </div>
   </div>
+
+  <!-- Responsive columns just for this footer -->
+  <style>
+    @media (min-width: 700px) {
+      .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (min-width: 1024px) {
+      .footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+  </style>
 </footer>
