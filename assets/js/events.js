@@ -25,6 +25,16 @@
     return d.toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
   };
 
+// Date helpers (avoid TZ gotchas by constructing local date-only)
+const dateOnly = (iso) => {
+  if (!iso || typeof iso !== "string") return null;
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  return new Date(+m[1], +m[2]-1, +m[3], 0, 0, 0, 0);
+};
+const startOfToday = () => { const d = new Date(); d.setHours(0,0,0,0); return d; };
+
+  
   // ---------- Load data (pure JSON)
   async function loadEvents() {
     try {
@@ -203,6 +213,72 @@
     });
   }
 
+  function renderPastHighlights() {
+  const wrap = document.getElementById("past-highlights");
+  const empty = document.getElementById("past-empty");
+  if (!wrap) return;
+
+  const today = startOfToday();
+
+  const mostRecentPast = (predicate) => {
+    return EVENTS
+      .filter(ev => {
+        const d = dateOnly(ev.date);
+        return d && d < today && predicate(ev);
+      })
+      .sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
+  };
+
+  // 1) Network Sessions
+  const h1 = mostRecentPast(ev => (ev.category || "") === "all-network");
+
+  // 2) More recent of Coffee or Drinks
+  const coffee = mostRecentPast(ev => (ev.category || "") === "coffee");
+  const drinks = mostRecentPast(ev => (ev.category || "") === "drinks");
+  const h2 = [coffee, drinks].filter(Boolean).sort((a,b) => dateOnly(b.date) - dateOnly(a.date))[0] || null;
+
+  // 3) IHEEM Gatherings
+  const h3 = mostRecentPast(ev => (ev.category || "") === "iheem");
+
+  const picks = [h1, h2, h3].filter(Boolean);
+
+  const cardHTML = (ev) => `
+<article class="card highlight" role="listitem" data-id="${ev.id}">
+  <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+  <div class="p-6">
+    <h3 class="mb-0">
+      <button class="event-title" data-id="${ev.id}" aria-haspopup="dialog">
+        ${escapeHTML(ev.title || "Event")}
+      </button>
+    </h3>
+    <p style="opacity:.85; margin:.5rem 0 1rem;">
+      <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""}
+      &nbsp; <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")}
+    </p>
+    ${ev.short ? `<p class="mb-0" style="opacity:.9;">${escapeHTML(ev.short)}</p>` : ""}
+    ${ev.link ? `<p style="margin-top:.75rem;"><a class="btn btn-outline size-sm" href="${ev.link}" target="_blank" rel="noopener">Event page</a></p>` : ""}
+  </div>
+</article>`.trim();
+
+  if (picks.length) {
+    wrap.innerHTML = picks.map(cardHTML).join("");
+    empty?.classList.add("hidden");
+  } else {
+    wrap.innerHTML = "";
+    empty?.classList.remove("hidden");
+  }
+
+  // open modal from highlight cards too
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".event-title");
+    if (!btn) return;
+    e.preventDefault();
+    const id = btn.getAttribute("data-id");
+    if (!id) return;
+    openModal?.(EVENT_BY_ID[id]); // uses your existing modal function
+  }, { once: true }); // bind once after first render
+}
+
   // ---------- Init
   async function init() {
     listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading events…</p>`;
@@ -214,6 +290,7 @@
 
     renderList();
     wireFilters();
+    renderPastHighlights();
 
     // expose for debugging
     window.NEXTGEN_EVENTS = EVENTS;
