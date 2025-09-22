@@ -48,105 +48,18 @@
     "link": "https://lnkd.in/p/eUud9MVJ"
   },
 
-  /* ---- Derived from your photo list ---- */
-
-  {
-    "id": "2025-06-12-drinks-london",
-    "title": "After Work Drinks – London",
-    "date": "2025-06-12",
-    "location": "London",
-    "category": "drinks",
-    "categoryLabel": "After Work Drinks"
-  },
-  {
-    "id": "2025-03-11-coffee-birmingham",
-    "title": "Coffee & Catch-Ups – Birmingham",
-    "date": "2025-03-11",
-    "location": "Birmingham",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2025-03-11-coffee-bristol",
-    "title": "Coffee & Catch-Ups – Bristol",
-    "date": "2025-03-11",
-    "location": "Bristol",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2025-03-11-coffee-london",
-    "title": "Coffee & Catch-Ups – London",
-    "date": "2025-03-11",
-    "location": "London",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2025-02-20-drinks-manchester",
-    "title": "After Work Drinks – Manchester",
-    "date": "2025-02-20",
-    "location": "Manchester",
-    "category": "drinks",
-    "categoryLabel": "After Work Drinks"
-  },
-  {
-    "id": "2024-12-05-network-session",
-    "title": "All Network Session",
-    "date": "2024-12-05",
-    "category": "all-network",
-    "categoryLabel": "Network Sessions"
-  },
-  {
-    "id": "2024-10-08-iheem",
-    "title": "IHEEM Gathering",
-    "date": "2024-10-08",
-    "category": "iheem",
-    "categoryLabel": "IHEEM Gatherings"
-  },
-  {
-    "id": "2024-07-09-coffee-london",
-    "title": "Coffee & Catch-Ups – London",
-    "date": "2024-07-09",
-    "location": "London",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2024-07-09-coffee-manchester",
-    "title": "Coffee & Catch-Ups – Manchester",
-    "date": "2024-07-09",
-    "location": "Manchester",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2024-05-12-network-session",
-    "title": "All Network Session",
-    "date": "2024-05-12",
-    "category": "all-network",
-    "categoryLabel": "Network Sessions"
-  },
-  {
-    "id": "2024-03-12-coffee-london",
-    "title": "Coffee & Catch-Ups – London",
-    "date": "2024-03-12",
-    "location": "London",
-    "category": "coffee",
-    "categoryLabel": "Coffee & Catch-Ups"
-  },
-  {
-    "id": "2023-11-21-network-session",
-    "title": "All Network Session",
-    "date": "2023-11-21",
-    "category": "all-network",
-    "categoryLabel": "Network Sessions"
-  },
-  {
-    "id": "2025-08-12-sig-energy-sustainability",
-    "title": "SIG: Energy & Sustainability – Kickoff",
-    "date": "2025-08-12",
-    "category": "sig",
-    "categoryLabel": "SIG Events"
-  }
+  /* --- derived from your photo list (no extra fields) --- */
+  { "id": "2025-06-12-drinks-london",       "title": "After Work Drinks – London",       "date": "2025-06-12", "location": "London",     "category": "drinks",       "categoryLabel": "After Work Drinks" },
+  { "id": "2025-03-11-coffee-birmingham",   "title": "Coffee & Catch-Ups – Birmingham",  "date": "2025-03-11", "location": "Birmingham", "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2025-03-11-coffee-bristol",      "title": "Coffee & Catch-Ups – Bristol",     "date": "2025-03-11", "location": "Bristol",    "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2025-03-11-coffee-london",       "title": "Coffee & Catch-Ups – London",      "date": "2025-03-11", "location": "London",     "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2025-02-20-drinks-manchester",   "title": "After Work Drinks – Manchester",   "date": "2025-02-20", "location": "Manchester", "category": "drinks",       "categoryLabel": "After Work Drinks" },
+  { "id": "2024-12-05-network-session",     "title": "All Network Session",              "date": "2024-12-05", "category": "all-network","categoryLabel": "Network Sessions" },
+  { "id": "2024-10-08-iheem",               "title": "IHEEM Gathering",                  "date": "2024-10-08", "category": "iheem",      "categoryLabel": "IHEEM Gatherings" },
+  { "id": "2024-07-09-coffee-london",       "title": "Coffee & Catch-Ups – London",      "date": "2024-07-09", "location": "London",     "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2024-07-09-coffee-manchester",   "title": "Coffee & Catch-Ups – Manchester",  "date": "2024-07-09", "location": "Manchester", "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2024-05-12-network-session",     "title": "All Network Session",              "date": "2024-05-12", "category": "all-network","categoryLabel": "Network Sessions" },
+  { "id": "2024-03-12-coffee-london",       "title": "Coffee & Catch-Ups – London",      "date": "2024-03-12", "location": "London",     "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
+  { "id": "2023-11-21-network-session",     "title": "All Network Session",              "date": "2023-11-21", "category": "all-network","categoryLabel": "Network Sessions" },
+  { "id": "2025-08-12-sig-energy-sustainability", "title": "SIG: Energy & Sustainability – Kickoff", "date": "2025-08-12", "category": "sig", "categoryLabel": "SIG Events" }
 ]
