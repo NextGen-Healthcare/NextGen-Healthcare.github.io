@@ -1,6 +1,7 @@
 // /assets/js/sigs.js
 (() => {
-  const DATA_URL = "../assets/data/sigs.json"; // path is from /pages/sigs.html
+  const DATA_URL = "../assets/data/sigs.json"; // from /pages/sigs.html
+  const JOIN_EMAIL = "nghnteam@gmail.com";
 
   // DOM helpers
   const byId = (id) => document.getElementById(id);
@@ -18,10 +19,41 @@
   const escapeHTML = (s = "") =>
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
-  // ------ Card template (same vibe as events)
+  function buildJoinHref(sig) {
+    const name = sig?.name || "SIG";
+    const subject = `Join SIG: ${name}`;
+    const body = [
+      "Hi NextGen team,",
+      "",
+      `I'd like to join the ${name} SIG.`,
+      "",
+      "Name:",
+      "Organisation:",
+      "Role:",
+      "Location:",
+      "LinkedIn / Contact:",
+      "",
+      "Thanks!"
+    ].join("%0D%0A");
+    return `mailto:${JOIN_EMAIL}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  }
+
+  // Accepts leads as array of strings or objects with {name}; outputs plain text (no mailto)
+  function leadsInline(sig) {
+    if (!Array.isArray(sig?.leads) || !sig.leads.length) return "TBC";
+    return sig.leads.map(l => {
+      if (typeof l === "string") return escapeHTML(l);
+      if (l && typeof l.name === "string") return escapeHTML(l.name);
+      return "Lead";
+    }).join(", ");
+  }
+
+  // ------ Card template
   function cardHTML(sig) {
     const id = sig.id || ("sig_" + Math.random().toString(36).slice(2, 8));
-    const hasJoin = !!sig.join_link;
+    const joinHref = buildJoinHref(sig);
+    const leadsLine = leadsInline(sig);
+
     return `
 <article class="card sig" role="listitem" data-id="${escapeHTML(id)}">
   <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
@@ -36,8 +68,11 @@
       &nbsp; <span aria-hidden="true">💬</span> ${escapeHTML(sig.channel || "Channel TBC")}
     </p>
     ${sig.short ? `<p style="margin:.5rem 0 0; opacity:.9;">${escapeHTML(sig.short)}</p>` : ""}
+    <p class="muted" style="margin:.5rem 0 0;">
+      <span aria-hidden="true">👥</span> <strong>Leads:</strong> ${leadsLine}
+    </p>
     <div class="card-actions">
-      ${hasJoin ? `<a class="btn btn-primary size-sm" href="${sig.join_link}" target="_blank" rel="noopener">Join SIG</a>` : ""}
+      <a class="btn btn-primary size-sm" href="${joinHref}">Email to join</a>
       <button class="btn btn-outline size-sm btn-details" data-id="${escapeHTML(id)}">Details</button>
     </div>
   </div>
@@ -54,13 +89,8 @@
   // ------ Modal (reuses global .event-modal styles)
   function buildModalHTML(sig) {
     const id = sig.id || "sig";
-    const leadLine = Array.isArray(sig.leads) && sig.leads.length
-      ? sig.leads.map(l => {
-          const n = escapeHTML(l.name || "Lead");
-          const e = l.email ? `<a href="mailto:${escapeHTML(l.email)}">${escapeHTML(l.email)}</a>` : "";
-          return e ? `${n} (${e})` : n;
-        }).join(", ")
-      : "TBC";
+    const joinHref = buildJoinHref(sig);
+    const leadsLine = leadsInline(sig);
 
     return `
 <div class="event-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-${escapeHTML(id)}" data-modal-id="${escapeHTML(id)}">
@@ -75,18 +105,17 @@
       <p class="modal-meta" style="margin-top:.25rem;">
         <span aria-hidden="true">📅</span> ${escapeHTML(sig.meeting || "Cadence TBC")} &nbsp;
         <span aria-hidden="true">💬</span> ${escapeHTML(sig.channel || "Channel TBC")} &nbsp;
-        <span aria-hidden="true">👥</span> ${escapeHTML(leadLine)}
+        <span aria-hidden="true">👥</span> ${leadsLine}
       </p>
 
       <div class="modal-body">
         ${sig.details ? `<p style="margin:0 0 1rem; opacity:.95;">${escapeHTML(sig.details)}</p>` : ""}
         ${Array.isArray(sig.tags) && sig.tags.length
           ? `<p style="margin:.5rem 0 0;"><strong>Tags:</strong> ${sig.tags.map(t => escapeHTML(t)).join(", ")}</p>` : ""}
-        ${sig.docs_link ? `<p style="margin:.75rem 0 0;"><a class="btn btn-outline size-sm" href="${sig.docs_link}" target="_blank" rel="noopener">SIG Guidelines / Docs</a></p>` : ""}
       </div>
 
       <div class="modal-actions">
-        ${sig.join_link ? `<a class="btn btn-primary size-lg" href="${sig.join_link}" target="_blank" rel="noopener">Join this SIG</a>` : ""}
+        <a class="btn btn-primary size-lg" href="${joinHref}">Email to join</a>
         <button class="btn btn-outline size-lg modal-close">Close</button>
       </div>
     </div>
@@ -116,7 +145,6 @@
       overlay.removeEventListener("click", onOverlayClick);
     };
 
-    // Focus the first close button for accessibility
     closeBtns[0]?.focus({ preventScroll: true });
   }
 
@@ -133,7 +161,6 @@
   }
 
   function wireCardInteractions() {
-    // Open modal via title or Details
     listEl.addEventListener("click", (e) => {
       const titleBtn = e.target.closest(".sig-title");
       const detailsBtn = e.target.closest(".btn-details");
@@ -160,16 +187,4 @@
 
   async function init() {
     if (!listEl) return;
-    listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading SIGs…</p>`;
-
-    SIGS = await loadSIGs();
-    // Index for quick lookup
-    BY_ID = Object.fromEntries(SIGS.map(sig => [sig.id || ("sig_" + Math.random().toString(36).slice(2,8)), sig]));
-    renderList();
-
-    // Expose for debugging if needed
-    window.NEXTGEN_SIGS = SIGS;
-  }
-
-  init();
-})();
+    listEl.innerHTML = `<p class="center" style
