@@ -1,6 +1,5 @@
 // /assets/js/gallery.js
 (() => {
-  const DATA_URL = "../assets/data/gallery.json";
   const CATEGORIES = [
     "All Events",
     "Coffee & Catch-Ups",
@@ -35,7 +34,6 @@
   let ACTIVE_ITEM = null;
   let ACTIVE_INDEX = 0;
   let lastFocus = null;
-  const EVENTS_URL = "../assets/data/events.json";
   let EVENT_BY_ID = {};
 
   // ---- Helpers ----
