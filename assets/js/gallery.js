@@ -189,32 +189,122 @@
     }
   }
 
-  function normalizeItems(raw) {
-    // Ensure required fields exist. Keep only valid categories.
-    const allowed = new Set(CATEGORIES.filter(c => c !== "All Events"));
-    return raw
-      .filter(it => it && it.title && it.photos && it.photos.length)
-      .map(it => ({
-        id: it.id || crypto.randomUUID(),
-        title: String(it.title),
-        date: it.date || "",
-        category: allowed.has(it.category) ? it.category : "Network Sessions",
-        location: it.location || "",
-        photos: it.photos.map(p => ({ src: p.src, alt: p.alt || it.title })),
-      }))
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  function parseKeyToEvent(id, photos = []) {
+  // Example keys:
+  // 2025-06-12-drinks-london
+  // 2025-q4-coffee-london
+  // 2024-10-08-iheem
+  // 2025-network-session
+  const parts = String(id).toLowerCase().split("-");
+  let date = "";
+  let category = "Network Sessions";
+  let location = "";
+  let title = "";
+
+  // Try date YYYY-MM-DD at start
+  if (/^\d{4}-\d{2}-\d{2}$/.test(parts.slice(0,3).join("-"))) {
+    date = parts.slice(0,3).join("-");
+    parts.splice(0,3);
+  } else if (/^\d{4}$/.test(parts[0])) {
+    // year only (leave date empty or construct 1st Jan if you prefer sorting)
+    // date = `${parts[0]}-01-01`;
+    parts.splice(0,1);
+  } else if (/^\d{4}-q[1-4]$/.test(parts.slice(0,2).join("-"))) {
+    // quarter (no exact day)
+    // date = `${parts[0]}-01-01`; // optional
+    parts.splice(0,2);
   }
 
-  async function init() {
-    readQuery();
-    renderFilters();
-    attachFilterHandlers();
+  // Map category keywords
+  const str = parts.join("-");
+  if (str.includes("coffee")) category = "Coffee & Catch-Ups";
+  else if (str.includes("iheem")) category = "IHEEM Gatherings";
+  else if (str.includes("drinks")) category = "After Work Drinks";
+  else if (str.includes("sig")) category = "SIG Events";
+  else if (str.includes("network")) category = "Network Sessions";
 
-    const data = await loadData();
-    ITEMS = normalizeItems(data);
-    renderGrid();
-    writeQuery(); // ensure URL reflects active filter (if any)
+  // Location = last token if it looks like a place (best-effort)
+  if (parts.length > 0) {
+    const last = parts[parts.length - 1];
+    if (!["coffee","catch","ups","iheem","drinks","network","session","sessions","sig","energy","sustainability","kickoff","q1","q2","q3","q4"].includes(last)) {
+      location = last.replace(/\b\w/g, c => c.toUpperCase()); // title-case-ish
+    }
   }
+
+  // Build a human title
+  const categoryTitleMap = {
+    "Coffee & Catch-Ups": "Coffee & Catch-Ups",
+    "IHEEM Gatherings": "IHEEM Gathering",
+    "After Work Drinks": "After Work Drinks",
+    "Network Sessions": "All Network Session",
+    "SIG Events": "SIG Event"
+  };
+  const base = categoryTitleMap[category] || "Event";
+  title = location ? `${base} — ${location}` : base;
+
+  return {
+    id,
+    title,
+    date,
+    category,
+    location,
+    photos: photos.map(p => ({
+      src: p.src,
+      alt: p.alt || title
+    })),
+  };
+}
+
+function fromV2Object(data) {
+  // data = { meta: {...}, photosByEvent: { "<key>": [ {src,alt}, ... ], ... } }
+  if (!data || typeof data !== "object" || !data.photosByEvent) return [];
+  const out = [];
+  for (const [key, photos] of Object.entries(data.photosByEvent)) {
+    if (Array.isArray(photos) && photos.length) {
+      out.push(parseKeyToEvent(key, photos));
+    }
+  }
+  return out;
+}
+
+
+function normalizeItems(raw) {
+  const allowed = new Set(CATEGORIES.filter(c => c !== "All Events"));
+  return raw
+    .filter(it => it && it.title && it.photos && it.photos.length)
+    .map(it => ({
+      id: it.id || (crypto?.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
+      title: String(it.title),
+      date: it.date || "",
+      category: allowed.has(it.category) ? it.category : "Network Sessions",
+      location: it.location || "",
+      photos: it.photos.map(p => ({ src: p.src, alt: p.alt || it.title })),
+    }))
+    .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+}
+
+
+ async function loadData() {
+  try {
+    const res = await fetch(DATA_URL, { cache: "no-cache" });
+    if (!res.ok) throw new Error(res.statusText);
+    const data = await res.json();
+
+    // V2 object support
+    if (data && typeof data === "object" && !Array.isArray(data)) {
+      const v2 = fromV2Object(data);
+      if (v2.length) return v2;
+      return [];
+    }
+
+    // Original array support
+    return Array.isArray(data) ? data : [];
+  } catch {
+    // Fallback: window.nextgen.gallery if present
+    return (window.nextgen && Array.isArray(window.nextgen.gallery) && window.nextgen.gallery) || [];
+  }
+}
+
 
   document.addEventListener("DOMContentLoaded", init);
 })();
