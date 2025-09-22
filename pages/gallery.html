@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gallery – NextGen Healthcare Network</title>
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css" />
+
+<!-- Page-local polish -->
+<style>
+  :root { --radius: 14px; }
+
+  .section { padding: 3.5rem 0; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 1rem; }
+  .center { text-align: center; }
+  .lead { font-size: 1.125rem; opacity: .95; }
+  .narrow { max-width: 860px; margin-left: auto; margin-right: auto; }
+
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #316598, #1B244D 70%);
+    color: #fff;
+  }
+  .invert { color:#fff; }
+
+  .card-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .card {
+    background:#fff; border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.12); }
+
+  /* Filter chips */
+  .filters { display:flex; gap:.5rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0 2rem; }
+  .chip {
+    appearance: none; border: 1px solid #C5D2DF; background:#fff; color:#1B244D;
+    padding: .5rem .9rem; border-radius: 999px; cursor: pointer; font-weight: 600;
+  }
+  .chip.active { background:#316598; color:#fff; border-color:#316598; }
+
+  /* Tiles */
+  .tile { display:block; text-decoration:none; color:inherit; overflow:hidden; }
+  .tile figure { margin:0; position:relative; aspect-ratio: 16/10; background:#F5F5F6; }
+  .tile img { width:100%; height:100%; object-fit:cover; display:block; }
+  .tile .tile-meta { padding:1rem 1rem 1.1rem; }
+  .tile .badge {
+    display:inline-block; font-size:.8rem; font-weight:700; padding:.35rem .6rem;
+    border-radius:999px; background:#A1B7CD; color:#0e1a2f; margin-bottom:.5rem;
+  }
+  .tile h3 { margin:.15rem 0 .2rem; font-size:1.05rem; }
+  .tile p { margin:0; opacity:.8; }
+
+  /* Lightbox modal */
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(0,0,0,.8);
+    display:none; align-items:center; justify-content:center; z-index: 9999;
+  }
+  .lightbox.is-open { display:flex; }
+  .lightbox-inner {
+    position:relative; max-width: min(96vw, 1100px); width:100%;
+  }
+  .lightbox-stage {
+    position:relative; background:#000; border-radius: calc(var(--radius) + 6px);
+    overflow: hidden;
+  }
+  .lightbox-stage img {
+    display:block; width:100%; height:auto; max-height: 78vh; margin: 0 auto;
+  }
+  .lightbox-caption {
+    color:#fff; display:flex; justify-content:space-between; align-items:center;
+    gap:.75rem; padding:.6rem 0 .2rem; font-size:.95rem;
+  }
+  .lightbox-controls {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; pointer-events:none;
+  }
+  .ctrl-btn {
+    pointer-events:auto; background: rgba(255,255,255,.1); color:#fff; border:0; cursor:pointer;
+    width:44px; height:44px; border-radius: 999px; font-size:1.4rem;
+    display:flex; align-items:center; justify-content:center;
+    margin: 0 .5rem;
+  }
+  .ctrl-btn:hover { background: rgba(255,255,255,.2); }
+  .close-btn {
+    position:absolute; top:.5rem; right:.5rem; width:44px; height:44px;
+    background: rgba(255,255,255,.15); color:#fff; border:0; border-radius:999px; cursor:pointer;
+    font-size:1.4rem;
+  }
+  @media (prefers-reduced-motion: reduce) { .card { transition:none; } }
+
+  .hidden { display:none !important; }
+  .muted { opacity:.8; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="sigs.html">SIGs</a></li>
+        <li><a class="active" href="gallery.html">Gallery</a></li>
+        <li><a href="community.html">Community</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- Hero -->
+  <section class="section bg-gradient-primary">
+    <div class="container">
+      <h1 class="invert">Gallery</h1>
+      <p class="invert lead narrow">Photos from our events. Filter by event type, then click an event tile to view the slideshow.</p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="section">
+    <div class="container">
+      <div id="gallery-filters" class="filters" role="tablist" aria-label="Filter gallery">
+        <!-- JS populates filter chips -->
+      </div>
+
+      <!-- Tiles -->
+      <div id="gallery-grid" class="card-grid" role="list">
+        <!-- JS populates tiles -->
+      </div>
+
+      <div id="gallery-empty" class="center hidden">
+        <p class="muted">No gallery items yet.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Lightbox modal -->
+<div id="gallery-modal-root" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="gallery-modal-title" aria-describedby="gallery-modal-desc">
+  <div class="lightbox-inner">
+    <button class="close-btn" type="button" aria-label="Close">&times;</button>
+    <div class="lightbox-stage">
+      <img id="lightbox-image" alt="" />
+      <div class="lightbox-controls">
+        <button class="ctrl-btn prev" type="button" aria-label="Previous">&#8249;</button>
+        <button class="ctrl-btn next" type="button" aria-label="Next">&#8250;</button>
+      </div>
+    </div>
+    <div class="lightbox-caption">
+      <div>
+        <strong id="gallery-modal-title"></strong>
+        <span id="gallery-modal-desc" class="muted"></span>
+      </div>
+      <div class="muted"><span id="lightbox-index">1</span>/<span id="lightbox-total">1</span></div>
+    </div>
+  </div>
+</div>
+
+<div data-include="/partials/footer.html"></div>
+
+<!-- Scripts -->
+<script src="../assets/js/gallery.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
