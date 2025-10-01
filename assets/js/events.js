@@ -73,10 +73,16 @@
         ${escapeHTML(ev.title || "Untitled Event")}
       </button>
     </h3>
-    <p class="meta" style="opacity:.85;margin:.5rem 0 0;">
-      <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""} &nbsp;
-      <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")}
-    </p>
+    <div class="meta-stack">
+      <div class="meta-line">
+        <span aria-hidden="true">📅</span>
+        ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""}
+      </div>
+      ${ev.location ? `
+      <div class="meta-line">
+        <span aria-hidden="true">📍</span> ${escapeHTML(ev.location)}
+      </div>` : ""}
+    </div>
     <div class="card-actions">
       ${hasLink ? `<a class="btn btn-primary size-sm" href="${ev.link}" target="_blank" rel="noopener">RSVP</a>` : ""}
       <button class="btn btn-outline size-sm btn-details" data-id="${escapeHTML(id)}">Details</button>
@@ -266,24 +272,32 @@
     const highlightCard = (ev) => {
       const id = getId(ev);
       return `
-<article class="card highlight" role="listitem" data-id="${escapeHTML(id)}">
-  <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-  <div class="p-6">
-    <h3 class="mb-0">
-      <button class="event-title" data-id="${escapeHTML(id)}" aria-haspopup="dialog">
-        ${escapeHTML(ev.title || "Event")}
-      </button>
-    </h3>
-    <p style="opacity:.85; margin:.5rem 0 1rem;">
-      <span aria-hidden="true">📅</span> ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""}
-      &nbsp; <span aria-hidden="true">📍</span> ${escapeHTML(ev.location || "")}
-    </p>
-    ${ev.short ? `<p class="mb-0" style="opacity:.9;">${escapeHTML(ev.short)}</p>` : ""}
-    ${ev.link ? `<p style="margin-top:.75rem;"><a class="btn btn-outline size-sm" href="${ev.link}" target="_blank" rel="noopener">Event page</a></p>` : ""}
-  </div>
-</article>`.trim();
+    <article class="card highlight" role="listitem" data-id="${escapeHTML(id)}">
+      <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
+      <div class="p-6">
+        <h3 class="mb-0">
+          <button class="event-title" data-id="${escapeHTML(id)}" aria-haspopup="dialog">
+            ${escapeHTML(ev.title || "Event")}
+          </button>
+        </h3>
+    
+        <div class="meta-stack">
+          <div class="meta-line">
+            <span aria-hidden="true">📅</span>
+            ${formatDate(ev.date)}${ev.time ? ` · ${escapeHTML(ev.time)}` : ""}
+          </div>
+          ${ev.location ? `
+          <div class="meta-line">
+            <span aria-hidden="true">📍</span> ${escapeHTML(ev.location)}
+          </div>` : ""}
+        </div>
+    
+        ${ev.short ? `<p class="mb-0" style="opacity:.9;">${escapeHTML(ev.short)}</p>` : ""}
+        ${ev.link ? `<p style="margin-top:.75rem;"><a class="btn btn-outline size-sm" href="${ev.link}" target="_blank" rel="noopener">Event page</a></p>` : ""}
+      </div>
+    </article>`.trim();
     };
-
+    
     if (picks.length) {
       wrap.innerHTML = picks.map(highlightCard).join("");
       empty?.classList.add("hidden");
