@@ -47,6 +47,18 @@
     "details": "Ambition into action! Join the NGHN to discuss the hot topics of the healthcare sector at our informal pre-work meet ups",
     "link": "https://lnkd.in/p/eUud9MVJ"
   },
+  {
+    "id": "2025-q4-network-london",
+    "title": "All Network Session: Winter Event",
+    "date": "2025-11-13",
+    "time": "17:00–20:00",
+    "location": "Turner & Townsend, New Change, London",
+    "category": "all-network",
+    "categoryLabel": "Network Sessions",
+    "short": "Talks + panel + networking.",
+    "details": "Join the NextGen Healthcare Network in London for an evening of connection and conversation. This session is open to anyone interested in building connections across the healthcare sector. Drinks will be provided!",
+    "link": "https://www.eventbrite.co.uk/e/nextgen-healthcare-network-big-event-tickets-1757472691129?aff=oddtdtcreator"
+  },
 
   { "id": "2025-06-12-drinks-london",       "title": "After Work Drinks – London",       "date": "2025-06-12", "location": "London",     "category": "drinks",       "categoryLabel": "After Work Drinks" },
   { "id": "2025-03-11-coffee-birmingham",   "title": "Coffee & Catch-Ups – Birmingham",  "date": "2025-03-11", "location": "Birmingham", "category": "coffee",       "categoryLabel": "Coffee & Catch-Ups" },
