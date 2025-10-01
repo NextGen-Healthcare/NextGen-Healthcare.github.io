@@ -337,6 +337,12 @@ body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"H
   background: color-mix(in oklab, var(--accent-2) 35%, transparent);
   outline: none;
 }
+
+/* Stack date/location neatly */
+.meta-stack { margin:.5rem 0 0; }
+.meta-stack .meta-line + .meta-line { margin-top:.25rem; }
+
+
 /* Bigger "Propose a New SIG" button */
 .btn-propose{
   padding: 1rem 1.6rem;        /* more clearance around text */
