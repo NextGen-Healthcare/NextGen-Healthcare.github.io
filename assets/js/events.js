@@ -1,5 +1,7 @@
 // /assets/js/events.js
 (() => {
+  // Tell main.js that the Events page is already being managed here
+  window.NEXTGEN_EVENTS_PAGE_MANAGED = true;
 
   // ---------- DOM helpers
   const byId = (id) => document.getElementById(id);
