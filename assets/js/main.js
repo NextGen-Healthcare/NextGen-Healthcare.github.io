@@ -100,7 +100,10 @@ function getUpcoming(events, { limit = null, category = null } = {}) {
 }
 
 // ------- Home: featured events -------
-const homeTarget = document.getElementById('home-events');
+const homeTarget = (!window.NEXTGEN_HOME_MANAGED)
+  ? document.getElementById('home-events')
+  : null;
+
 if (homeTarget) {
   (async () => {
     const limit = Number(homeTarget.dataset.limit || 3);
@@ -110,6 +113,7 @@ if (homeTarget) {
   })();
 }
 
+// Keep the skip-link helper as-is
 const skip = document.querySelector('.skip-link');
 if (skip) {
   skip.addEventListener('click', () => {
@@ -118,6 +122,7 @@ if (skip) {
     if (target) setTimeout(() => target.focus(), 0);
   });
 }
+
 
 // HTML includes: load any [data-include] partials
 document.querySelectorAll('[data-include]').forEach(async (el) => {
@@ -134,38 +139,4 @@ document.querySelectorAll('[data-include]').forEach(async (el) => {
     console.error('Include failed:', e);
   }
 });
-
-
-// ------- Events page (full list + filters) -------
-const listTarget = document.getElementById('events-list');
-const emptyTarget = document.getElementById('events-empty');
-const catButtons = document.querySelectorAll('[data-cat]');
-
-async function renderEventsPage(category = 'all') {
-  if (!listTarget) return;
-  await ensureEventsLoaded();
-  const items = getUpcoming(window.NEXTGEN_EVENTS, { category });
-  if (items.length === 0) {
-    if (emptyTarget) emptyTarget.style.display = 'block';
-    listTarget.innerHTML = '';
-    return;
-  }
-  if (emptyTarget) emptyTarget.style.display = 'none';
-  listTarget.innerHTML = items.map(renderEventCard).join('');
-}
-
-if (listTarget) {
-  // initial render
-  renderEventsPage('all');
-
-  // filter buttons
-  catButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cat = btn.getAttribute('data-cat') || 'all';
-      catButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderEventsPage(cat);
-    });
-  });
-}
 
