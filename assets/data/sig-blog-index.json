@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-02-10"
+  },
+  "posts": [
+    {
+      "id": "energy-q4-2024",
+      "filename": "energy-q4-2024.md",
+      "sigId": "sig-energy",
+      "sigName": "Energy & Sustainability",
+      "title": "Net Zero Pathways: Q4 2024 Analysis",
+      "date": "2024-12-15",
+      "author": "John Doe",
+      "authorRole": "Energy SIG Lead",
+      "excerpt": "Our research group analyzed 15 NHS trusts' energy consumption patterns and identified key trends toward achieving net zero carbon emissions by 2040.",
+      "tags": ["net-zero", "energy", "case-study", "NHS"],
+      "published": true
+    },
+    {
+      "id": "digital-ai-planning-2025",
+      "filename": "digital-ai-planning-2025.md",
+      "sigId": "sig-digital",
+      "sigName": "Digital & Data",
+      "title": "AI-Powered Capacity Planning in Healthcare Infrastructure",
+      "date": "2025-01-20",
+      "author": "Jane Smith",
+      "authorRole": "Digital Innovation Lead",
+      "excerpt": "Exploring how machine learning algorithms are transforming healthcare capacity planning and space utilization, with real-world implementation insights.",
+      "tags": ["AI", "digital", "capacity-planning", "innovation"],
+      "published": true
+    },
+    {
+      "id": "procurement-draft-2025",
+      "filename": "procurement-draft-2025.md",
+      "sigId": "sig-procurement",
+      "sigName": "Procurement & Commercial",
+      "title": "Modern Methods of Procurement for Healthcare Construction",
+      "date": "2025-02-10",
+      "author": "Michael Brown",
+      "authorRole": "SIG Member",
+      "excerpt": "A draft exploration of innovative procurement routes including P22, two-stage open book, and design-for-manufacture approaches for healthcare capital projects.",
+      "tags": ["procurement", "construction", "innovation"],
+      "published": false
+    }
+  ]
+}
