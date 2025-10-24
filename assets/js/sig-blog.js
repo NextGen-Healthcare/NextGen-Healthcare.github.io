@@ -39,9 +39,10 @@ async function init() {
   } catch (err) {
     console.error('Failed to load blog posts:', err);
     document.getElementById('loading').style.display = 'none';
+    const errorSection = document.getElementById('error-section');
     const errorEl = document.getElementById('error');
     errorEl.textContent = 'Failed to load blog posts. Please try again later.';
-    errorEl.style.display = 'block';
+    errorSection.style.display = 'block';
   }
 }
 
@@ -89,13 +90,14 @@ function updateActiveFilter() {
 
 // Show list of posts
 function showPostList() {
+  const listSection = document.getElementById('blog-list-section');
   const listContainer = document.getElementById('blog-list');
   const postContainer = document.getElementById('blog-post');
-  const noPostsEl = document.getElementById('no-posts');
+  const noPostsSection = document.getElementById('no-posts-section');
   
-  listContainer.style.display = 'grid';
+  listSection.style.display = 'block';
   postContainer.style.display = 'none';
-  noPostsEl.style.display = 'none';
+  noPostsSection.style.display = 'none';
 
   // Filter posts
   let posts = showDrafts ? allPosts : allPosts.filter(p => p.published);
@@ -108,8 +110,8 @@ function showPostList() {
   posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   if (posts.length === 0) {
-    listContainer.style.display = 'none';
-    noPostsEl.style.display = 'block';
+    listSection.style.display = 'none';
+    noPostsSection.style.display = 'block';
     return;
   }
 
@@ -159,13 +161,14 @@ async function showSinglePost(postId) {
     return;
   }
 
+  const listSection = document.getElementById('blog-list-section');
   const listContainer = document.getElementById('blog-list');
   const postContainer = document.getElementById('blog-post');
-  const noPostsEl = document.getElementById('no-posts');
+  const noPostsSection = document.getElementById('no-posts-section');
   
-  listContainer.style.display = 'none';
+  listSection.style.display = 'none';
   postContainer.style.display = 'block';
-  noPostsEl.style.display = 'none';
+  noPostsSection.style.display = 'none';
 
   // Show loading state
   postContainer.innerHTML = '<div class="loading">Loading post...</div>';
