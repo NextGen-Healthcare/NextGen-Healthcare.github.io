@@ -1,5 +1,5 @@
-const VERSION = 10;
-const INDEX_URL = `../assets/data/sig-blog-index.json?v=${VERSION}`;
+const BLOG_VERSION = 10;
+const INDEX_URL = `../assets/data/sig-blog-index.json?v=${BLOG_VERSION}`;
 const POSTS_BASE_URL = '../assets/data/blog-posts/';
 
 let allPosts = [];
@@ -175,7 +175,7 @@ async function showSinglePost(postId) {
 
   try {
     // Load markdown content
-    const markdownUrl = `${POSTS_BASE_URL}${postMeta.filename}?v=${VERSION}`;
+    const markdownUrl = `${POSTS_BASE_URL}${postMeta.filename}?v=${BLOG_VERSION}`;
     const res = await fetch(markdownUrl);
     
     if (!res.ok) throw new Error('Failed to load post content');

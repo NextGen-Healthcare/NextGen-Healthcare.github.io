@@ -15,7 +15,7 @@
       "authorRole": "Energy SIG Lead",
       "excerpt": "Our research group analyzed 15 NHS trusts' energy consumption patterns and identified key trends toward achieving net zero carbon emissions by 2040.",
       "tags": ["net-zero", "energy", "case-study", "NHS"],
-      "published": true
+      "published": false
     },
     {
       "id": "digital-ai-planning-2025",
@@ -28,7 +28,7 @@
       "authorRole": "Digital Innovation Lead",
       "excerpt": "Exploring how machine learning algorithms are transforming healthcare capacity planning and space utilization, with real-world implementation insights.",
       "tags": ["AI", "digital", "capacity-planning", "innovation"],
-      "published": true
+      "published": false
     },
     {
       "id": "procurement-draft-2025",
