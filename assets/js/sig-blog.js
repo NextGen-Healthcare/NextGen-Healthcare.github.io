@@ -1,6 +1,6 @@
-const BLOG_VERSION = 10;
-const INDEX_URL = `../assets/data/sig-blog-index.json?v=${BLOG_VERSION}`;
-const POSTS_BASE_URL = '../assets/data/blog-posts/';
+const BLOG_VERSION = 11;
+const INDEX_URL = `/assets/data/sig-blog-index.json?v=${BLOG_VERSION}`;
+const POSTS_BASE_URL = `/assets/data/blog-posts`;
 
 let allPosts = [];
 let activeSig = 'all';
@@ -8,10 +8,15 @@ let showDrafts = false;
 
 // Initialize
 async function init() {
+  console.log('🔄 Starting to load posts...');
+  console.log('📍 Fetch URL:', INDEX_URL);
+  
   try {
     // Check if preview mode is enabled
     const urlParams = new URLSearchParams(window.location.search);
     showDrafts = urlParams.has('preview');
+    
+    console.log('👀 Preview mode:', showDrafts);
     
     if (showDrafts) {
       document.getElementById('draft-banner').style.display = 'block';
@@ -19,10 +24,15 @@ async function init() {
 
     // Load the index of all posts
     const res = await fetch(INDEX_URL);
+    console.log('📡 Response status:', res.status);
+    
     if (!res.ok) throw new Error('Failed to load blog index');
     
     const data = await res.json();
+    console.log('📦 Loaded data:', data);
+    
     allPosts = data.posts || [];
+    console.log(`✅ Found ${allPosts.length} posts in index`);
 
     // Build SIG filters
     buildFilters();
@@ -37,11 +47,11 @@ async function init() {
 
     document.getElementById('loading').style.display = 'none';
   } catch (err) {
-    console.error('Failed to load blog posts:', err);
+    console.error('❌ Failed to load blog posts:', err);
     document.getElementById('loading').style.display = 'none';
     const errorSection = document.getElementById('error-section');
     const errorEl = document.getElementById('error');
-    errorEl.textContent = 'Failed to load blog posts. Please try again later.';
+    errorEl.textContent = `Failed to load blog posts: ${err.message}. Please try again later.`;
     errorSection.style.display = 'block';
   }
 }
@@ -175,12 +185,16 @@ async function showSinglePost(postId) {
 
   try {
     // Load markdown content
-    const markdownUrl = `${POSTS_BASE_URL}${postMeta.filename}?v=${BLOG_VERSION}`;
+    const markdownUrl = `${POSTS_BASE_URL}/${postMeta.filename}?v=${BLOG_VERSION}`;
+    console.log('📄 Loading markdown:', markdownUrl);
+    
     const res = await fetch(markdownUrl);
+    console.log('📡 Markdown response status:', res.status);
     
     if (!res.ok) throw new Error('Failed to load post content');
     
     const markdown = await res.text();
+    console.log('✅ Markdown loaded, length:', markdown.length);
     
     // Parse frontmatter and content
     const { frontmatter, content } = parseMarkdown(markdown);

@@ -528,6 +528,47 @@ Before publishing:
 - [ ] Markdown formatting looks correct in preview
 - [ ] Ready to publish? Change `published: false` to `true` in BOTH files
 
+### 🔒 Blog Privacy & Access Control
+
+The blog page is currently **hidden from search engines** (so drafts stay private). To change this later, a developer needs to remove the `noindex` tag.
+
+**Different Ways to View the Blog:**
+
+**Public view** (only published posts show):
+```
+https://yoursite.com/pages/sig-blog.html
+```
+
+**Preview mode** (includes draft posts - share this link with colleagues):
+```
+https://yoursite.com/pages/sig-blog.html?preview=true
+```
+
+**Direct link to specific post** (for sharing):
+```
+https://yoursite.com/pages/sig-blog.html#post-id
+```
+
+**Preview a specific draft** (share privately before publishing):
+```
+https://yoursite.com/pages/sig-blog.html?preview=true#post-id
+```
+
+💡 **Tip**: Use preview links to get feedback on drafts before making them public!
+
+### 📱 Making the Blog Public
+
+When you're ready to make the blog accessible to everyone:
+
+1. **Ask a developer** to remove this line from `pages/sig-blog.html`:
+   ```html
+   <meta name="robots" content="noindex, nofollow">
+   ```
+
+2. **Add blog link** to the main navigation menu on other pages
+
+3. **Announce it** on LinkedIn, in newsletters, etc.
+
 ---
 
 ## ⚡ Common Tasks Quick Reference
@@ -694,6 +735,112 @@ GitHub keeps a history of all changes, so you can always go back if needed.
 - Used for: Blog posts, documentation
 - Structure: Text with simple formatting symbols
 - Syntax: Forgiving, easy to read and write
+
+---
+
+## 🔧 Technical Appendix (For Developers)
+
+This section is for developers and technical users who need implementation details.
+
+### Blog System Architecture
+
+**Components:**
+- `pages/sig-blog.html` - Blog page with responsive design
+- `assets/js/sig-blog.js` - JavaScript engine for loading and rendering posts
+- `assets/data/sig-blog-index.json` - Central registry of all posts
+- `assets/data/blog-posts/` - Individual markdown files
+
+**Dependencies:**
+- marked.js v11.1.0 (CDN) - Markdown parser
+- No other external dependencies
+
+**Key Features:**
+- Client-side markdown rendering
+- Hash-based URL routing (#post-id)
+- Preview mode (?preview=true)
+- Filter by SIG
+- Cache busting with version parameters
+- Frontmatter parsing (YAML-style)
+
+### Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- ES6+ JavaScript features
+- CSS Grid and Flexbox
+- Responsive design (mobile-first)
+
+### Performance
+
+- Index file: ~5KB
+- Posts loaded on-demand (not all at once)
+- Markdown parsing client-side
+- No server processing required
+- Static files only (GitHub Pages compatible)
+
+### Pre-Launch Testing Checklist
+
+Before making the blog public:
+
+- [ ] Test on mobile devices (iOS Safari, Chrome Android)
+- [ ] Test all sample posts render correctly
+- [ ] Test filter buttons work for each SIG
+- [ ] Test draft vs published visibility with/without preview mode
+- [ ] Test direct links to posts (hash navigation)
+- [ ] Test back button navigation works correctly
+- [ ] Test with JavaScript disabled (graceful degradation)
+- [ ] Test all image paths load correctly
+- [ ] Validate HTML (W3C validator)
+- [ ] Validate CSS (W3C CSS validator)
+- [ ] Test accessibility with screen reader
+- [ ] Test keyboard-only navigation
+- [ ] Check cross-browser compatibility
+- [ ] Verify responsive breakpoints
+
+### Making Blog Public
+
+1. Remove `<meta name="robots" content="noindex, nofollow">` from sig-blog.html
+2. Add "Blog" link to navigation in all pages
+3. Update sitemap.xml if you have one
+4. Optionally add preview section to sigs.html showing recent posts
+
+### Extending the System
+
+**Add author profiles:**
+- Create author data in sig-blog-index.json
+- Add author images to assets/img/authors/
+- Update sig-blog.js to display author cards
+
+**Add search functionality:**
+- Implement client-side search using lunr.js or similar
+- Index post titles, excerpts, and content
+- Add search UI to sig-blog.html
+
+**Add RSS feed:**
+- Generate rss.xml from sig-blog-index.json
+- Can be done client-side or build-time
+
+**Add social sharing:**
+- Add Open Graph meta tags to post views
+- Add Twitter Card meta tags
+- Add share buttons (LinkedIn, Twitter, email)
+
+### Troubleshooting for Developers
+
+**Posts not loading:**
+- Check browser console for JavaScript errors
+- Verify sig-blog-index.json is valid JSON
+- Check file paths are correct (case-sensitive on Linux/Mac)
+- Verify BLOG_VERSION constant doesn't conflict with VERSION in main.js
+
+**Markdown not rendering:**
+- Check marked.js CDN is loading
+- Verify frontmatter format (---\nkey: value\n---)
+- Check for special characters breaking YAML parsing
+
+**Styling issues:**
+- Verify CSS variables from style.css are available
+- Check for CSS specificity conflicts
+- Test with browser dev tools
 
 ---
 
