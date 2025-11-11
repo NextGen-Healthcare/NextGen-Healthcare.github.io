@@ -56,90 +56,59 @@ These files are like address books - they tell the website where to find informa
 
 ## 📅 Adding Events
 
-Events appear on the main homepage and the Events page.
+Upcoming events are now embedded automatically from Eventbrite on the Events page. You only edit `assets/data/events.json` for PAST events (so they can appear under “Past Event Highlights” and remain part of the site’s historical record).
 
-### Step-by-Step Instructions
+### When to Add to `events.json`
 
-1. **Open the events file**
-   - File location: `assets/data/events.json`
-   - Click the pencil icon to edit
+Add an entry only after an event concludes OR if you need it referenced for gallery photos. Do NOT add future events here (just create them in Eventbrite).
 
-2. **Copy this template** for a new event:
+### Minimal Past Event Template
 
 ```json
 {
-  "id": "unique-event-id-2025",
-  "title": "Coffee & Catch-Up - Manchester",
-  "date": "2025-12-15",
-  "time": "18:00–19:30",
-  "location": "Manchester",
-  "category": "coffee",
-  "categoryLabel": "Coffee & Catch-Ups",
-  "short": "Informal networking over coffee",
-  "details": "Join us at Costa Coffee, Oxford Road. Look for the NextGen group near the back. All welcome!",
-  "link": "https://www.eventbrite.com/your-event"
+   "id": "2025-05-01-network-session",
+   "title": "All Network Session: Connections Event",
+   "date": "2025-05-01",
+   "location": "London",
+   "category": "all-network",
+   "categoryLabel": "Network Sessions",
+   "short": "Talks + panel + networking.",
+   "link": "https://www.eventbrite.com/e/example"
 }
 ```
 
-3. **Fill in your event details**:
+Optional fields you can still include: `time`, `details` (longer description), `sig`-specific data, etc.
 
-   - **id**: A unique name (use lowercase with hyphens, e.g., `2025-coffee-manchester-dec`)
-   - **title**: The event name
-   - **date**: Format as YYYY-MM-DD (e.g., 2025-12-15 for 15th Dec 2025)
-   - **time**: Use format HH:MM–HH:MM with 24-hour clock
-   - **location**: City or venue name
-   - **category**: Choose from:
-     - `coffee` - Coffee & Catch-Ups
-     - `network` - Network Sessions
-     - `iheem` - IHEEM Gatherings
-     - `drinks` - Drinks events
-     - `sig` - SIG-specific events
-   - **categoryLabel**: Display name for the category
-   - **short**: One sentence summary (appears on cards)
-   - **details**: Full description with venue, parking, what to expect
-   - **link**: URL for RSVP/tickets (LinkedIn, Eventbrite, etc.)
+### Field Reference
 
-4. **Add your event to the list**:
+| Field | Purpose | Notes |
+|-------|---------|-------|
+| id | Unique identifier | Use lowercase hyphens (e.g. `2025-06-12-drinks-london`) |
+| title | Event name | Concise but descriptive |
+| date | YYYY-MM-DD | Must be a valid date |
+| time | Optional | Format `HH:MM–HH:MM` 24h |
+| location | City or venue | Keep consistent casing |
+| category | One of: `coffee`, `all-network`, `iheem`, `drinks`, `sig` | (Old `network` replaced by `all-network`) |
+| categoryLabel | Display label | Mirrors card label |
+| short | One sentence summary | Used in highlight cards |
+| details | Longer description | Optional; shown in modal if present |
+| link | External page (Eventbrite / LinkedIn) | Include full https URL |
 
-   - Find the opening `[` bracket at the start of the file
-   - Paste your event AFTER this bracket
-   - Make sure to add a **comma** after the closing `}` if there are other events below it
+### Steps to Add a Past Event
 
-   Example:
-   ```json
-   [
-     {
-       "id": "your-new-event",
-       "title": "New Event",
-       ...
-     },
-     {
-       "id": "existing-event",
-       "title": "Existing Event",
-       ...
-     }
-   ]
-   ```
+1. Open `assets/data/events.json`
+2. Insert the object among existing items (keep chronological grouping if you prefer)
+3. Ensure commas between objects (none after final one)
+4. Commit with message: `Add past event: [title]`
 
-5. **Check your formatting**:
-   - Every opening `{` needs a closing `}`
-   - Every opening `[` needs a closing `]`
-   - Put commas between items, but NOT after the last item
-   - Use double quotes `"` not single quotes `'`
-
-6. **Save your changes**:
-   - Scroll to bottom
-   - Add commit message: "Add [event name] to events"
-   - Click "Commit changes"
-
-### ✅ Checklist Before Saving
+### ✅ Past Event Checklist
 
 - [ ] Date format is YYYY-MM-DD
-- [ ] Event ID is unique (not used before)
-- [ ] Category matches one of the standard categories
-- [ ] RSVP link is correct and working
-- [ ] Commas are in the right places
-- [ ] All quotes are double quotes `"`
+- [ ] ID unique and consistent style
+- [ ] Category matches allowed values
+- [ ] Commas between objects correct
+- [ ] Quotes are all double quotes `"`
+- [ ] External link (if present) works
 
 ---
 
@@ -575,14 +544,14 @@ When you're ready to make the blog accessible to everyone:
 
 ### Quick Actions
 
-| What You Want to Do | File to Edit | What to Change |
-|---------------------|--------------|----------------|
-| Add an event | `assets/data/events.json` | Add new event object |
-| Add event photos | `assets/data/gallery.json` | Add new event with photo list |
+| What You Want to Do | Where to Do It | What to Change |
+|---------------------|----------------|----------------|
+| Publish an upcoming event | Eventbrite Organizer | Create/publish event under NextGen Healthcare Network |
+| Add a past event highlight | `assets/data/events.json` | Add concluded event object |
+| Add event photos | `assets/data/gallery.json` | Add event key and photo list |
 | Update SIG info | `assets/data/sigs.json` | Edit SIG object |
 | Add new SIG | `assets/data/sigs.json` | Add new SIG object |
-| Publish blog post | Blog markdown file + `sig-blog-index.json` | Change `published: false` to `true` |
-| Update event details | `assets/data/events.json` | Find and edit event object |
+| Publish blog post | Blog markdown + `sig-blog-index.json` | Set `published: true` in both |
 
 ### File Locations Cheat Sheet
 
@@ -590,7 +559,7 @@ When you're ready to make the blog accessible to everyone:
 Website Root/
 ├── assets/
 │   ├── data/
-│   │   ├── events.json ..................... Events list
+│   │   ├── events.json ..................... Past event highlights (Eventbrite powers upcoming)
 │   │   ├── gallery.json .................... Photo gallery index
 │   │   ├── sigs.json ....................... SIGs directory
 │   │   ├── sig-blog-index.json ............. Blog post index
@@ -633,16 +602,16 @@ Website Root/
 3. Ensure file extension matches (`.jpeg` vs `.jpg`)
 4. Check photos are actually uploaded to the folder
 
-#### ❌ Event Not Showing
+#### ❌ Future Event Not Appearing
 
-**Problem**: New event doesn't appear on website
+**Problem**: You published an upcoming event on Eventbrite but it’s not visible yet on the Events page.
 
 **Solution**:
-1. Check date format is YYYY-MM-DD
-2. Verify the event is in the correct file (`events.json`)
-3. Look for JSON syntax errors (use jsonlint.com)
-4. Clear your browser cache and refresh
-5. Check if GitHub changes were successfully committed
+1. Wait 1–2 minutes and refresh – propagation can be slightly delayed.
+2. Confirm the Eventbrite event status is “Public” (not Draft or Private).
+3. Check you used the correct organizer (NextGen Healthcare Network).
+4. Open the public organizer page directly to verify it lists the event.
+5. If still missing after 10 minutes, contact a developer to inspect the embed.
 
 #### ❌ Blog Post Not Rendering
 
@@ -854,5 +823,5 @@ The website is designed to be updated by non-technical people, so you've got thi
 
 ---
 
-*Last updated: October 2025*
+*Last updated: November 2025*
 *Questions? Contact the Digital & Data SIG or website administrators*
