@@ -110,21 +110,14 @@
     </div>
   </section>
 
-  <!-- Embedded Eventbrite organizer -->
+  <!-- Upcoming Events (Branded Cards) -->
   <section class="section">
     <div class="container">
-      <div style="border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);background:#fff;">
-        <iframe 
-          src="https://www.eventbrite.com/o/nextgen-healthcare-network-77223082953"
-          frameborder="0" 
-          style="width:100%;min-height:800px;border:none;display:block;"
-          title="NextGen Healthcare Network Events on Eventbrite"
-          loading="lazy">
-        </iframe>
+      <div id="eventbrite-loading" class="center">
+        <p style="opacity:.8;">Loading upcoming events...</p>
       </div>
-      <p class="center muted" style="margin-top:1rem;">
-        <small>Having trouble viewing events? <a href="https://www.eventbrite.com/o/nextgen-healthcare-network-77223082953" target="_blank" rel="noopener">Open in new window</a></small>
-      </p>
+      <div id="eventbrite-error" class="center hidden"></div>
+      <div id="eventbrite-events-container" class="card-grid" role="list"></div>
     </div>
   </section>
 
@@ -168,6 +161,7 @@
 
 <!-- Scripts: data first, then behavior -->
 <script src="../assets/js/events.js?v=10"></script>
+<script src="../assets/js/eventbrite-integration.js?v=1"></script>
 <script src="../assets/js/main.js?v=10"></script>
 </body>
 </html>
