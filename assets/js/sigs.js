@@ -16,7 +16,7 @@
   const emptyEl = byId("sigs-empty");
   const modalRoot = byId("event-modal-root");
 
-  const VERSION = "9";
+  const VERSION = "10"; // bump to refresh sigs.json after joinUrl addition
   const DATA_URL   = `../assets/data/sigs.json?v=${VERSION}`;
 
   let SIGS = [];
@@ -27,9 +27,10 @@
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
 function buildJoinHref(sig) {
-  // Always return global Eventbrite page (single hub for registrations)
-  // Future enhancement: if sig.joinUrl exists, return that instead.
-  return EVENTBRITE_URL;
+  // Prefer per-SIG Eventbrite/registration page when provided in sigs.json
+  const url = sig && typeof sig.joinUrl === "string" ? sig.joinUrl.trim() : "";
+  if (url && /^(https?:)\/\//i.test(url)) return url;
+  return EVENTBRITE_URL; // fallback to global organiser page
 }
 
 
