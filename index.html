@@ -301,9 +301,6 @@
 </body>
 </html>
 
-  const escapeHTML = (s = "") =>
-    s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
-
   const formatDate = (iso) => {
     const d = new Date(iso);
     if (isNaN(d)) return iso || "";
