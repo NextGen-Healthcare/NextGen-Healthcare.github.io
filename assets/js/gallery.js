@@ -24,7 +24,7 @@
   const btnNext = modal.querySelector(".next");
   const btnClose = modal.querySelector(".close-btn");
 
-  const VERSION = "10";
+  const VERSION = "11";
   const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
   const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
 
@@ -186,7 +186,16 @@
     const p = ACTIVE_ITEM.photos[ACTIVE_INDEX];
     imgEl.src = p.src;
     imgEl.alt = p.alt || ACTIVE_ITEM.title || "Gallery image";
-    titleEl.textContent = ACTIVE_ITEM.title || "";
+    
+    // Show the individual photo's alt text if it's different from the event title
+    const photoAlt = p.alt || "";
+    const eventTitle = ACTIVE_ITEM.title || "";
+    if (photoAlt && photoAlt !== eventTitle) {
+      titleEl.textContent = photoAlt;
+    } else {
+      titleEl.textContent = eventTitle;
+    }
+    
     const dateBits = fmtDate(ACTIVE_ITEM.date);
     descEl.textContent = [ACTIVE_ITEM.category, dateBits].filter(Boolean).join(" • ");
     idxEl.textContent = String(ACTIVE_INDEX + 1);

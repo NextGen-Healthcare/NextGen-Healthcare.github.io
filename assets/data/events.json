@@ -1,5 +1,17 @@
 [
   {
+    "id": "2025-10-iheem",
+    "title": "IHEEM Healthcare Estates 2025",
+    "date": "2025-10-21",
+    "time": "All day",
+    "location": "Manchester Central",
+    "category": "iheem",
+    "categoryLabel": "IHEEM Gatherings",
+    "short": "NextGen Healthcare Network presented at Healthcare Estates 2025 on Engineering for Resilience, Design & Construction, and the Healthcare Estates Brain Drain.",
+    "details": "Healthcare Estates is the UK's leading event for professionals involved in the design, construction, management and operation of healthcare facilities. NextGen participated with multiple presentations and networking opportunities.",
+    "link": "https://www.healthcare-estates.com/"
+  },
+  {
     "id": "2025-iheem-meetup-manchester",
     "title": "IHEEM Meetup",
     "date": "2025-10-21",
