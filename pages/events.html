@@ -105,20 +105,21 @@
     <div class="container">
       <h1 class="invert">Events & Registration</h1>
       <p class="invert lead narrow">
-        Browse and register for upcoming sessions directly below (powered by Eventbrite). No manual updates needed – new events appear automatically.
+        Connect, learn, and grow with fellow healthcare infrastructure professionals at our regular events across the UK. All events are managed through Eventbrite for easy registration.
       </p>
     </div>
   </section>
 
-  <!-- Embedded Eventbrite organizer widget -->
+  <!-- Browse Events on Eventbrite -->
   <section class="section">
-    <div class="container">
-      <div id="eventbrite-widget-wrapper">
-        <div id="eventbrite-widget" aria-label="Eventbrite embedded organizer widget"></div>
-        <noscript>
-          <p>Please enable JavaScript to view embedded events. <a href="https://www.eventbrite.com/o/nextgen-healthcare-network-77223082953" target="_blank" rel="noopener">View events on Eventbrite</a>.</p>
-        </noscript>
-      </div>
+    <div class="container center">
+      <p class="muted" style="max-width:52rem;margin:0 auto 1.5rem;">
+        All upcoming events are managed through Eventbrite. Click below to browse sessions, see full details, and register.
+      </p>
+      <a class="btn btn-hero btn-lg" href="https://www.eventbrite.com/o/nextgen-healthcare-network-77223082953" target="_blank" rel="noopener">
+        Browse &amp; Register on Eventbrite
+      </a>
+      <p style="margin-top:1rem;"><small class="muted">Opens in a new window</small></p>
     </div>
   </section>
 
@@ -161,23 +162,6 @@
 <div data-include="/partials/footer.html"></div>
 
 <!-- Scripts: data first, then behavior -->
-<script>
-  // Define initializer so we can call it on the widget script's onload reliably
-  function initEventbriteWidget(){
-    if (!window.eb_widgets) return;
-    try {
-      window.eb_widgets.createWidget({
-        widgetType: "organizer",
-        organizerId: "77223082953",
-        iframeContainerId: "eventbrite-widget",
-        hostname: "www.eventbrite.com"
-      });
-    } catch (e) {
-      console.error("Eventbrite widget init failed", e);
-    }
-  }
-</script>
-<script src="https://www.eventbrite.com/static/widgets/organizer.js" onload="initEventbriteWidget()" defer></script>
 <script src="../assets/js/events.js?v=10"></script>
 <script src="../assets/js/main.js?v=10"></script>
 </body>

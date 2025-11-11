@@ -267,45 +267,15 @@
     </div>
   </section>
 
-  <!-- Upcoming Events (auto-rendered) -->
+  <!-- Upcoming Events (redirects to Events page with Eventbrite embed) -->
   <section class="section bg-neutral-light" aria-label="Upcoming Events">
-    <div class="container">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem;">
-        <h2 class="mb-0">Upcoming Events</h2>
-        <a class="btn btn-outline btn-lg" href="pages/events.html">View All Events</a>
-      </div>
-
-      <!-- JS injects here (top 3 future events) -->
-      <div id="home-events" class="card-grid" data-limit="3" aria-live="polite"></div>
-
-      <noscript>
-        <div class="card-grid">
-          <article>
-            <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-            <div class="p-6">
-              <h3 class="mb-0">Quarterly Network Meetup</h3>
-              <p class="muted" style="margin:.5rem 0 1rem;">London • 6:00–8:00 PM</p>
-              <p class="muted">Guest speakers and networking across NHS trusts and supply chain.</p>
-            </div>
-          </article>
-          <article>
-            <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-            <div class="p-6">
-              <h3 class="mb-0">Coffee &amp; Construction</h3>
-              <p class="muted" style="margin:.5rem 0 1rem;">Kings Cross • 8:00–9:30 AM</p>
-              <p class="muted">Informal morning meetup on design and construction trends.</p>
-            </div>
-          </article>
-          <article>
-            <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-            <div class="p-6">
-              <h3 class="mb-0">IHEEM Young Members</h3>
-              <p class="muted" style="margin:.5rem 0 1rem;">Manchester • 5:30–7:30 PM</p>
-              <p class="muted">Career development and industry insights for young members.</p>
-            </div>
-          </article>
-        </div>
-      </noscript>
+    <div class="container center">
+      <h2>Upcoming Events</h2>
+      <p class="muted" style="max-width:42rem;margin:0 auto 1.5rem;">
+        Browse and register for our latest sessions on our Events page (powered by Eventbrite). 
+        From coffee catch-ups to network sessions—find your next connection.
+      </p>
+      <a class="btn btn-hero btn-lg" href="pages/events.html">View &amp; Register for Events</a>
     </div>
   </section>
 
@@ -326,24 +296,10 @@
 
 <div data-include="/partials/footer.html"></div>
 
-<!-- Hidden placeholders so shared events.js won’t error on Home -->
-<div id="events-list" class="hidden" aria-hidden="true"></div>
-<div id="events-empty" class="hidden" aria-hidden="true"></div>
-<div id="event-modal-root" aria-hidden="true"></div>
-
 <!-- Scripts -->
-<script src="assets/js/events.js?v=9"></script>
-<script>window.NEXTGEN_HOME_MANAGED = true;</script>
-<script src="assets/js/main.js?v=9"></script>
-
-<!-- Home-only: render top N upcoming events + modal -->
-<script>
-(() => {
-  const HOME_DATA_URL = "assets/data/events.json";
-  const homeList = document.getElementById("home-events");
-  if (!homeList) return;
-
-  const limit = parseInt(homeList.getAttribute("data-limit"), 10) || 3;
+<script src="assets/js/main.js?v=10"></script>
+</body>
+</html>
 
   const escapeHTML = (s = "") =>
     s.replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
