@@ -2,7 +2,10 @@
 (() => {
   "use strict";
 
-  const JOIN_EMAIL = "nghnteam@gmail.com";
+  // Removed mailto join flow; all SIG join actions now redirect to Eventbrite organisation page.
+  // If per-SIG registration pages are introduced later, add a `joinUrl` property to each SIG in sigs.json
+  // and modify `buildJoinHref` to prefer that over the global EVENTBRITE_URL.
+  const EVENTBRITE_URL = "https://www.eventbrite.co.uk/o/next-gen-healthcare-networking-forum-77223082953";
 
   // ---------- DOM helpers
   const byId = (id) => document.getElementById(id);
@@ -24,25 +27,9 @@
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
 
 function buildJoinHref(sig) {
-  const name = sig?.name || "SIG";
-  const subject = `Join SIG: ${name}`;
-
-  const body = [
-    "Hi NextGen team,",
-    "",
-    `I'd like to join the ${name} SIG.`,
-    "",
-    "Name:",
-    "Organisation:",
-    "Job Title (Plus summary of role if unclear):",
-    "Location:",
-    "Motivation behind joining Working Group:",
-    "Topic proposals for Working Group:",
-    "",
-    "Thanks!"
-  ].join("\r\n"); // CRLF is safest for email
-
-  return `mailto:${JOIN_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  // Always return global Eventbrite page (single hub for registrations)
+  // Future enhancement: if sig.joinUrl exists, return that instead.
+  return EVENTBRITE_URL;
 }
 
 
@@ -80,7 +67,7 @@ function buildJoinHref(sig) {
       <span aria-hidden="true">👥</span> <strong>Leads:</strong> ${leadsLine}
     </p>
     <div class="card-actions">
-      <a class="btn btn-primary size-sm" href="${joinHref}">Email to join</a>
+  <a class="btn btn-primary size-sm" href="${joinHref}" target="_blank" rel="noopener" aria-label="Register on Eventbrite (opens in a new tab)">Register on Eventbrite</a>
       <button class="btn btn-outline size-sm btn-details" data-id="${escapeHTML(id)}">Details</button>
     </div>
   </div>
@@ -123,7 +110,7 @@ function buildJoinHref(sig) {
       </div>
 
       <div class="modal-actions">
-        <a class="btn btn-primary size-lg" href="${joinHref}">Email to join</a>
+  <a class="btn btn-primary size-lg" href="${joinHref}" target="_blank" rel="noopener" aria-label="Register on Eventbrite (opens in a new tab)">Register on Eventbrite</a>
         <button class="btn btn-outline size-lg modal-close">Close</button>
       </div>
     </div>
