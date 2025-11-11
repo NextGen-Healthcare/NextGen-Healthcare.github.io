@@ -24,7 +24,7 @@
   const btnNext = modal.querySelector(".next");
   const btnClose = modal.querySelector(".close-btn");
 
-  const VERSION = "9";
+  const VERSION = "10";
   const DATA_URL   = `../assets/data/gallery.json?v=${VERSION}`;
   const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
 
