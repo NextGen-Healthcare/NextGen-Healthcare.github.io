@@ -8,12 +8,14 @@
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
+  // Upcoming events list removed (replaced by Eventbrite widget). Gracefully handle absence.
   const listEl  = byId("events-list");
   const emptyEl = byId("events-empty");
   const filterBtns = qsa(".filters [data-cat]");
+  const UPCOMING_ENABLED = !!listEl;
   const modalRoot = byId("event-modal-root");
 
-  const VERSION = "9";
+  const VERSION = "10"; // bump for cache after widget embed
   const EVENTS_URL = `../assets/data/events.json?v=${VERSION}`;
 
   let EVENTS = [];
@@ -93,6 +95,7 @@
 
   // ---------- Render list (filtered to today/future + category, sorted soonest→latest)
   function filteredEvents() {
+    if (!UPCOMING_ENABLED) return []; // no upcoming grid in DOM
     const today = startOfToday();
   
     // category filter
@@ -111,9 +114,10 @@
 
 
   function renderList() {
+    if (!UPCOMING_ENABLED) return; // skip entirely
     const items = filteredEvents();
     listEl.innerHTML = items.map(cardHTML).join("");
-    emptyEl.classList.toggle("hidden", items.length > 0);
+    emptyEl?.classList.toggle("hidden", items.length > 0);
     wireListInteractions(); // rebind after re-render
   }
 
@@ -219,20 +223,17 @@
   }
 
   function wireFilters() {
+    if (!UPCOMING_ENABLED || !filterBtns.length) return; // no filters present
     filterBtns.forEach(btn => {
       btn.addEventListener("click", () => {
-        // Toggle active styling/ARIA
         filterBtns.forEach(b => {
           b.classList.remove("active");
           b.setAttribute("aria-pressed", "false");
         });
         btn.classList.add("active");
         btn.setAttribute("aria-pressed", "true");
-
-        // Update category + re-render
         activeCat = btn.getAttribute("data-cat") || "all";
         renderList();
-        // Close any open modal on filter change
         closeModal();
       });
     });
@@ -319,20 +320,16 @@
 
   // ---------- Init
   async function init() {
-    listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading events…</p>`;
-
+    if (UPCOMING_ENABLED) {
+      listEl.innerHTML = `<p class="center" style="grid-column:1/-1;opacity:.8;">Loading events…</p>`;
+    }
     EVENTS = await loadEvents();
-
-    // Build stable IDs and quick lookup map
     EVENT_BY_ID = {};
     EVENTS.forEach(ev => { EVENT_BY_ID[getId(ev)] = ev; });
-
     renderList();
     wireFilters();
     renderPastHighlights();
-
-    // expose for debugging
-    window.NEXTGEN_EVENTS = EVENTS;
+    window.NEXTGEN_EVENTS = EVENTS; // expose for debugging
   }
 
   init();

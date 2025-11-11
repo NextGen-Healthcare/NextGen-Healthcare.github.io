@@ -126,44 +126,22 @@
   <!-- Hero -->
   <section class="section section-hero bg-gradient-primary">
     <div class="container">
-      <h1 class="invert">Upcoming Events</h1>
+      <h1 class="invert">Events & Registration</h1>
       <p class="invert lead narrow">
-        Connect, learn, and grow with fellow healthcare infrastructure professionals at our regular events across the UK.
+        Browse and register for upcoming sessions directly below (powered by Eventbrite). No manual updates needed – new events appear automatically.
       </p>
     </div>
   </section>
 
-  <!-- Category Filter (sticky) -->
-  <section class="section sticky-filter bg-neutral-light">
-    <div class="container">
-      <div class="filters">
-        <button class="btn btn-outline btn-chip active" data-cat="all" aria-pressed="true">
-          <span aria-hidden="true">📅</span> All Events
-        </button>
-        <button class="btn btn-outline btn-chip" data-cat="coffee" aria-pressed="false">
-          <span aria-hidden="true">☕</span> Coffee &amp; Catch-Ups
-        </button>
-        <button class="btn btn-outline btn-chip" data-cat="iheem" aria-pressed="false">
-          <span aria-hidden="true">👥</span> IHEEM Gatherings
-        </button>
-        <button class="btn btn-outline btn-chip" data-cat="all-network" aria-pressed="false">
-          <span aria-hidden="true">👥</span> Network Sessions
-        </button>
-        <button class="btn btn-outline btn-chip" data-cat="drinks" aria-pressed="false">
-          <span aria-hidden="true">🍷</span> After Work Drinks
-        </button>
-        <button class="btn btn-outline btn-chip" data-cat="sig" aria-pressed="false">
-          <span aria-hidden="true">🧩</span> SIG Events
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Events Grid -->
+  <!-- Embedded Eventbrite organizer widget -->
   <section class="section">
     <div class="container">
-      <div id="events-list" class="card-grid" role="list"></div>
-      <div id="events-empty" class="center hidden"><p class="mb-0">No events found in this category.</p></div>
+      <div id="eventbrite-widget-wrapper">
+        <div id="eventbrite-widget" aria-label="Eventbrite embedded organizer widget"></div>
+        <noscript>
+          <p>Please enable JavaScript to view embedded events. <a href="https://www.eventbrite.com/o/nextgen-healthcare-network-77223082953" target="_blank" rel="noopener">View events on Eventbrite</a>.</p>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -206,7 +184,24 @@
 <div data-include="/partials/footer.html"></div>
 
 <!-- Scripts: data first, then behavior -->
-<script src="../assets/js/events.js?v=9"></script>
-<script src="../assets/js/main.js?v=9"></script>
+<script>
+  // Define initializer so we can call it on the widget script's onload reliably
+  function initEventbriteWidget(){
+    if (!window.eb_widgets) return;
+    try {
+      window.eb_widgets.createWidget({
+        widgetType: "organizer",
+        organizerId: "77223082953",
+        iframeContainerId: "eventbrite-widget",
+        hostname: "www.eventbrite.com"
+      });
+    } catch (e) {
+      console.error("Eventbrite widget init failed", e);
+    }
+  }
+</script>
+<script src="https://www.eventbrite.com/static/widgets/organizer.js" onload="initEventbriteWidget()" defer></script>
+<script src="../assets/js/events.js?v=10"></script>
+<script src="../assets/js/main.js?v=10"></script>
 </body>
 </html>
