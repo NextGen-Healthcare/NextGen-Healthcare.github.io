@@ -10,8 +10,36 @@ import sys
 from datetime import datetime, timezone
 import requests
 
-ORGANIZER_ID = "77223082953"
 OUTPUT_FILE = "assets/data/eventbrite-upcoming.json"
+
+def get_organization_id(headers):
+    """Fetch the organization ID for the authenticated user."""
+    print("Fetching organization ID...")
+    
+    url = 'https://www.eventbriteapi.com/v3/users/me/organizations/'
+    
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+        
+        organizations = data.get('organizations', [])
+        
+        if not organizations:
+            print("Error: No organizations found for this account")
+            sys.exit(1)
+        
+        # Use the first organization
+        org = organizations[0]
+        org_id = org['id']
+        org_name = org.get('name', 'Unknown')
+        
+        print(f"Found organization: {org_name} (ID: {org_id})")
+        return org_id
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching organization: {e}")
+        sys.exit(1)
 
 def fetch_eventbrite_events():
     """Fetch events from Eventbrite API."""
@@ -26,8 +54,11 @@ def fetch_eventbrite_events():
         'Content-Type': 'application/json',
     }
     
+    # Get the organization ID
+    organizer_id = get_organization_id(headers)
+    
     # Fetch events for the organizer
-    url = f'https://www.eventbriteapi.com/v3/organizations/{ORGANIZER_ID}/events/'
+    url = f'https://www.eventbriteapi.com/v3/organizations/{organizer_id}/events/'
     
     params = {
         'status': 'live',  # Only live/published events
@@ -98,7 +129,7 @@ def fetch_eventbrite_events():
         
         return {
             'updated_at': datetime.now(timezone.utc).isoformat(),
-            'organizer_id': ORGANIZER_ID,
+            'organizer_id': organizer_id,
             'count': len(events),
             'events': events
         }
