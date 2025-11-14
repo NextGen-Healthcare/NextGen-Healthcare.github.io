@@ -1,18 +1,31 @@
 // /assets/js/eventbrite-integration.js
-// Displays events from GitHub Actions-synced Eventbrite data
+// Displays events from GitHub Actions-synced Eventbrite data with filtering
 (() => {
   "use strict";
 
-  const ORGANIZER_ID = "77223082953";
-  const ORGANIZER_URL = `https://www.eventbrite.com/o/nextgen-healthcare-network-${ORGANIZER_ID}`;
-  const DATA_URL = "../assets/data/eventbrite-upcoming.json";
-  const VERSION = "1";
+  const VERSION = "12";
+  const DATA_URL = `../assets/data/eventbrite-upcoming.json?v=${VERSION}`;
   
-  const container = document.getElementById("eventbrite-events-container");
-  const loadingEl = document.getElementById("eventbrite-loading");
-  const errorEl = document.getElementById("eventbrite-error");
-  
-  if (!container) return;
+  let allEvents = [];
+  let activeCategory = 'all';
+
+  // Category detection based on event title
+  function detectCategory(title) {
+    const lower = title.toLowerCase();
+    if (lower.includes('coffee')) return 'coffee';
+    if (lower.includes('drink')) return 'drinks';
+    if (lower.includes('working')) return 'working-groups';
+    return 'network';
+  }
+
+  // Category display info
+  const CATEGORIES = {
+    'all': { emoji: '📅', label: 'All Events' },
+    'coffee': { emoji: '☕', label: 'Coffee & Catch-Up' },
+    'drinks': { emoji: '🍻', label: 'After-Work Drinks' },
+    'working-groups': { emoji: '👥', label: 'Working Groups' },
+    'network': { emoji: '🌐', label: 'Network Events' }
+  };
 
   const escapeHTML = (s = "") =>
     String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[ch]));
@@ -21,12 +34,10 @@
     try {
       const d = new Date(dateString);
       if (isNaN(d)) return dateString;
-      return d.toLocaleDateString(undefined, { 
-        weekday: 'short',
-        day: 'numeric', 
-        month: 'short', 
-        year: 'numeric' 
-      });
+      const day = d.getDate();
+      const month = d.toLocaleDateString('en-GB', { month: 'short' });
+      const year = d.getFullYear();
+      return `${day} ${month} ${year}`;
     } catch {
       return dateString;
     }
@@ -36,7 +47,7 @@
     try {
       const d = new Date(dateString);
       if (isNaN(d)) return "";
-      return d.toLocaleTimeString(undefined, { 
+      return d.toLocaleTimeString('en-GB', { 
         hour: 'numeric', 
         minute: '2-digit',
         hour12: true
@@ -46,113 +57,190 @@
     }
   }
 
-  function buildEventCard(event) {
+  function createEventCard(event) {
+    const category = detectCategory(event.name);
+    const categoryInfo = CATEGORIES[category];
     const title = event.name || "Event";
-    const date = formatDate(event.start);
-    const time = formatTime(event.start);
-    const location = event.location || "Online";
-    const url = event.url || "#";
-    const summary = event.summary || event.description || "";
+    const description = event.summary || event.description || "";
+    const location = event.location || (event.is_online ? "Online Event" : "Location TBA");
     const imageUrl = event.logo_url || "";
-    const isSoldOut = event.is_sold_out || false;
-    const isFree = event.is_free || false;
-
-    return `
-<article class="card event" role="listitem">
-  <div class="h-2 bg-gradient-accent" aria-hidden="true"></div>
-  ${imageUrl ? `<img src="${escapeHTML(imageUrl)}" alt="${escapeHTML(title)}" style="width:100%;height:180px;object-fit:cover;">` : ""}
-  <div class="p-6">
-    ${isSoldOut ? '<span class="badge" style="background:#dc2626;color:#fff;padding:.25rem .5rem;border-radius:.375rem;font-size:.75rem;font-weight:600;">SOLD OUT</span>' : ''}
-    ${isFree ? '<span class="badge" style="background:#059669;color:#fff;padding:.25rem .5rem;border-radius:.375rem;font-size:.75rem;font-weight:600;margin-left:.5rem;">FREE</span>' : ''}
-    <h3 class="mb-0" style="margin-top:.5rem;">
-      <a href="${escapeHTML(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">
-        ${escapeHTML(title)}
-      </a>
-    </h3>
-    <div class="meta-stack" style="margin-top:.5rem;">
-      <div class="meta-line">
-        <span aria-hidden="true">📅</span>
-        ${escapeHTML(date)}${time ? ` · ${escapeHTML(time)}` : ""}
-      </div>
-      ${location ? `
-      <div class="meta-line">
-        <span aria-hidden="true">📍</span> ${escapeHTML(location)}
-      </div>` : ""}
-    </div>
-    ${summary ? `<p style="margin:.75rem 0 0;opacity:.9;font-size:.9375rem;">${escapeHTML(summary.substring(0, 150))}${summary.length > 150 ? "..." : ""}</p>` : ""}
-    <div class="card-actions" style="margin-top:1rem;">
-      ${isSoldOut 
-        ? '<button class="btn btn-outline size-sm" disabled>Sold Out</button>' 
-        : `<a class="btn btn-primary size-sm" href="${escapeHTML(url)}" target="_blank" rel="noopener">Register on Eventbrite</a>`}
-    </div>
-  </div>
-</article>`;
-  }
-
-  function showLoading() {
-    if (loadingEl) loadingEl.classList.remove("hidden");
-    if (errorEl) errorEl.classList.add("hidden");
-    container.innerHTML = "";
-  }
-
-  function showError(message) {
-    if (loadingEl) loadingEl.classList.add("hidden");
-    if (errorEl) {
-      errorEl.classList.remove("hidden");
-      errorEl.innerHTML = `<p>${escapeHTML(message)}</p>`;
-    }
-  }
-
-  function showEvents(events) {
-    if (loadingEl) loadingEl.classList.add("hidden");
-    if (errorEl) errorEl.classList.add("hidden");
+    const eventUrl = event.url || "";
     
-    if (!events || events.length === 0) {
+    return `
+      <article class="event-card" data-category="${escapeHTML(category)}">
+        ${imageUrl ? `
+          <div class="event-image" style="background-image: url('${escapeHTML(imageUrl)}');">
+            <div class="event-badges">
+              ${event.is_free ? '<span class="badge badge-free">FREE</span>' : ''}
+              ${event.is_sold_out ? '<span class="badge badge-sold-out">SOLD OUT</span>' : ''}
+            </div>
+          </div>
+        ` : ''}
+        <div class="event-content">
+          <div class="event-category">
+            <span aria-hidden="true">${categoryInfo.emoji}</span> ${escapeHTML(categoryInfo.label)}
+          </div>
+          <h3 class="event-title">${escapeHTML(title)}</h3>
+          <div class="event-meta">
+            <div class="meta-item">
+              <span aria-hidden="true">📅</span>
+              <span>${formatDate(event.start)}${event.start ? ` at ${formatTime(event.start)}` : ''}</span>
+            </div>
+            ${location ? `
+              <div class="meta-item">
+                <span aria-hidden="true">📍</span>
+                <span>${escapeHTML(location)}</span>
+              </div>
+            ` : ''}
+          </div>
+          ${description ? `
+            <p class="event-description">${escapeHTML(description.substring(0, 200))}${description.length > 200 ? '...' : ''}</p>
+          ` : ''}
+          <a href="${escapeHTML(eventUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Register on Eventbrite →
+          </a>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderEvents() {
+    const container = document.getElementById('eventbrite-events-container');
+    if (!container) return;
+
+    // Filter events based on active category
+    const filteredEvents = activeCategory === 'all' 
+      ? allEvents 
+      : allEvents.filter(event => detectCategory(event.name) === activeCategory);
+
+    if (filteredEvents.length === 0) {
       container.innerHTML = `
-        <div class="center" style="grid-column:1/-1;padding:2rem;">
-          <p class="muted">No upcoming events at the moment. Check back soon!</p>
-          <a class="btn btn-outline" href="${ORGANIZER_URL}" target="_blank" rel="noopener">View on Eventbrite</a>
-        </div>`;
+        <div class="no-events">
+          <div class="no-events-icon">📅</div>
+          <h3>No events found</h3>
+          <p>There are no ${activeCategory === 'all' ? '' : CATEGORIES[activeCategory].label.toLowerCase() + ' '}events scheduled at the moment.</p>
+          <p>Check back soon or try a different filter.</p>
+        </div>
+      `;
       return;
     }
 
-    container.innerHTML = events.map(buildEventCard).join("");
+    container.innerHTML = filteredEvents.map(createEventCard).join('');
   }
 
-  async function fetchEvents() {
-    showLoading();
+  function setupFilters() {
+    const filterContainer = document.getElementById('event-filters');
+    if (!filterContainer) return;
+
+    // Count events per category
+    const counts = {
+      all: allEvents.length,
+      coffee: 0,
+      drinks: 0,
+      'working-groups': 0,
+      network: 0
+    };
+
+    allEvents.forEach(event => {
+      const category = detectCategory(event.name);
+      counts[category]++;
+    });
+
+    // Create filter buttons
+    const buttons = Object.entries(CATEGORIES).map(([key, info]) => {
+      const count = counts[key];
+      const isActive = activeCategory === key;
+      return `
+        <button 
+          class="filter-btn ${isActive ? 'active' : ''}" 
+          data-category="${key}"
+          aria-pressed="${isActive}"
+        >
+          <span aria-hidden="true">${info.emoji}</span>
+          ${escapeHTML(info.label)}
+          <span class="filter-count">(${count})</span>
+        </button>
+      `;
+    }).join('');
+
+    filterContainer.innerHTML = buttons;
+
+    // Add click handlers
+    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.category;
+        
+        // Update active states
+        filterContainer.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.category === activeCategory);
+          b.setAttribute('aria-pressed', b.dataset.category === activeCategory);
+        });
+        
+        renderEvents();
+      });
+    });
+  }
+
+  async function loadEvents() {
+    const container = document.getElementById('eventbrite-events-container');
+    const loadingEl = document.getElementById('eventbrite-loading');
+    const errorEl = document.getElementById('eventbrite-error');
     
+    if (!container) return;
+
+    // Show loading state
+    if (loadingEl) loadingEl.style.display = 'block';
+    if (errorEl) errorEl.style.display = 'none';
+    container.style.display = 'none';
+
     try {
-      const response = await fetch(`${DATA_URL}?v=${VERSION}`, { cache: "no-store" });
+      const response = await fetch(DATA_URL);
       
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
-      
-      if (!data || !Array.isArray(data.events)) {
-        throw new Error("Invalid data format");
-      }
-      
-      console.log(`Loaded ${data.count} events (updated: ${data.updated_at})`);
-      showEvents(data.events);
-      
-    } catch (error) {
-      console.error("Error fetching events:", error);
-      
-      // Show friendly error with link to Eventbrite
-      if (errorEl) {
-        errorEl.innerHTML = `
-          <p class="muted" style="margin-bottom:1rem;">Unable to load events at the moment.</p>
-          <a class="btn btn-primary" href="${ORGANIZER_URL}" target="_blank" rel="noopener">View Events on Eventbrite</a>
+      allEvents = data.events || [];
+
+      console.log(`✅ Loaded ${allEvents.length} events from Eventbrite`);
+      console.log(`Last updated: ${data.updated_at}`);
+
+      if (loadingEl) loadingEl.style.display = 'none';
+
+      if (allEvents.length === 0) {
+        container.style.display = 'block';
+        container.innerHTML = `
+          <div class="no-events">
+            <div class="no-events-icon">📅</div>
+            <h3>No upcoming events</h3>
+            <p>We don't have any events scheduled at the moment.</p>
+            <p>Check back soon for coffee catch-ups, drinks, working groups, and network events!</p>
+          </div>
         `;
-        errorEl.classList.remove("hidden");
+        return;
       }
-      if (loadingEl) loadingEl.classList.add("hidden");
+
+      container.style.display = 'grid';
+      setupFilters();
+      renderEvents();
+
+    } catch (error) {
+      console.error('❌ Error loading events:', error);
+      
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (errorEl) {
+        errorEl.style.display = 'block';
+        const errorDetails = errorEl.querySelector('.error-details');
+        if (errorDetails) errorDetails.textContent = error.message;
+      }
     }
   }
 
-  // Initialize
-  fetchEvents();
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadEvents);
+  } else {
+    loadEvents();
+  }
 })();

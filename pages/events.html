@@ -69,9 +69,208 @@
   .hidden { display: none; }
   .mb-0 { margin-bottom: 0; }
 
+  /* Event Filters */
+  .event-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1.25rem;
+    background: white;
+    border: 2px solid #A1B7CD;
+    border-radius: 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #316598;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .filter-btn:hover {
+    background: #C5D2DF;
+    border-color: #316598;
+    transform: translateY(-2px);
+  }
+
+  .filter-btn.active {
+    background: #316598;
+    border-color: #316598;
+    color: white;
+  }
+
+  .filter-count {
+    opacity: 0.7;
+    font-size: 0.85rem;
+  }
+
+  /* New Event Card Styling */
+  .event-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  .event-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .event-badges {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-free {
+    background: #10b981;
+    color: white;
+  }
+
+  .badge-sold-out {
+    background: #ef4444;
+    color: white;
+  }
+
+  .event-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .event-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: #C5D2DF;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #316598;
+    width: fit-content;
+    margin-bottom: 0.75rem;
+  }
+
+  .event-title {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+    color: #1B244D;
+  }
+
+  .event-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .event-description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex: 1;
+  }
+
+  /* Loading and empty states */
+  .loading, .no-events, .error-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #C5D2DF;
+    border-top-color: #316598;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .no-events-icon, .error-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .no-events h3, .error-state h3 {
+    color: #1B244D;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-events p, .error-state p {
+    color: #666;
+    margin: 0.5rem 0;
+  }
+
+  .error-details {
+    font-size: 0.85rem;
+    color: #999;
+    font-family: monospace;
+    margin-top: 1rem !important;
+  }
+
+  @media (max-width: 760px) {
+    .event-filters {
+      top: 60px;
+    }
+  }
+
   /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce){
-    .card.event, .card.highlight { transition: none; }
+    .card.event, .card.highlight, .event-card, .filter-btn { transition: none; }
   }
 </style>
 </head>
@@ -113,6 +312,10 @@
   <!-- Upcoming Events (Branded Cards) -->
   <section class="section">
     <div class="container">
+      <div id="event-filters" class="event-filters">
+        <!-- Filter buttons will be inserted here by JavaScript -->
+      </div>
+      
       <div id="eventbrite-loading" class="center">
         <p style="opacity:.8;">Loading upcoming events...</p>
       </div>
@@ -160,8 +363,8 @@
 <div data-include="/partials/footer.html"></div>
 
 <!-- Scripts: data first, then behavior -->
-<script src="../assets/js/events.js?v=10"></script>
-<script src="../assets/js/eventbrite-integration.js?v=1"></script>
-<script src="../assets/js/main.js?v=10"></script>
+<script src="../assets/js/events.js?v=12"></script>
+<script src="../assets/js/eventbrite-integration.js?v=12"></script>
+<script src="../assets/js/main.js?v=12"></script>
 </body>
 </html>
