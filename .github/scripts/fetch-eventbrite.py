@@ -89,6 +89,27 @@ def fetch_eventbrite_events():
                 except:
                     pass
             
+            # Skip events with placeholder/incomplete content
+            # These are often recurring event instances that haven't been fully created yet
+            event_name = event.get('name', {}).get('text', '').strip()
+            event_summary = event.get('summary', '').strip()
+            event_description = event.get('description', {}).get('text', '').strip()
+            
+            # Skip if the event has placeholder text like "xxx" or "TBD" or is completely empty
+            placeholder_indicators = ['xxx', 'tbd', 'tba', 'to be determined', 'to be announced']
+            
+            if not event_name or event_name.lower() in placeholder_indicators:
+                print(f"Skipping event with placeholder name: {event_name}")
+                continue
+            
+            if not event_summary or event_summary.lower() in placeholder_indicators:
+                print(f"Skipping event '{event_name}' with placeholder summary: {event_summary}")
+                continue
+            
+            if not event_description or event_description.lower() in placeholder_indicators:
+                print(f"Skipping event '{event_name}' with placeholder description: {event_description}")
+                continue
+            
             # Extract venue info
             venue = event.get('venue', {})
             location = None
@@ -107,12 +128,12 @@ def fetch_eventbrite_events():
             is_sold_out = ticket_availability.get('is_sold_out', False)
             has_available_tickets = ticket_availability.get('has_available_tickets', True)
             
-            # Build event object
+            # Build event object (using already parsed/validated strings)
             event_data = {
                 'id': event.get('id'),
-                'name': event.get('name', {}).get('text', 'Untitled Event'),
-                'summary': event.get('summary', ''),
-                'description': event.get('description', {}).get('text', ''),
+                'name': event_name,
+                'summary': event_summary,
+                'description': event_description,
                 'url': event.get('url', ''),
                 'start': start_date,
                 'end': end_date,
