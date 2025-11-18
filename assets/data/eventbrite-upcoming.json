@@ -1,7 +1,7 @@
 {
-  "updated_at": "2025-11-14T06:21:32.523054+00:00",
+  "updated_at": "2025-11-18T06:21:04.800238+00:00",
   "organizer_id": "1961144653483",
-  "count": 7,
+  "count": 6,
   "events": [
     {
       "id": "1960044679399",
@@ -95,22 +95,6 @@
       "is_online": true,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
       "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
-    {
-      "id": "1914429051829",
-      "name": "NGNH Regulations & Compliance Working Group - Session 3",
-      "summary": "xxx",
-      "description": "xxx",
-      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-3-tickets-1914429051829",
-      "start": "2026-01-07T13:00:00Z",
-      "end": "2026-01-07T14:00:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
-      "capacity": 20,
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
