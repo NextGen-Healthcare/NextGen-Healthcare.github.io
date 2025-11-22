@@ -1,7 +1,7 @@
 {
-  "updated_at": "2025-11-21T06:21:38.085370+00:00",
+  "updated_at": "2025-11-22T06:18:48.405537+00:00",
   "organizer_id": "1961144653483",
-  "count": 7,
+  "count": 8,
   "events": [
     {
       "id": "1974242970871",
@@ -114,6 +114,22 @@
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
+    },
+    {
+      "id": "1975147873459",
+      "name": "NGNH Regulations & Compliance Working Group - Session 3",
+      "summary": "Exploring the hierarchy and interfaces of healthcare regulations to achieve compliance - Part 2.",
+      "description": "Exploring the hierarchy and interfaces of healthcare regulations to achieve compliance - Part 2.",
+      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-3-tickets-1975147873459",
+      "start": "2026-01-07T13:00:00Z",
+      "end": "2026-01-07T13:50:00Z",
+      "location": "Online",
+      "is_online": true,
+      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
+      "capacity": 35,
+      "is_free": true,
+      "is_sold_out": false,
+      "has_available_tickets": false
     }
   ]
 }
