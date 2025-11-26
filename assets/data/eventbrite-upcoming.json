@@ -1,5 +1,5 @@
 {
-  "updated_at": "2025-11-25T06:21:50.067458+00:00",
+  "updated_at": "2025-11-26T06:21:52.974852+00:00",
   "organizer_id": "1961144653483",
   "count": 8,
   "events": [
@@ -129,7 +129,7 @@
       "capacity": 35,
       "is_free": true,
       "is_sold_out": false,
-      "has_available_tickets": false
+      "has_available_tickets": true
     }
   ]
 }
