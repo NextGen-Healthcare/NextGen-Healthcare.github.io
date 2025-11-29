@@ -1,24 +1,8 @@
 {
-  "updated_at": "2025-11-28T06:22:19.886331+00:00",
+  "updated_at": "2025-11-29T06:19:40.474302+00:00",
   "organizer_id": "1961144653483",
-  "count": 8,
+  "count": 7,
   "events": [
-    {
-      "id": "1974242970871",
-      "name": "NGHN - Join the Team!",
-      "summary": "Want to Make an Impact? Join The NextGen Healthcare Network Team!",
-      "description": "Want to Make an Impact? Join The NextGen Healthcare Network Team!",
-      "url": "https://www.eventbrite.co.uk/e/nghn-join-the-team-tickets-1974242970871",
-      "start": "2025-11-28T13:00:00Z",
-      "end": "2025-11-28T14:00:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
-      "capacity": 35,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1960044679399",
       "name": "Next Gen Healthcare: Christmas Drinks - Bristol",
