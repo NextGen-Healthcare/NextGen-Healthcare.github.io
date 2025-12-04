@@ -1,40 +1,8 @@
 {
-  "updated_at": "2025-12-03T06:22:41.997112+00:00",
+  "updated_at": "2025-12-04T06:22:16.775459+00:00",
   "organizer_id": "1961144653483",
-  "count": 5,
+  "count": 3,
   "events": [
-    {
-      "id": "1905504799149",
-      "name": "NGNH Regulations & Compliance Working Group - Session 2",
-      "summary": "Exploring the hierarchy and interfaces of healthcare regulations to achieve compliance.",
-      "description": "Exploring the hierarchy and interfaces of healthcare regulations to achieve compliance.",
-      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-2-tickets-1905504799149",
-      "start": "2025-12-03T13:00:00Z",
-      "end": "2025-12-03T13:50:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
-      "capacity": 35,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
-    {
-      "id": "1960045702459",
-      "name": "Next Gen Healthcare: Winter Drinks - Manchester",
-      "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work Winter Drinks!",
-      "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work Winter Drinks!",
-      "url": "https://www.eventbrite.co.uk/e/next-gen-healthcare-winter-drinks-manchester-tickets-1960045702459",
-      "start": "2025-12-03T18:00:00Z",
-      "end": "2025-12-03T21:30:00Z",
-      "location": "Manchester, England",
-      "is_online": false,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F696253029%2F238270579960%2F1%2Foriginal.20240213-165047?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C457%2C5170%2C2585&s=8edab98eff5fa1c0385ce2f35fff97f8",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1964835901072",
       "name": "Next Gen Healthcare: Winter Drinks - Birmingham",
@@ -64,8 +32,8 @@
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
       "capacity": 40,
       "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
+      "is_sold_out": true,
+      "has_available_tickets": false
     },
     {
       "id": "1975147873459",
