@@ -1,24 +1,8 @@
 {
-  "updated_at": "2025-12-09T06:23:03.734262+00:00",
+  "updated_at": "2025-12-10T06:23:23.089106+00:00",
   "organizer_id": "1961144653483",
-  "count": 4,
+  "count": 3,
   "events": [
-    {
-      "id": "1964835901072",
-      "name": "Next Gen Healthcare: Winter Drinks - Birmingham",
-      "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work Winter Drinks!",
-      "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work Winter Drinks!",
-      "url": "https://www.eventbrite.co.uk/e/next-gen-healthcare-winter-drinks-birmingham-tickets-1964835901072",
-      "start": "2025-12-09T17:30:00Z",
-      "end": "2025-12-09T21:30:00Z",
-      "location": "Birmingham, England",
-      "is_online": false,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F696253029%2F238270579960%2F1%2Foriginal.20240213-165047?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C457%2C5170%2C2585&s=8edab98eff5fa1c0385ce2f35fff97f8",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1963943470789",
       "name": "Next Gen Healthcare Energy & Sustainability Working Group - Session 1",
