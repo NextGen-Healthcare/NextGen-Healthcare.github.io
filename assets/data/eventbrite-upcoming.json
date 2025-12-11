@@ -1,24 +1,8 @@
 {
-  "updated_at": "2025-12-10T06:23:23.089106+00:00",
+  "updated_at": "2025-12-11T06:24:00.470758+00:00",
   "organizer_id": "1961144653483",
-  "count": 3,
+  "count": 2,
   "events": [
-    {
-      "id": "1963943470789",
-      "name": "Next Gen Healthcare Energy & Sustainability Working Group - Session 1",
-      "summary": "We’re excited to re-engage our NGHN E&S Working Group bringing together young professionals from across the healthcare construction sector.",
-      "description": "We’re excited to re-engage our NGHN E&S Working Group bringing together young professionals from across the healthcare construction sector.",
-      "url": "https://www.eventbrite.co.uk/e/next-gen-healthcare-energy-sustainability-working-group-session-1-tickets-1963943470789",
-      "start": "2025-12-10T13:00:00Z",
-      "end": "2025-12-10T13:45:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1975147873459",
       "name": "NGNH Regulations & Compliance Working Group - Session 3",
