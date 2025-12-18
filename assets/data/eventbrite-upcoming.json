@@ -1,7 +1,7 @@
 {
-  "updated_at": "2025-12-17T06:23:06.431534+00:00",
+  "updated_at": "2025-12-18T06:22:53.571503+00:00",
   "organizer_id": "1961144653483",
-  "count": 2,
+  "count": 3,
   "events": [
     {
       "id": "1975147873459",
@@ -11,6 +11,22 @@
       "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-3-tickets-1975147873459",
       "start": "2026-01-07T13:00:00Z",
       "end": "2026-01-07T13:50:00Z",
+      "location": "Online",
+      "is_online": true,
+      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
+      "capacity": 35,
+      "is_free": true,
+      "is_sold_out": false,
+      "has_available_tickets": true
+    },
+    {
+      "id": "1977510621502",
+      "name": "NGNH Regulations & Compliance Working Group - Session 4",
+      "summary": "Session 4: Compliance Conflicts and Mandated Templates",
+      "description": "Session 4: Compliance Conflicts and Mandated Templates",
+      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-4-tickets-1977510621502",
+      "start": "2026-02-04T13:00:00Z",
+      "end": "2026-02-04T13:55:00Z",
       "location": "Online",
       "is_online": true,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1122070603%2F238270579960%2F1%2Foriginal.20250912-092553?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=2d90626a08279f846639b1d4c86d2d55",
