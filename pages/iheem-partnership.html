@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IHEEM Partnership – NextGen Healthcare Network</title>
+<meta name="description" content="Partnership between NextGen Healthcare Network and the Institute of Healthcare Engineering and Estate Management" />
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css?v=9" />
+
+<style>
+  :root { 
+    --brand-blue: #316598;
+    --brand-navy: #1B244D;
+    --brand-light: #A1B7CD;
+    --brand-lighter: #C5D2DF;
+    --radius: 14px;
+  }
+
+  /* Layout */
+  .section { padding: 4rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .narrow { max-width: 800px; margin: 0 auto; }
+  .center { text-align: center; }
+
+  /* Minimal Header (no main navigation) */
+  .minimal-header {
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1.5rem 0;
+  }
+
+  .minimal-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--brand-navy);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .brand-link img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .back-link {
+    color: var(--brand-blue);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: var(--brand-navy);
+    text-decoration: underline;
+  }
+
+  /* Partnership Banner */
+  .partnership-banner {
+    background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .partnership-banner h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 1rem;
+    font-weight: 700;
+  }
+
+  .partnership-banner p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Logo Display */
+  .logo-display {
+    background: white;
+    padding: 3rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .logo-pair {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logo-item img {
+    height: 80px;
+    width: auto;
+    opacity: 0.9;
+  }
+
+  .logo-placeholder {
+    height: 80px;
+    width: 200px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #999;
+    font-weight: 600;
+  }
+
+  .logo-item p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .partnership-connector {
+    font-size: 2rem;
+    color: var(--brand-blue);
+  }
+
+  /* Content Sections */
+  .content-section {
+    padding: 4rem 0;
+  }
+
+  .content-section.alt-bg {
+    background: #f8f9fa;
+  }
+
+  .content-section h2 {
+    color: var(--brand-navy);
+    font-size: 2rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .content-section h3 {
+    color: var(--brand-navy);
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .content-section p {
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .content-section ul {
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    padding-left: 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .content-section ul li {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Objectives Grid */
+  .objectives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .objective-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--brand-blue);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .objective-card h4 {
+    color: var(--brand-navy);
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .objective-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Outcomes Section */
+  .outcomes-list {
+    display: grid;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .outcome-item {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .outcome-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-light), var(--brand-blue));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .outcome-content h4 {
+    margin: 0 0 0.5rem;
+    color: var(--brand-navy);
+    font-size: 1.1rem;
+  }
+
+  .outcome-content p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Info Box */
+  .info-box {
+    background: #f0f9ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid var(--brand-blue);
+    padding: 2rem;
+    border-radius: var(--radius);
+    margin: 2rem 0;
+  }
+
+  .info-box h4 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .info-box p {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .info-box p:last-child {
+    margin: 0;
+  }
+
+  /* About IHEEM Section */
+  .about-iheem {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 3rem;
+    border-radius: var(--radius);
+    margin: 2rem 0;
+  }
+
+  .about-iheem h3 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+  }
+
+  .about-iheem p {
+    margin: 0 0 1rem;
+  }
+
+  .about-iheem p:last-child {
+    margin: 0;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    background: white;
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .contact-section h3 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  .contact-section p {
+    color: #666;
+    margin: 0 0 1.5rem;
+  }
+
+  .contact-section a {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: var(--brand-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+
+  .contact-section a:hover {
+    background: var(--brand-navy);
+  }
+
+  /* Footer */
+  .partnership-footer {
+    background: #f8f9fa;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .footer-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-logos img {
+    height: 50px;
+    width: auto;
+    opacity: 0.7;
+  }
+
+  .footer-text {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .logo-pair {
+      gap: 2rem;
+    }
+
+    .objectives-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .minimal-header .container {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Minimal Header (No main navigation) -->
+<header class="minimal-header">
+  <div class="container">
+    <a href="../index.html" class="brand-link">
+      <img src="../assets/img/logo.svg" alt="NextGen Healthcare Network" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <a href="../index.html" class="back-link">← Back to NGHN</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- Partnership Banner -->
+  <section class="partnership-banner">
+    <div class="container">
+      <h1>Partnership with IHEEM</h1>
+      <p>A collaborative commitment to developing the next generation of healthcare infrastructure professionals</p>
+    </div>
+  </section>
+
+  <!-- Logo Display -->
+  <section class="logo-display">
+    <div class="container">
+      <div class="logo-pair">
+        <div class="logo-item">
+          <img src="../assets/img/logo.svg" alt="NextGen Healthcare Network" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="logo-placeholder" style="display:none;">NGHN</div>
+          <p>NextGen Healthcare Network</p>
+        </div>
+        
+        <div class="partnership-connector">×</div>
+        
+        <div class="logo-item">
+          <img src="../assets/img/leadership/iheem-logo.png" alt="IHEEM" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="logo-placeholder" style="display:none;">IHEEM</div>
+          <p>Institute of Healthcare Engineering<br>and Estate Management</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Overview -->
+  <section class="content-section">
+    <div class="container narrow">
+      <h2>Partnership Overview</h2>
+      <p>
+        The NextGen Healthcare Network (NGHN) is proud to partner with the Institute of Healthcare Engineering and Estate Management (IHEEM), the UK's leading professional body for healthcare estates and engineering professionals.
+      </p>
+      <p>
+        This partnership represents a shared commitment to professional development, knowledge exchange, and cultivating future leadership in healthcare estates and infrastructure. Through this collaboration, we aim to strengthen the pipeline of skilled professionals entering and progressing within the healthcare infrastructure sector.
+      </p>
+      <p>
+        Both organisations recognise the critical importance of supporting early- and mid-career professionals as they navigate their careers and contribute to improving healthcare delivery across the UK.
+      </p>
+    </div>
+  </section>
+
+  <!-- About IHEEM -->
+  <section class="content-section alt-bg">
+    <div class="container narrow">
+      <div class="about-iheem">
+        <h3>About IHEEM</h3>
+        <p>
+          The Institute of Healthcare Engineering and Estate Management (IHEEM) is the professional body representing those who manage, plan, design, construct, and maintain healthcare facilities and associated engineering services across the UK and internationally.
+        </p>
+        <p>
+          With a membership spanning NHS trusts, private healthcare providers, consultancies, contractors, and suppliers, IHEEM plays a vital role in setting professional standards, providing training and development opportunities, and advocating for excellence in healthcare estates management.
+        </p>
+        <p>
+          For NGHN members working in estates, facilities, engineering, sustainability, and related fields, IHEEM represents a natural progression in professional development—offering chartered status pathways, technical guidance, and networking opportunities with established professionals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Objectives -->
+  <section class="content-section">
+    <div class="container">
+      <h2 class="center">Partnership Objectives</h2>
+      <p class="center" style="max-width: 700px; margin: 0 auto 2rem; color: #666;">
+        Our partnership is built on shared objectives that benefit both organisations and, most importantly, the individuals we serve.
+      </p>
+      
+      <div class="objectives-grid">
+        <div class="objective-card">
+          <h4>Supporting the Next Generation</h4>
+          <p>
+            Create accessible pathways for early-career professionals to engage with established institutions and professional development frameworks.
+          </p>
+        </div>
+
+        <div class="objective-card">
+          <h4>Raising Sector Visibility</h4>
+          <p>
+            Improve awareness and understanding of careers in healthcare estates and engineering among emerging professionals and potential sector entrants.
+          </p>
+        </div>
+
+        <div class="objective-card">
+          <h4>Cross-Sector Collaboration</h4>
+          <p>
+            Foster connections between different disciplines, organisations, and career stages to strengthen the sector as a whole.
+          </p>
+        </div>
+
+        <div class="objective-card">
+          <h4>Knowledge Exchange</h4>
+          <p>
+            Facilitate the sharing of expertise, research, and best practices between NGHN members and IHEEM's established professional community.
+          </p>
+        </div>
+
+        <div class="objective-card">
+          <h4>Professional Pathways</h4>
+          <p>
+            Create clear connections between early networking and engagement (NGHN) and formal professional membership and development (IHEEM).
+          </p>
+        </div>
+
+        <div class="objective-card">
+          <h4>Sector Leadership</h4>
+          <p>
+            Develop the future leaders who will shape healthcare infrastructure policy, innovation, and delivery across the UK.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What the Partnership Enables -->
+  <section class="content-section alt-bg">
+    <div class="container narrow">
+      <h2>What the Partnership Enables</h2>
+      <p>
+        This partnership creates practical opportunities for collaboration, learning, and professional development:
+      </p>
+
+      <div class="outcomes-list">
+        <div class="outcome-item">
+          <div class="outcome-icon">🤝</div>
+          <div class="outcome-content">
+            <h4>Joint Events & Initiatives</h4>
+            <p>
+              Co-branded events, conferences, and networking sessions that bring together emerging and established professionals to share insights and build connections.
+            </p>
+          </div>
+        </div>
+
+        <div class="outcome-item">
+          <div class="outcome-icon">📚</div>
+          <div class="outcome-content">
+            <h4>Knowledge Sharing</h4>
+            <p>
+              Access to IHEEM's technical resources, guidance documents, and expertise, complementing NGHN's focus on peer learning and collaborative problem-solving.
+            </p>
+          </div>
+        </div>
+
+        <div class="outcome-item">
+          <div class="outcome-icon">🎓</div>
+          <div class="outcome-content">
+            <h4>Mentorship Opportunities</h4>
+            <p>
+              Connections between NGHN members and experienced IHEEM professionals for guidance, career advice, and professional development support.
+            </p>
+          </div>
+        </div>
+
+        <div class="outcome-item">
+          <div class="outcome-icon">🔬</div>
+          <div class="outcome-content">
+            <h4>Aligned Working Groups</h4>
+            <p>
+              Coordination between NGHN's working groups and IHEEM's strategic priorities, ensuring early-career perspectives inform sector-wide initiatives.
+            </p>
+          </div>
+        </div>
+
+        <div class="outcome-item">
+          <div class="outcome-icon">🎯</div>
+          <div class="outcome-content">
+            <h4>Professional Development Pathways</h4>
+            <p>
+              Clear information and support for NGHN members interested in pursuing chartered status or formal IHEEM membership as their careers progress.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Relationship Framing -->
+  <section class="content-section">
+    <div class="container narrow">
+      <div class="info-box">
+        <h4>Relationship & Independence</h4>
+        <p>
+          While we are proud to partner with IHEEM, it is important to note that NGHN remains an independent network. The partnership is collaborative and mutually supportive, designed to benefit professionals at all stages of their careers.
+        </p>
+        <p>
+          Membership of NGHN does not require or imply IHEEM membership, and vice versa. NGHN welcomes members from all professional backgrounds across healthcare infrastructure, whether or not they are affiliated with IHEEM or any other professional body.
+        </p>
+        <p>
+          This partnership reflects a shared commitment to developing the sector, but each organisation retains its own identity, governance, and priorities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Development -->
+  <section class="content-section alt-bg">
+    <div class="container narrow">
+      <h2>Future Development</h2>
+      <p>
+        This partnership represents the beginning of a long-term collaboration. As both organisations grow and evolve, we anticipate:
+      </p>
+      <ul>
+        <li>Expanding joint initiatives and events</li>
+        <li>Developing new programmes to support professional development</li>
+        <li>Strengthening links between NGHN working groups and IHEEM technical activities</li>
+        <li>Creating additional opportunities for knowledge exchange and mentorship</li>
+        <li>Exploring innovative approaches to sector challenges</li>
+      </ul>
+      <p>
+        This page will be updated as the partnership develops and new initiatives are announced. We welcome feedback and ideas from members of both organisations.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section">
+    <div class="container">
+      <h3>Partnership Enquiries</h3>
+      <p>For questions or enquiries about this partnership, please get in touch:</p>
+      <a href="mailto:team@nextgenhealthcarenetwork.co.uk?subject=IHEEM%20Partnership%20Enquiry">Contact NGHN Team</a>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="partnership-footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../assets/img/logo.svg" alt="NGHN" 
+           onerror="this.style.display='none';" />
+      <img src="../assets/img/leadership/iheem-logo.png" alt="IHEEM" 
+           onerror="this.style.display='none';" />
+    </div>
+    <p class="footer-text">
+      NextGen Healthcare Network in partnership with IHEEM<br>
+      © 2026 NextGen Healthcare Network. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js?v=9"></script>
+</body>
+</html>
