@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About – NextGen Healthcare Network</title>
+<meta name="description" content="Learn about NextGen Healthcare Network - connecting the next generation of professionals shaping the future of healthcare" />
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css?v=9" />
+
+<style>
+  :root { 
+    --brand-blue: #316598;
+    --brand-navy: #1B244D;
+    --brand-light: #A1B7CD;
+    --brand-lighter: #C5D2DF;
+    --radius: 14px;
+  }
+
+  /* Reset */
+  * { box-sizing: border-box; }
+
+  /* Layout */
+  .section { padding: 4rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .narrow { max-width: 860px; margin: 0 auto; }
+  .center { text-align: center; }
+
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
+    color: white;
+    padding: 5rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin: 0 0 1rem;
+    font-weight: 700;
+  }
+
+  .hero-section p {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Visual Storytelling Mosaic */
+  .mosaic-section {
+    background: #f8f9fa;
+    padding: 5rem 0;
+  }
+
+  .mosaic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .mosaic-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .mosaic-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .mosaic-item.image {
+    aspect-ratio: 4/3;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mosaic-item.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mosaic-item.text {
+    background: white;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .mosaic-item.text h3 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  .mosaic-item.text p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--brand-lighter), var(--brand-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    opacity: 0.7;
+  }
+
+  /* Core Narrative */
+  .narrative-section {
+    padding: 5rem 0;
+  }
+
+  .narrative-block {
+    margin-bottom: 4rem;
+  }
+
+  .narrative-block h2 {
+    color: var(--brand-navy);
+    font-size: 2.2rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .narrative-block h3 {
+    color: var(--brand-blue);
+    font-size: 1.6rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .narrative-block p {
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin: 0 0 1rem;
+  }
+
+  .narrative-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .narrative-block ul li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+    color: #444;
+    line-height: 1.7;
+  }
+
+  .narrative-block ul li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--brand-blue);
+    font-weight: bold;
+  }
+
+  /* Impact Statistics Bar */
+  .stats-section {
+    background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue));
+    color: white;
+    padding: 4rem 0;
+    margin: 3rem 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .stat-item {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+    display: block;
+    background: linear-gradient(135deg, #ffffff, var(--brand-lighter));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin: 0.5rem 0 0;
+    font-weight: 500;
+  }
+
+  /* Partner Footer */
+  .partner-section {
+    background: #f8f9fa;
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .partner-section h3 {
+    color: var(--brand-navy);
+    margin: 0 0 2rem;
+    font-size: 1.4rem;
+  }
+
+  .partner-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logos a {
+    text-decoration: none;
+  }
+
+  .partner-logos img {
+    height: 60px;
+    width: auto;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+
+  .partner-logos img:hover {
+    opacity: 1;
+  }
+
+  .logo-placeholder {
+    height: 60px;
+    width: 150px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 600;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+  }
+
+  .cta-section p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0 0 2rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--brand-blue);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--brand-navy);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--brand-blue);
+    color: var(--brand-blue);
+  }
+
+  .btn-outline:hover {
+    background: var(--brand-blue);
+    color: white;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .section {
+      padding: 3rem 0;
+    }
+
+    .mosaic-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+    }
+
+    .stats-grid {
+      gap: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a class="active" href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="working-groups.html">Working Groups</a></li>
+        <li><a href="iheem-partnership.html">IHEEM Partnership</a></li>
+        <li><a href="join-us.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>About NextGen Healthcare Network</h1>
+      <p>Building the future of healthcare infrastructure through connection, collaboration, and innovation</p>
+    </div>
+  </section>
+
+  <!-- Visual Storytelling Mosaic -->
+  <section class="mosaic-section">
+    <div class="container">
+      <h2 class="center" style="color: var(--brand-navy); font-size: 2rem; margin-bottom: 1rem;">Our Story in Pictures</h2>
+      
+      <div class="mosaic-grid">
+        <!-- Image 1: Event photo -->
+        <div class="mosaic-item image">
+          <img src="../assets/img/networking-event.jpg" alt="NGHN networking event" 
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>📸</div>';" />
+        </div>
+
+        <!-- Text 1: Mission -->
+        <div class="mosaic-item text">
+          <h3>Our Mission</h3>
+          <p>To connect and empower the next generation of healthcare infrastructure professionals across the UK, breaking down silos between disciplines and regions.</p>
+        </div>
+
+        <!-- Text 2: Ethos -->
+        <div class="mosaic-item text">
+          <h3>Our Ethos</h3>
+          <p>We believe in open collaboration, knowledge sharing, and creating opportunities for emerging leaders to shape the future of healthcare delivery.</p>
+        </div>
+
+        <!-- Image 2: Group discussion -->
+        <div class="mosaic-item image">
+          <div class="image-placeholder">👥</div>
+        </div>
+
+        <!-- Image 3: Panel session -->
+        <div class="mosaic-item image">
+          <div class="image-placeholder">🎤</div>
+        </div>
+
+        <!-- Text 3: Community -->
+        <div class="mosaic-item text">
+          <h3>Building Community</h3>
+          <p>From coffee catch-ups to major conferences, we create spaces where professionals can connect, learn, and grow together.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Statistics -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">400+</span>
+          <p class="stat-label">Network Members</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">50+</span>
+          <p class="stat-label">Events Delivered</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">12</span>
+          <p class="stat-label">Regions Represented</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">25+</span>
+          <p class="stat-label">Active Partnerships</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Narrative -->
+  <section class="narrative-section">
+    <div class="container narrow">
+      <div class="narrative-block">
+        <h2>Who We Are</h2>
+        <p>
+          NextGen Healthcare Network (NGHN) is a cross-sector professional community bringing together early to mid-career professionals working across healthcare infrastructure in the UK.
+        </p>
+        <p>
+          Our members come from diverse backgrounds spanning estates and facilities management, engineering, sustainability, digital innovation, clinical-adjacent roles, policy, procurement, and strategic planning.
+        </p>
+        <p>
+          What unites us is a shared commitment to improving healthcare delivery through better infrastructure, innovative thinking, and collaborative problem-solving.
+        </p>
+      </div>
+
+      <div class="narrative-block">
+        <h2>Why We Exist</h2>
+        <p>
+          Healthcare infrastructure is at a crossroads. The sector faces unprecedented challenges: aging estates, sustainability targets, digital transformation, and evolving clinical needs. Yet too often, the professionals working to solve these challenges operate in silos—separated by discipline, organization, or geography.
+        </p>
+        <p>
+          NGHN exists to break down these barriers. We create opportunities for emerging leaders to:
+        </p>
+        <ul>
+          <li>Connect across traditional professional boundaries</li>
+          <li>Share knowledge and best practices</li>
+          <li>Learn from experienced practitioners and each other</li>
+          <li>Influence the future direction of healthcare infrastructure</li>
+          <li>Build lasting professional relationships</li>
+        </ul>
+        <p>
+          By bringing together diverse perspectives, we accelerate innovation and create a stronger, more resilient healthcare infrastructure sector.
+        </p>
+      </div>
+
+      <div class="narrative-block">
+        <h2>What We Do</h2>
+        
+        <h3>Events & Networking</h3>
+        <p>
+          We organize regular events ranging from informal coffee catch-ups to major conferences. Our events are designed to be accessible, engaging, and genuinely valuable—whether you're looking to expand your network, learn something new, or simply connect with like-minded professionals.
+        </p>
+
+        <h3>Working Groups</h3>
+        <p>
+          Our Special Interest Groups (SIGs) and working groups provide deeper engagement on specific topics. Members can join focused communities working on areas like sustainability, digital innovation, or policy—driving real-world impact through collaborative projects and knowledge sharing.
+        </p>
+
+        <h3>Partnerships</h3>
+        <p>
+          We partner with leading organizations across the healthcare infrastructure sector, including professional bodies like IHEEM. These partnerships help us deliver high-quality content, create development opportunities, and amplify our collective voice.
+        </p>
+
+        <h3>Knowledge Sharing</h3>
+        <p>
+          Through our blog, resource library, and community discussions, we facilitate the sharing of insights, case studies, and lessons learned. Our members have access to a growing repository of practical knowledge and lived experience.
+        </p>
+      </div>
+
+      <div class="narrative-block">
+        <h2>Who It's For</h2>
+        <p>
+          NGHN is designed for emerging leaders in healthcare infrastructure—typically professionals in the first 10-15 years of their career who are passionate about making a difference.
+        </p>
+        <p>
+          <strong>You'll fit right in if you work in:</strong>
+        </p>
+        <ul>
+          <li><strong>Estates & Facilities:</strong> Managing healthcare buildings and environments</li>
+          <li><strong>Engineering:</strong> Mechanical, electrical, or building services</li>
+          <li><strong>Sustainability:</strong> Driving net zero and environmental improvement</li>
+          <li><strong>Digital & Innovation:</strong> Smart buildings, data, and technology</li>
+          <li><strong>Clinical-Adjacent Roles:</strong> Supporting clinical service delivery</li>
+          <li><strong>Policy & Strategy:</strong> Shaping healthcare infrastructure direction</li>
+          <li><strong>Procurement & Commercial:</strong> Delivering value and managing suppliers</li>
+          <li><strong>Project Management:</strong> Leading capital programmes and transformations</li>
+        </ul>
+        <p>
+          Whether you work for an NHS trust, private healthcare provider, consultancy, contractor, supplier, or government body—if you're passionate about healthcare infrastructure, you belong here.
+        </p>
+        <p>
+          Membership is <strong>free</strong>, and we're committed to keeping our events accessible and inclusive.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Section -->
+  <section class="partner-section">
+    <div class="container">
+      <h3>Supported By</h3>
+      <div class="partner-logos">
+        <a href="iheem-partnership.html">
+          <img src="../assets/img/leadership/iheem-logo.png" alt="IHEEM" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="logo-placeholder" style="display:none;">IHEEM</div>
+        </a>
+        <!-- Additional partner logos can be added here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Join Us?</h2>
+      <p>Become part of a growing community shaping the future of healthcare infrastructure</p>
+      <div class="cta-buttons">
+        <a href="join-us.html" class="btn btn-primary">Join the Network</a>
+        <a href="events.html" class="btn btn-outline">Browse Events</a>
+        <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-include="/partials/footer.html"></div>
+
+<script src="../assets/js/main.js?v=9"></script>
+</body>
+</html>
