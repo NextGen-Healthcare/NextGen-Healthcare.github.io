@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Join Us – NextGen Healthcare Network</title>
+<meta name="description" content="Join the NextGen Healthcare Network - it's free to join and free to attend events" />
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css?v=9" />
+
+<style>
+  :root { 
+    --brand-blue: #316598;
+    --brand-navy: #1B244D;
+    --brand-light: #A1B7CD;
+    --brand-lighter: #C5D2DF;
+    --radius: 14px;
+  }
+
+  /* Layout */
+  .section { padding: 4rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .narrow { max-width: 800px; margin: 0 auto; }
+  .center { text-align: center; }
+
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
+    color: white;
+    padding: 4rem 0 3rem;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin: 0 0 1rem;
+    font-weight: 700;
+  }
+
+  .hero-section p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Welcome Section */
+  .welcome-section {
+    padding: 3rem 0 2rem;
+    background: white;
+  }
+
+  .welcome-section p {
+    color: #444;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .welcome-section strong {
+    color: var(--brand-navy);
+  }
+
+  /* Key Messages Badges */
+  .key-messages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+  }
+
+  .message-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    transition: transform 0.3s ease;
+  }
+
+  .message-badge:nth-child(2) {
+    background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
+    box-shadow: 0 4px 16px rgba(49, 101, 152, 0.3);
+  }
+
+  .message-badge:nth-child(3) {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
+  }
+
+  .message-badge:nth-child(4) {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+  }
+
+  .message-badge:hover {
+    transform: translateY(-4px);
+  }
+
+  .message-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .message-badge h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+  }
+
+  .message-badge p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.95;
+  }
+
+  /* Form Section */
+  .form-section {
+    background: #f8f9fa;
+    padding: 4rem 0;
+  }
+
+  .form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  .form-intro {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-intro h2 {
+    color: var(--brand-navy);
+    margin: 0 0 0.75rem;
+    font-size: 1.8rem;
+  }
+
+  .form-intro p {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  /* Responsive iframe wrapper */
+  .iframe-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .iframe-wrapper iframe {
+    width: 100%;
+    border: none;
+    border-radius: var(--radius);
+  }
+
+  /* Supporting Content */
+  .supporting-content {
+    background: white;
+    padding: 3rem 0;
+  }
+
+  .supporting-content h3 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.4rem;
+  }
+
+  .supporting-content p {
+    color: #555;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  .supporting-content ul {
+    color: #555;
+    line-height: 1.7;
+    padding-left: 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .supporting-content ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .data-reassurance {
+    background: #f0f9ff;
+    border-left: 4px solid var(--brand-blue);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    margin-top: 2rem;
+  }
+
+  .data-reassurance h4 {
+    color: var(--brand-navy);
+    margin: 0 0 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .data-reassurance p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Secondary CTAs */
+  .secondary-cta {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 3.5rem 0;
+    text-align: center;
+  }
+
+  .secondary-cta h3 {
+    color: var(--brand-navy);
+    margin: 0 0 2rem;
+    font-size: 1.8rem;
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .cta-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cta-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .cta-card h4 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .cta-card p {
+    color: #666;
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+  }
+
+  .cta-card a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--brand-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+
+  .cta-card a:hover {
+    background: var(--brand-navy);
+  }
+
+  /* Partner Section */
+  .partner-section {
+    background: white;
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .partner-section h3 {
+    color: var(--brand-navy);
+    margin: 0 0 2rem;
+    font-size: 1.4rem;
+  }
+
+  .partner-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-logos img {
+    height: 60px;
+    width: auto;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+
+  .partner-logos img:hover {
+    opacity: 1;
+  }
+
+  .logo-placeholder {
+    height: 60px;
+    width: 150px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 600;
+  }
+
+  .social-links {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .social-links a {
+    width: 44px;
+    height: 44px;
+    background: var(--brand-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .social-links a:hover {
+    background: var(--brand-navy);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .form-container {
+      padding: 2rem 1rem;
+    }
+
+    .key-messages {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .cta-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="working-groups.html">Working Groups</a></li>
+        <li><a href="iheem-partnership.html">IHEEM Partnership</a></li>
+        <li><a class="active" href="join-us.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>Join NextGen Healthcare Network</h1>
+      <p>Become part of a growing community shaping the future of healthcare infrastructure</p>
+    </div>
+  </section>
+
+  <!-- Welcome Message -->
+  <section class="welcome-section">
+    <div class="container narrow">
+      <p>
+        Welcome! Joining the <strong>NextGen Healthcare Network</strong> means becoming part of a dynamic, cross-disciplinary community of early- and mid-career professionals working across healthcare infrastructure.
+      </p>
+      <p>
+        Whether you work in estates, engineering, sustainability, digital innovation, policy, or any related field—if you're passionate about improving healthcare delivery through better infrastructure, you belong here.
+      </p>
+      <p>
+        As a member, you'll gain access to events, working groups, partnerships, and a network of like-minded professionals committed to collaboration and innovation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key Messages Badges -->
+  <section class="section">
+    <div class="container">
+      <div class="key-messages">
+        <div class="message-badge">
+          <div class="message-icon">🎉</div>
+          <h3>Free to Join</h3>
+          <p>No membership fees, ever</p>
+        </div>
+        <div class="message-badge">
+          <div class="message-icon">🎟️</div>
+          <h3>Free Events</h3>
+          <p>Attend all our events at no cost</p>
+        </div>
+        <div class="message-badge">
+          <div class="message-icon">🤝</div>
+          <h3>Open to All</h3>
+          <p>All healthcare professions welcome</p>
+        </div>
+        <div class="message-badge">
+          <div class="message-icon">✨</div>
+          <h3>No Obligation</h3>
+          <p>Engage at your own pace</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Embedded Form Section -->
+  <section class="form-section">
+    <div class="form-container">
+      <div class="form-intro">
+        <h2>Complete Your Membership</h2>
+        <p>Fill in the form below to join the network—it only takes a minute!</p>
+      </div>
+
+      <div class="iframe-wrapper">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdE2mXTdCu3c1FSEHdpvTZveAe0IQv5IiCMVRZaXOR2-RgOWQ/viewform?embedded=true" 
+          width="640" 
+          height="1493" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0">
+          Loading…
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supporting Content -->
+  <section class="supporting-content">
+    <div class="container narrow">
+      <h3>What Happens Next?</h3>
+      <p>
+        Once you've submitted the form, here's what you can expect:
+      </p>
+      <ul>
+        <li><strong>Instant confirmation:</strong> You'll receive a confirmation message</li>
+        <li><strong>Welcome email:</strong> Within 24 hours, you'll receive a welcome email with next steps</li>
+        <li><strong>Event updates:</strong> You'll be added to our mailing list and receive regular updates about upcoming events, working groups, and opportunities</li>
+        <li><strong>LinkedIn group:</strong> Join our LinkedIn group to connect with the community</li>
+        <li><strong>Working groups:</strong> You'll have the option to join one or more of our focused working groups</li>
+      </ul>
+
+      <div class="data-reassurance">
+        <h4>🔒 Your Information is Safe</h4>
+        <p>
+          We take your privacy seriously. Your information is used exclusively for NGHN communications—we'll never share your details with third parties, and you can unsubscribe at any time. No spam, just valuable updates and opportunities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secondary CTAs -->
+  <section class="secondary-cta">
+    <div class="container">
+      <h3>Want to Get More Involved?</h3>
+      <div class="cta-grid">
+        <div class="cta-card">
+          <h4>🎯 Lead a Working Group</h4>
+          <p>
+            Passionate about a specific area? Consider leading or co-leading one of our working groups and help drive sector-wide innovation.
+          </p>
+          <a href="working-groups.html">Explore Working Groups</a>
+        </div>
+
+        <div class="cta-card">
+          <h4>🤝 Partnership Opportunities</h4>
+          <p>
+            Interested in partnering with NGHN? We work with organizations across the sector to deliver value to our members.
+          </p>
+          <a href="mailto:team@nextgenhealthcarenetwork.co.uk?subject=Partnership%20Enquiry">Contact Us</a>
+        </div>
+
+        <div class="cta-card">
+          <h4>💼 Connect on LinkedIn</h4>
+          <p>
+            Join our LinkedIn group to stay connected, share insights, and engage with the community between events.
+          </p>
+          <a href="https://www.linkedin.com/groups/13324053/" target="_blank" rel="noopener">Join LinkedIn Group</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Section -->
+  <section class="partner-section">
+    <div class="container">
+      <h3>Supported By</h3>
+      <div class="partner-logos">
+        <a href="iheem-partnership.html">
+          <img src="../assets/img/leadership/iheem-logo.png" alt="IHEEM" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="logo-placeholder" style="display:none;">IHEEM</div>
+        </a>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.linkedin.com/groups/13324053/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Follow us on LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-include="/partials/footer.html"></div>
+
+<script src="../assets/js/main.js?v=9"></script>
+</body>
+</html>
