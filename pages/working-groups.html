@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Working Groups – NextGen Healthcare Network</title>
+<meta name="description" content="Join NGHN's working groups focused on Estates & Sustainability and Research & Collaboration" />
+<link rel="icon" href="../assets/img/favicon.svg">
+<link rel="stylesheet" href="../assets/css/style.css?v=9" />
+
+<style>
+  :root { 
+    --brand-blue: #316598;
+    --brand-navy: #1B244D;
+    --brand-light: #A1B7CD;
+    --brand-lighter: #C5D2DF;
+    --radius: 14px;
+  }
+
+  /* Layout */
+  .section { padding: 4rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .center { text-align: center; }
+
+  /* Hero */
+  .hero-section {
+    background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin: 0 0 1rem;
+    font-weight: 700;
+  }
+
+  .hero-section p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Working Group Tiles */
+  .wg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2.5rem;
+    margin: 3rem 0;
+  }
+
+  .wg-tile {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .wg-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  }
+
+  .wg-header {
+    padding: 2rem 2rem 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 3px solid var(--brand-blue);
+  }
+
+  .wg-header h2 {
+    color: var(--brand-navy);
+    margin: 0 0 0.5rem;
+    font-size: 1.8rem;
+  }
+
+  .wg-header .subtitle {
+    color: var(--brand-blue);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .wg-content {
+    padding: 2rem;
+  }
+
+  .wg-description {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .wg-focus {
+    margin-bottom: 2rem;
+  }
+
+  .wg-focus h3 {
+    color: var(--brand-navy);
+    font-size: 1.1rem;
+    margin: 0 0 1rem;
+  }
+
+  .wg-focus-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .focus-tag {
+    background: var(--brand-lighter);
+    color: var(--brand-navy);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* Lead Profile */
+  .wg-leads {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .lead-profile {
+    display: flex;
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+  }
+
+  .lead-profile:last-child {
+    margin-bottom: 0;
+  }
+
+  .lead-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid var(--brand-lighter);
+  }
+
+  .photo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-light), var(--brand-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .lead-info h4 {
+    margin: 0 0 0.25rem;
+    color: var(--brand-navy);
+    font-size: 1.1rem;
+  }
+
+  .lead-title {
+    color: var(--brand-blue);
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem;
+    font-weight: 500;
+  }
+
+  .lead-bio {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Values Banner */
+  .values-banner {
+    background: linear-gradient(135deg, var(--brand-navy), var(--brand-blue), var(--brand-light));
+    color: white;
+    padding: 3.5rem 0;
+    margin: 4rem 0;
+    text-align: center;
+  }
+
+  .values-banner h2 {
+    font-size: 2rem;
+    margin: 0 0 2rem;
+    font-weight: 700;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .value-item {
+    text-align: center;
+  }
+
+  .value-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    margin: 0 auto 1rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .value-item h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.4rem;
+  }
+
+  .value-item p {
+    margin: 0;
+    opacity: 0.95;
+    font-size: 0.95rem;
+  }
+
+  /* Expandable Section */
+  .expandable-section {
+    background: #f8f9fa;
+    padding: 3rem 0;
+  }
+
+  .expandable-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .expandable-header:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .expandable-header h3 {
+    margin: 0;
+    color: var(--brand-navy);
+    font-size: 1.4rem;
+  }
+
+  .expand-icon {
+    font-size: 1.5rem;
+    color: var(--brand-blue);
+    transition: transform 0.3s ease;
+  }
+
+  .expandable-header.active .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .expandable-content.active {
+    max-height: 2000px;
+  }
+
+  .expandable-inner {
+    background: white;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .expandable-inner h4 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+  }
+
+  .expandable-inner p {
+    color: #444;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+  }
+
+  .expandable-inner ul {
+    color: #444;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .expandable-inner ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 4rem 0;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    color: var(--brand-navy);
+    margin: 0 0 1rem;
+  }
+
+  .cta-section p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0 0 2rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary {
+    background: var(--brand-blue);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--brand-navy);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--brand-blue);
+    color: var(--brand-blue);
+  }
+
+  .btn-outline:hover {
+    background: var(--brand-blue);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .wg-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .wg-focus-list {
+      grid-template-columns: 1fr;
+    }
+
+    .lead-profile {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
+
+    .values-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="../index.html">
+      <img src="../assets/img/logo.svg" alt="NextGen logo" width="36" height="36" />
+      <span>NextGen Healthcare Network</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a class="active" href="working-groups.html">Working Groups</a></li>
+        <li><a href="iheem-partnership.html">IHEEM Partnership</a></li>
+        <li><a href="join-us.html">Join Us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <h1>Working Groups</h1>
+      <p>Join focused communities driving innovation and collaboration in healthcare infrastructure</p>
+    </div>
+  </section>
+
+  <!-- Working Group Tiles -->
+  <section class="section">
+    <div class="container">
+      <div class="wg-grid">
+        <!-- Estates & Sustainability -->
+        <div class="wg-tile">
+          <div class="wg-header">
+            <div class="subtitle">Working Group</div>
+            <h2>Estates & Sustainability</h2>
+          </div>
+          <div class="wg-content">
+            <p class="wg-description">
+              Leading the conversation on sustainable healthcare infrastructure. Our Estates & Sustainability group brings together professionals focused on delivering net zero healthcare estates while maintaining operational excellence.
+            </p>
+
+            <div class="wg-focus">
+              <h3>Focus Areas</h3>
+              <div class="wg-focus-list">
+                <div class="focus-tag">🌱 Net Zero</div>
+                <div class="focus-tag">🏗️ Infrastructure</div>
+                <div class="focus-tag">⚡ Energy</div>
+                <div class="focus-tag">♻️ Sustainability</div>
+              </div>
+            </div>
+
+            <div class="wg-leads">
+              <div class="lead-profile">
+                <div class="photo-placeholder">👤</div>
+                <div class="lead-info">
+                  <h4>Working Group Lead</h4>
+                  <p class="lead-title">Estates & Sustainability Lead</p>
+                  <p class="lead-bio">
+                    Experienced in driving sustainability initiatives across healthcare estates with a focus on practical, achievable net zero pathways.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research & Collaboration -->
+        <div class="wg-tile">
+          <div class="wg-header">
+            <div class="subtitle">Working Group</div>
+            <h2>Research & Collaboration</h2>
+          </div>
+          <div class="wg-content">
+            <p class="wg-description">
+              Bridging the gap between research and practice. Our Research & Collaboration group focuses on translating innovation into real-world impact through cross-sector partnerships and evidence-based approaches.
+            </p>
+
+            <div class="wg-focus">
+              <h3>Focus Areas</h3>
+              <div class="wg-focus-list">
+                <div class="focus-tag">💡 Innovation</div>
+                <div class="focus-tag">🔬 Research Translation</div>
+                <div class="focus-tag">🤝 Collaboration</div>
+                <div class="focus-tag">📊 Evidence-Based</div>
+              </div>
+            </div>
+
+            <div class="wg-leads">
+              <div class="lead-profile">
+                <div class="photo-placeholder">👤</div>
+                <div class="lead-info">
+                  <h4>Working Group Lead</h4>
+                  <p class="lead-title">Research & Collaboration Lead</p>
+                  <p class="lead-bio">
+                    Passionate about connecting academic research with practical healthcare challenges to drive meaningful innovation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NGHN Values Banner -->
+  <section class="values-banner">
+    <div class="container">
+      <h2>NGHN Working Groups</h2>
+      <div class="values-grid">
+        <div class="value-item">
+          <div class="value-icon">📚</div>
+          <h3>Educate</h3>
+          <p>Share knowledge and build expertise across our community</p>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">💡</div>
+          <h3>Innovate</h3>
+          <p>Drive new thinking and creative solutions to sector challenges</p>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🤝</div>
+          <h3>Share</h3>
+          <p>Collaborate openly and learn from each other's experiences</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expandable "How to Get Involved" Section -->
+  <section class="expandable-section">
+    <div class="container">
+      <div class="expandable-header" onclick="toggleExpand()" role="button" aria-expanded="false" tabindex="0">
+        <h3>How Working Groups Operate & How to Get Involved</h3>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="expandable-content" id="expandableContent">
+        <div class="expandable-inner">
+          <h4>How Working Groups Work</h4>
+          <p>
+            Our working groups are member-led communities focused on specific themes within healthcare infrastructure. Each group operates independently while aligned with NGHN's broader mission and values.
+          </p>
+          <p>
+            <strong>Key activities include:</strong>
+          </p>
+          <ul>
+            <li>Regular virtual and in-person meetings</li>
+            <li>Collaborative projects and research initiatives</li>
+            <li>Knowledge sharing sessions and workshops</li>
+            <li>Position papers and guidance documents</li>
+            <li>Networking events and site visits</li>
+            <li>Partnerships with external organizations</li>
+          </ul>
+
+          <h4>Getting Involved</h4>
+          <p>
+            Joining a working group is straightforward and flexible. You can participate at a level that suits your availability and interests—from attending occasional events to taking on leadership roles.
+          </p>
+          <p>
+            <strong>To get involved:</strong>
+          </p>
+          <ul>
+            <li>Join NGHN (it's free!)</li>
+            <li>Express interest in one or more working groups</li>
+            <li>Attend an introductory session or event</li>
+            <li>Connect with the working group leads</li>
+            <li>Participate in activities at your own pace</li>
+          </ul>
+
+          <h4>Time Commitment</h4>
+          <p>
+            We understand that everyone has different availability. Working group participation is flexible:
+          </p>
+          <ul>
+            <li><strong>Light engagement:</strong> 1-2 hours per month (attending events, staying informed)</li>
+            <li><strong>Active participation:</strong> 3-5 hours per month (contributing to projects, discussions)</li>
+            <li><strong>Leadership roles:</strong> 5-10 hours per month (coordinating activities, managing projects)</li>
+          </ul>
+          <p>
+            There's no pressure to commit to a specific level—join at your own pace and adjust as your circumstances change.
+          </p>
+
+          <h4>What Members Gain</h4>
+          <ul>
+            <li>Deep expertise in your area of interest</li>
+            <li>Strong professional relationships with like-minded peers</li>
+            <li>Visibility and credibility in the sector</li>
+            <li>Opportunities to influence sector direction</li>
+            <li>Experience leading collaborative projects</li>
+            <li>Access to exclusive resources and insights</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Make an Impact?</h2>
+      <p>Join a working group and help shape the future of healthcare infrastructure</p>
+      <div class="cta-buttons">
+        <a href="join-us.html" class="btn btn-primary">Join NGHN</a>
+        <a href="contact.html" class="btn btn-outline">Contact a Working Group</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div data-include="/partials/footer.html"></div>
+
+<script src="../assets/js/main.js?v=9"></script>
+<script>
+  // Expandable section toggle
+  function toggleExpand() {
+    const header = document.querySelector('.expandable-header');
+    const content = document.getElementById('expandableContent');
+    const isExpanded = header.classList.contains('active');
+    
+    header.classList.toggle('active');
+    content.classList.toggle('active');
+    header.setAttribute('aria-expanded', !isExpanded);
+  }
+
+  // Allow Enter key to toggle
+  document.querySelector('.expandable-header').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      toggleExpand();
+    }
+  });
+</script>
+</body>
+</html>
