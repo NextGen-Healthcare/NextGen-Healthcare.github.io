@@ -55,9 +55,66 @@
 
   .mosaic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
     margin-top: 2rem;
+    min-height: 600px;
+  }
+
+  /* Photo 1 - Left portrait (double height) */
+  .mosaic-photo-1 {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+
+  /* Photo 4 - Right portrait (double height) */
+  .mosaic-photo-4 {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+  }
+
+  /* Top middle layer */
+  .mosaic-photo-2 {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    width: 60%;
+  }
+
+  .mosaic-text-1 {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    width: 40%;
+    margin-left: auto;
+  }
+
+  /* Bottom middle layer */
+  .mosaic-text-2 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    width: 40%;
+  }
+
+  .mosaic-photo-3 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    width: 60%;
+    margin-left: auto;
+  }
+
+  /* Middle row wrapper for proper layout */
+  .middle-top {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .middle-bottom {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    gap: 1.5rem;
   }
 
   .mosaic-item {
@@ -65,20 +122,21 @@
     overflow: hidden;
     border-radius: var(--radius);
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
   }
 
   .mosaic-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
 
   .mosaic-item.image {
-    aspect-ratio: 4/3;
     background: #e0e0e0;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
   .mosaic-item.image img {
@@ -87,9 +145,44 @@
     object-fit: cover;
   }
 
+  /* Hover overlay */
+  .mosaic-item.image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0);
+    transition: background 0.3s ease;
+    z-index: 1;
+  }
+
+  .mosaic-item.image:hover::before {
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .mosaic-item.image::after {
+    content: attr(data-label);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--brand-navy);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .mosaic-item.image:hover::after {
+    opacity: 1;
+  }
+
   .mosaic-item.text {
     background: white;
-    padding: 2.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -97,14 +190,15 @@
 
   .mosaic-item.text h3 {
     color: var(--brand-navy);
-    margin: 0 0 1rem;
-    font-size: 1.4rem;
+    margin: 0 0 0.75rem;
+    font-size: 1.2rem;
   }
 
   .mosaic-item.text p {
     color: #555;
-    line-height: 1.7;
+    line-height: 1.6;
     margin: 0;
+    font-size: 0.95rem;
   }
 
   .image-placeholder {
@@ -117,6 +211,106 @@
     color: white;
     font-size: 3rem;
     opacity: 0.7;
+  }
+
+  /* Modal */
+  .story-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .story-modal.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: white;
+    border-radius: var(--radius);
+    max-width: 1200px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .modal-image {
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+  }
+
+  .modal-image img,
+  .modal-image .image-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-text {
+    padding: 3rem;
+  }
+
+  .modal-text h2 {
+    color: var(--brand-navy);
+    margin: 0 0 1.5rem;
+    font-size: 2rem;
+  }
+
+  .modal-text h3 {
+    color: var(--brand-blue);
+    margin: 1.5rem 0 1rem;
+    font-size: 1.3rem;
+  }
+
+  .modal-text p {
+    color: #444;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  .modal-text ul {
+    color: #444;
+    line-height: 1.7;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .modal-text ul li {
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: var(--brand-navy);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
+
+  .modal-close:hover {
+    background: var(--brand-blue);
   }
 
   /* Core Narrative */
@@ -328,7 +522,44 @@
 
     .mosaic-grid {
       grid-template-columns: 1fr;
+      grid-template-rows: auto;
       gap: 1.5rem;
+      min-height: auto;
+    }
+
+    .mosaic-photo-1,
+    .mosaic-photo-4 {
+      grid-column: 1;
+      grid-row: auto;
+      min-height: 300px;
+    }
+
+    .middle-top,
+    .middle-bottom {
+      grid-column: 1;
+      grid-row: auto;
+      flex-direction: column;
+    }
+
+    .mosaic-photo-2,
+    .mosaic-photo-3,
+    .mosaic-text-1,
+    .mosaic-text-2 {
+      width: 100%;
+      margin: 0;
+    }
+
+    .modal-content {
+      grid-template-columns: 1fr;
+      max-height: 95vh;
+    }
+
+    .modal-image {
+      min-height: 250px;
+    }
+
+    .modal-text {
+      padding: 2rem 1.5rem;
     }
 
     .stat-number {
@@ -378,42 +609,44 @@
       <h2 class="center" style="color: var(--brand-navy); font-size: 2rem; margin-bottom: 1rem;">Our Story in Pictures</h2>
       
       <div class="mosaic-grid">
-        <!-- Image 1: Event photo -->
-        <div class="mosaic-item image">
-          <img src="../assets/img/networking-event.jpg" alt="NGHN networking event" 
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>📸</div>';" />
+        <!-- Left Portrait Photo -->
+        <div class="mosaic-photo-1" data-label="Who we are" style="background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800') center/cover;"></div>
+        
+        <!-- Right Portrait Photo -->
+        <div class="mosaic-photo-4" data-label="Who it's for" style="background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=800') center/cover;"></div>
+        
+        <!-- Middle Top Layer (60% photo, 40% text) -->
+        <div class="middle-top">
+          <div class="mosaic-photo-2" data-label="Why we exist" style="background: url('https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=800') center/cover;"></div>
+          <div class="mosaic-text-1">
+            <h3>Connecting Healthcare Innovators</h3>
+            <p>We bridge the gap between frontline healthcare professionals and those driving change from behind the scenes.</p>
+          </div>
         </div>
-
-        <!-- Text 1: Mission -->
-        <div class="mosaic-item text">
-          <h3>Our Mission</h3>
-          <p>To connect and empower the next generation of healthcare infrastructure professionals across the UK, breaking down silos between disciplines and regions.</p>
-        </div>
-
-        <!-- Text 2: Ethos -->
-        <div class="mosaic-item text">
-          <h3>Our Ethos</h3>
-          <p>We believe in open collaboration, knowledge sharing, and creating opportunities for emerging leaders to shape the future of healthcare delivery.</p>
-        </div>
-
-        <!-- Image 2: Group discussion -->
-        <div class="mosaic-item image">
-          <div class="image-placeholder">👥</div>
-        </div>
-
-        <!-- Image 3: Panel session -->
-        <div class="mosaic-item image">
-          <div class="image-placeholder">🎤</div>
-        </div>
-
-        <!-- Text 3: Community -->
-        <div class="mosaic-item text">
-          <h3>Building Community</h3>
-          <p>From coffee catch-ups to major conferences, we create spaces where professionals can connect, learn, and grow together.</p>
+        
+        <!-- Middle Bottom Layer (40% text, 60% photo) -->
+        <div class="middle-bottom">
+          <div class="mosaic-text-2">
+            <h3>Building the Future Together</h3>
+            <p>Through collaboration and shared learning, we're creating a stronger, more innovative healthcare system.</p>
+          </div>
+          <div class="mosaic-photo-3" data-label="What we do" style="background: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800') center/cover;"></div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Modal for Story Details -->
+  <div id="storyModal" class="story-modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div class="modal-image" id="modalImage"></div>
+      <div class="modal-text">
+        <h2 id="modalTitle"></h2>
+        <div id="modalDescription"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Impact Statistics -->
   <section class="stats-section">
@@ -559,5 +792,100 @@
 <div data-include="/partials/footer.html"></div>
 
 <script src="../assets/js/main.js?v=9"></script>
+
+<script>
+  // Modal functionality for storytelling mosaic
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('storyModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    // Story content for each photo
+    const storyContent = {
+      'Who we are': {
+        title: 'Who We Are',
+        text: `<p>The Next Generation Healthcare Network (NGHN) is a dynamic community of forward-thinking professionals dedicated to transforming healthcare infrastructure across the UK.</p>
+        <p>We are healthcare estates managers, sustainability champions, procurement specialists, digital innovators, researchers, and changemakers - all united by a shared vision for better healthcare environments.</p>
+        <p>Founded to bridge the gap between different disciplines and regions, we bring together those on the frontline of healthcare delivery with those driving innovation from behind the scenes.</p>
+        <p>Our members span from newly qualified professionals to experienced leaders, creating a rich intergenerational exchange of ideas and expertise.</p>`
+      },
+      'Why we exist': {
+        title: 'Why We Exist',
+        text: `<p>Healthcare infrastructure faces unprecedented challenges: aging estates, net-zero targets, digital transformation, workforce shortages, and increasing demand.</p>
+        <p>Yet too often, professionals working on these challenges operate in silos - separated by discipline, geography, or organization.</p>
+        <p>We exist to break down these barriers and create the connections, conversations, and collaborations needed to tackle complex problems.</p>
+        <p>By bringing diverse perspectives together, we accelerate learning, share best practices, and develop innovative solutions that no single person or organization could achieve alone.</p>
+        <p>We believe the next generation of healthcare leaders deserves a network that supports their growth, amplifies their voice, and empowers them to drive meaningful change.</p>`
+      },
+      'What we do': {
+        title: 'What We Do',
+        text: `<p><strong>Connect:</strong> We facilitate networking through regular coffee meetups, drinks events, and our annual conference, creating spaces for meaningful professional relationships.</p>
+        <p><strong>Educate:</strong> Through our Special Interest Groups (SIGs), we dive deep into critical topics like Estates & Sustainability and Research & Collaboration, hosting expert panels, workshops, and knowledge-sharing sessions.</p>
+        <p><strong>Amplify:</strong> We give emerging professionals a platform to share their insights, showcase innovative projects, and influence policy through our partnerships with organizations like IHEEM.</p>
+        <p><strong>Support:</strong> Whether you're navigating your first major project or leading organizational change, our community provides mentorship, advice, and encouragement.</p>
+        <p><strong>Innovate:</strong> We incubate new ideas, pilot collaborative projects, and create opportunities for members to lead initiatives that push healthcare infrastructure forward.</p>`
+      },
+      'Who it\'s for': {
+        title: 'Who It\'s For',
+        text: `<p><strong>Estates & Facilities Professionals:</strong> Managing healthcare buildings, planning capital projects, or overseeing maintenance operations.</p>
+        <p><strong>Sustainability Champions:</strong> Driving net-zero commitments, implementing green initiatives, or researching environmental impact.</p>
+        <p><strong>Procurement Specialists:</strong> Navigating complex supply chains, evaluating new technologies, or managing vendor relationships.</p>
+        <p><strong>Digital & Innovation Leaders:</strong> Implementing smart building technologies, analyzing data, or designing digital transformation strategies.</p>
+        <p><strong>Researchers & Academics:</strong> Investigating healthcare infrastructure challenges, developing evidence-based solutions, or publishing findings.</p>
+        <p><strong>Policy & Strategy Professionals:</strong> Shaping organizational direction, influencing sector-wide policy, or planning long-term investments.</p>
+        <p><strong>Early Career Professionals:</strong> Building your network, learning from experienced mentors, and discovering career pathways.</p>
+        <p>If you're passionate about creating better healthcare environments and want to connect with like-minded professionals, this network is for you.</p>`
+      }
+    };
+    
+    // Add click handlers to all photos
+    const photos = document.querySelectorAll('[data-label]');
+    photos.forEach(photo => {
+      photo.style.cursor = 'pointer';
+      photo.addEventListener('click', function() {
+        const label = this.getAttribute('data-label');
+        const content = storyContent[label];
+        
+        if (content) {
+          // Set modal image background
+          const bgImage = this.style.background;
+          modalImage.style.background = bgImage;
+          
+          // Set modal text
+          modalTitle.textContent = content.title;
+          modalDescription.innerHTML = content.text;
+          
+          // Show modal
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    
+    // Close modal handlers
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+    
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+    
+    // ESC key to close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
