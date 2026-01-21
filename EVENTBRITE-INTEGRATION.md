@@ -37,15 +37,15 @@ Set up a simple serverless function (Netlify, Vercel, or Cloudflare Workers) tha
 
 ### 🔄 **Option C: GitHub Actions Cache**
 
-Use GitHub Actions to fetch events daily and update a JSON file automatically.
+Use GitHub Actions to fetch events twice-weekly and update a JSON file automatically.
 
 **Pros:**
 - Free on GitHub
-- Automatic daily sync
+- Automatic twice-weekly sync (conserves API credits)
 - No additional services needed
 
 **Cons:**
-- Events update max once per day (not real-time)
+- Events update twice per week (Monday & Thursday, not real-time)
 
 ## My Recommendation
 

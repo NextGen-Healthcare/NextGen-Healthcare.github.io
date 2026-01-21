@@ -34,7 +34,7 @@ Your site is now configured to automatically sync events from Eventbrite daily u
 
 ## ✅ What Happens Next
 
-- **Daily Sync**: Every day at 6 AM UTC (7 AM BST), GitHub Actions will automatically:
+- **Twice-Weekly Sync**: Every Monday and Thursday at 6 AM UTC (7 AM BST), GitHub Actions will automatically:
   1. Fetch all live/upcoming events from your Eventbrite organizer
   2. Save them to `assets/data/eventbrite-upcoming.json`
   3. Commit and push changes to your repository
