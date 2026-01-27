@@ -23,7 +23,7 @@
   body {
     margin: 0;
     font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-    height: 100svh; /* safe viewport height for mobile */
+    height: 100vh;
     overflow: hidden; /* Single-screen, no scroll */
     /* Full-page background with fallback */
     background-image:
@@ -37,14 +37,24 @@
     background-color: #0b0b1a; /* fallback color */
   }
 
+  @media (min-aspect-ratio: 16 / 9) {
+    body { height: 100vh; }
+    .homepage-container { height: 100vh; }
+  }
+
+  @media (max-width: 1600px) {
+    .homepage-container { max-height: 100vh; }
+  }
+
   /* Main container - fills viewport */
   .homepage-container {
     display: grid;
     grid-template-rows: auto 1fr auto;
-    height: 100svh;
+    height: 100vh;
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    max-height: 100vh;
   }
 
   /* Header with icon navigation */
@@ -181,42 +191,22 @@
 
   /* Hero central banner */
   .hero-banner {
-    background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
     border-radius: 28px;
-    padding: clamp(1.5rem, 4vh, 3rem) clamp(1rem, 3vw, 2.5rem);
     text-align: center;
-    color: white;
-    box-shadow: 0 20px 60px rgba(49, 101, 152, 0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     animation: fadeIn 1s ease-out;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .hero-banner::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    animation: pulse 8s ease-in-out infinite;
-  }
-
-  .hero-banner h1 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    margin: 0 0 1rem;
-    font-weight: 700;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-banner p {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    opacity: 0.95;
-    margin: 0;
-    max-width: 600px;
-    margin: 0 auto;
+  .hero-banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     position: relative;
     z-index: 1;
   }
@@ -362,6 +352,14 @@
     transform: translateX(-50%);
     z-index: 60;
     pointer-events: none;
+    background-image:
+      url('assets/img/jo_plan/Photo%201.jpeg'),
+      url('assets/img/jo_plan/1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.35);
   }
   .bottom-photo img {
     display: block;
@@ -565,10 +563,9 @@
       </div>
     </div>
 
-    <!-- Center: Hero banner -->
+    <!-- Center: Hero image -->
     <div class="hero-banner">
-      <h1>Connecting the next generation of professionals shaping the future of healthcare</h1>
-      <p>Building networks. Sharing knowledge. Driving innovation.</p>
+      <img src="assets/img/jo_plan/3.png" alt="NextGen Healthcare Network" />
     </div>
 
     <!-- Right: CTAs -->
