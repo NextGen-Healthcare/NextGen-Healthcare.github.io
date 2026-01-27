@@ -10,9 +10,7 @@ if (toggle && nav) {
   });
 }
 
-// ------- Current year in footer -------
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+// (footer year snippet removed)
 
 // ------- Category helpers (map slugs -> display + styling) -------
 const CATEGORY_META = {
@@ -132,9 +130,7 @@ document.querySelectorAll('[data-include]').forEach(async (el) => {
     const html = await res.text();
     el.insertAdjacentHTML('afterend', html);
     el.remove();
-    // ensure the year is set for dynamically injected footer
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+    // (footer year snippet removed)
   } catch (e) {
     console.error('Include failed:', e);
   }
