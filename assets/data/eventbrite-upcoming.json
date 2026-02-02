@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-01-29T06:43:05.049616+00:00",
+  "updated_at": "2026-02-02T06:59:51.621272+00:00",
   "organizer_id": "1961144653483",
-  "count": 4,
+  "count": 5,
   "events": [
     {
       "id": "1977510621502",
@@ -63,6 +63,22 @@
       "is_online": false,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1175222802%2F238270579960%2F1%2Foriginal.20260119-090848?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=40%2C0%2C842%2C421&s=0a558fae219f341fe5c18ef59285314a",
       "capacity": 40,
+      "is_free": true,
+      "is_sold_out": false,
+      "has_available_tickets": true
+    },
+    {
+      "id": "1977511437944",
+      "name": "NGNH Regulations & Compliance Working Group - Session 5",
+      "summary": "Retrofit - Best Practice vs Compliance",
+      "description": "Retrofit - Best Practice vs Compliance",
+      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-5-tickets-1977511437944",
+      "start": "2026-03-04T13:00:00Z",
+      "end": "2026-03-04T13:55:00Z",
+      "location": "Online",
+      "is_online": true,
+      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176401291%2F238270579960%2F1%2Foriginal.20260201-223100?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=4ef51ac9e45a93c88c4b315e461aa273",
+      "capacity": 35,
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
