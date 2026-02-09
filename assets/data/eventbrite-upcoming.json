@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-05T06:55:33.580086+00:00",
+  "updated_at": "2026-02-09T07:01:22.246371+00:00",
   "organizer_id": "1961144653483",
   "count": 6,
   "events": [
@@ -16,8 +16,8 @@
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176431990%2F238270579960%2F1%2Foriginal.20260202-090807?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C105%2C2788%2C1394&s=f8cfd5e11e890a8f05d07960eee31e40",
       "capacity": 40,
       "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
+      "is_sold_out": true,
+      "has_available_tickets": false
     },
     {
       "id": "1980852361737",
@@ -46,7 +46,7 @@
       "location": "Nottingham, England",
       "is_online": false,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432132%2F238270579960%2F1%2Foriginal.20260202-091150?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=0cc557e1a855fea5f1490facb53c8aaf",
-      "capacity": 40,
+      "capacity": 20,
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
