@@ -1,24 +1,8 @@
 {
-  "updated_at": "2026-02-09T07:01:22.246371+00:00",
+  "updated_at": "2026-02-12T06:58:55.608374+00:00",
   "organizer_id": "1961144653483",
-  "count": 6,
+  "count": 5,
   "events": [
-    {
-      "id": "1976875056510",
-      "name": "Next Gen Healthcare Energy & Sustainability Working Group - Session 2",
-      "summary": "We’re excited to continue our NGHN E&S Working Group, uniting early-career professionals across healthcare construction and sustainability.",
-      "description": "We’re excited to continue our NGHN E&S Working Group, uniting early-career professionals across healthcare construction and sustainability.",
-      "url": "https://www.eventbrite.co.uk/e/next-gen-healthcare-energy-sustainability-working-group-session-2-tickets-1976875056510",
-      "start": "2026-02-11T13:00:00Z",
-      "end": "2026-02-11T13:45:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176431990%2F238270579960%2F1%2Foriginal.20260202-090807?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C105%2C2788%2C1394&s=f8cfd5e11e890a8f05d07960eee31e40",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": true,
-      "has_available_tickets": false
-    },
     {
       "id": "1980852361737",
       "name": "Next Gen Healthcare Network: Coffee Catch-Up - Birmingham",
