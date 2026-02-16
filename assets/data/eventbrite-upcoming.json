@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-02-12T06:58:55.608374+00:00",
+  "updated_at": "2026-02-16T07:00:04.783990+00:00",
   "organizer_id": "1961144653483",
   "count": 5,
   "events": [
@@ -14,7 +14,7 @@
       "location": "Birmingham, England",
       "is_online": false,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
-      "capacity": 40,
+      "capacity": 20,
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
