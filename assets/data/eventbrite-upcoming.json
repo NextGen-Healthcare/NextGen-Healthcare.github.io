@@ -1,24 +1,8 @@
 {
-  "updated_at": "2026-02-16T07:00:04.783990+00:00",
+  "updated_at": "2026-02-19T06:57:00.568316+00:00",
   "organizer_id": "1961144653483",
-  "count": 5,
+  "count": 4,
   "events": [
-    {
-      "id": "1980852361737",
-      "name": "Next Gen Healthcare Network: Coffee Catch-Up - Birmingham",
-      "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal coffee and catch up!",
-      "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal coffee and catch up!",
-      "url": "https://www.eventbrite.co.uk/e/next-gen-healthcare-network-coffee-catch-up-birmingham-tickets-1980852361737",
-      "start": "2026-02-17T08:00:00Z",
-      "end": "2026-02-17T09:30:00Z",
-      "location": "Birmingham, England",
-      "is_online": false,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
-      "capacity": 20,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1980851736868",
       "name": "Next Gen Healthcare Network: Coffee Catch-Up - Nottingham",
