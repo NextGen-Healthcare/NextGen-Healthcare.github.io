@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-03-02T06:54:25.162586+00:00",
+  "updated_at": "2026-03-05T06:47:20.834861+00:00",
   "organizer_id": "1961144653483",
-  "count": 8,
+  "count": 10,
   "events": [
     {
-      "id": "1977511437944",
-      "name": "NGNH Regulations & Compliance Working Group - Session 5",
-      "summary": "Retrofit - Best Practice vs Compliance",
-      "description": "Retrofit - Best Practice vs Compliance",
-      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-5-tickets-1977511437944",
-      "start": "2026-03-04T13:00:00Z",
-      "end": "2026-03-04T13:55:00Z",
+      "id": "1984504374004",
+      "name": "NGNH Regulations & Compliance Working Group - Session 5 (continued)",
+      "summary": "Retrofit - Best Practice vs Compliance (continued)",
+      "description": "Retrofit - Best Practice vs Compliance (continued)",
+      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-5-continued-tickets-1984504374004",
+      "start": "2026-03-18T13:00:00Z",
+      "end": "2026-03-18T13:55:00Z",
       "location": "Online",
       "is_online": true,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432164%2F238270579960%2F1%2Foriginal.20260202-091249?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C105%2C2788%2C1394&s=6f584b70b18994785eb31ac554858489",
@@ -100,14 +100,30 @@
       "has_available_tickets": true
     },
     {
+      "id": "1984303168192",
+      "name": "NGHN March  Regional Event - After Work Drinks - Manchester",
+      "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
+      "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
+      "url": "https://www.eventbrite.co.uk/e/nghn-march-regional-event-after-work-drinks-manchester-tickets-1984303168192",
+      "start": "2026-03-19T18:00:00Z",
+      "end": "2026-03-19T21:00:00Z",
+      "location": "Manchester, England",
+      "is_online": false,
+      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
+      "capacity": 40,
+      "is_free": true,
+      "is_sold_out": false,
+      "has_available_tickets": true
+    },
+    {
       "id": "1984037485528",
       "name": "NGHN March  Regional Event - After Work Drinks - Nottingham",
       "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
       "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
       "url": "https://www.eventbrite.co.uk/e/nghn-march-regional-event-after-work-drinks-nottingham-tickets-1984037485528",
-      "start": "2026-03-19T18:00:00Z",
-      "end": "2026-03-19T21:00:00Z",
-      "location": "London, England",
+      "start": "2026-03-24T17:30:00Z",
+      "end": "2026-03-24T21:00:00Z",
+      "location": "Nottingham, England",
       "is_online": false,
       "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
       "capacity": 40,
@@ -130,6 +146,22 @@
       "is_free": true,
       "is_sold_out": false,
       "has_available_tickets": true
+    },
+    {
+      "id": "1984292439101",
+      "name": "NGHN Large Event - April",
+      "summary": "Join the NGHN in London for their first large event of 2026!",
+      "description": "Join the NGHN in London for their first large event of 2026!",
+      "url": "https://www.eventbrite.co.uk/e/nghn-large-event-april-tickets-1984292439101",
+      "start": "2026-04-23T16:00:00Z",
+      "end": "2026-04-23T19:00:00Z",
+      "location": "Cardiff, Wales",
+      "is_online": false,
+      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
+      "capacity": 40,
+      "is_free": true,
+      "is_sold_out": false,
+      "has_available_tickets": false
     }
   ]
 }
