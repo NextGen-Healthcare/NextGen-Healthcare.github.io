@@ -1,24 +1,8 @@
 {
-  "updated_at": "2026-03-16T07:12:57.874699+00:00",
+  "updated_at": "2026-03-19T06:55:23.440851+00:00",
   "organizer_id": "1961144653483",
-  "count": 10,
+  "count": 9,
   "events": [
-    {
-      "id": "1984504374004",
-      "name": "NGNH Regulations & Compliance Working Group - Session 5 (continued)",
-      "summary": "Retrofit - Best Practice vs Compliance (continued)",
-      "description": "Retrofit - Best Practice vs Compliance (continued)",
-      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-5-continued-tickets-1984504374004",
-      "start": "2026-03-18T13:00:00Z",
-      "end": "2026-03-18T13:55:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432164%2F238270579960%2F1%2Foriginal.20260202-091249?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C105%2C2788%2C1394&s=6f584b70b18994785eb31ac554858489",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1984136905897",
       "name": "NGHN March  Regional Event - After Work Drinks - Cardiff",
