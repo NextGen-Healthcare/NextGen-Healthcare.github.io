@@ -1,24 +1,8 @@
 {
-  "updated_at": "2026-03-23T07:05:59.066147+00:00",
+  "updated_at": "2026-03-26T07:04:19.636826+00:00",
   "organizer_id": "1961144653483",
-  "count": 3,
+  "count": 2,
   "events": [
-    {
-      "id": "1984037485528",
-      "name": "NGHN March  Regional Event - After Work Drinks - Nottingham",
-      "summary": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
-      "description": "Join the NGHN to discuss the hot topics of the healthcare sector at our informal after work drinks!",
-      "url": "https://www.eventbrite.co.uk/e/nghn-march-regional-event-after-work-drinks-nottingham-tickets-1984037485528",
-      "start": "2026-03-24T18:00:00Z",
-      "end": "2026-03-24T21:00:00Z",
-      "location": "Nottingham, England",
-      "is_online": false,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1176432058%2F238270579960%2F1%2Foriginal.20260202-090951?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&s=fd2c498f941c8d9bc12bfde5faedb9ab",
-      "capacity": 40,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1977511668634",
       "name": "NGNH Regulations & Compliance Working Group - Session 6",
