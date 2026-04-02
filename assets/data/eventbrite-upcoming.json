@@ -1,24 +1,8 @@
 {
-  "updated_at": "2026-03-30T07:23:53.757005+00:00",
+  "updated_at": "2026-04-02T07:08:10.071610+00:00",
   "organizer_id": "1961144653483",
-  "count": 2,
+  "count": 1,
   "events": [
-    {
-      "id": "1977511668634",
-      "name": "NGNH Regulations & Compliance Working Group - Session 6",
-      "summary": "Retrofit - When Guidance Meets Reality",
-      "description": "Retrofit - When Guidance Meets Reality",
-      "url": "https://www.eventbrite.co.uk/e/ngnh-regulations-compliance-working-group-session-6-tickets-1977511668634",
-      "start": "2026-04-01T12:00:00Z",
-      "end": "2026-04-01T12:55:00Z",
-      "location": "Online",
-      "is_online": true,
-      "logo_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1178503176%2F238270579960%2F1%2Foriginal.20260226-121313?h=200&w=450&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1200%2C600&s=b0d1f8e82f959864b438f0264df8920c",
-      "capacity": 35,
-      "is_free": true,
-      "is_sold_out": false,
-      "has_available_tickets": true
-    },
     {
       "id": "1984292439101",
       "name": "NGHN Large Event - April",
@@ -33,7 +17,7 @@
       "capacity": 40,
       "is_free": true,
       "is_sold_out": false,
-      "has_available_tickets": false
+      "has_available_tickets": true
     }
   ]
 }
